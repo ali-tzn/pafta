@@ -47,6 +47,15 @@ export const tools: Tool[] = [
   {
     title: "Rampa Hesaplayıcı",
     description:
+      "Kot farkı ve eğim oranına göre rampa uzunluğunu veya mevcut eğimi hesapla.",
+    href: "/tools/ramp-calculator",
+    icon: "📐",
+    category: "Mimari Hesaplar",
+    status: "Hazır",
+  },
+  {
+    title: "Rampa Hesaplayıcı",
+    description:
       "Kot farkı ve eğim yüzdesine göre gerekli rampa uzunluğunu hesapla.",
     href: "/tools/ramp-calculator",
     icon: "♿",

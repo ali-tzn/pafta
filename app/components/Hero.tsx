@@ -1,25 +1,46 @@
+import Image from "next/image";
+import Link from "next/link";
+import SearchBar from "./SearchBar";
+
 export default function Hero() {
   return (
-    <section className="mx-auto flex max-w-6xl flex-col items-center px-6 py-24 text-center">
-      <span className="rounded-full border border-cyan-500 px-4 py-2 text-sm text-cyan-400">
-        Mimarlık Öğrencilerinin Dijital Kampüsü
-      </span>
-
-      <h1 className="mt-8 text-6xl font-bold">
-        PAFTA
-      </h1>
-
-      <p className="mt-6 max-w-2xl text-xl text-slate-300">
-        Revit, AutoCAD, Rhino, BIM, ücretsiz dosyalar ve mimarlık
-        öğrencilerinin ihtiyaç duyduğu her şey tek platformda.
-      </p>
-
-      <div className="mt-10 w-full max-w-xl">
-        <input
-          type="text"
-          placeholder="Revit, CAD, araç veya konu ara..."
-          className="w-full rounded-xl border border-slate-700 bg-slate-900 px-5 py-4 text-white outline-none focus:border-cyan-400"
+    <section className="bg-slate-950 px-6 py-20 text-white md:py-28">
+      <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
+        <Image
+          src="/pafta-logo-white.png"
+          alt="PAFTA"
+          width={600}
+          height={200}
+          priority
+          className="h-24 w-80 object-cover object-center md:h-28 md:w-96"
         />
+
+        <p className="mt-4 text-lg font-medium text-cyan-400 md:text-xl">
+          Mimarlık öğrencilerinin dijital kampüsü.
+        </p>
+
+        <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+          Hesaplama araçları, Revit ve BIM içerikleri, proje kaynakları ve
+          mimarlık öğrencilerinin ihtiyaç duyduğu dijital çözümler tek yerde.
+        </p>
+
+        <SearchBar />
+
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <Link
+            href="/tools"
+            className="rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
+          >
+            Araçları Keşfet
+          </Link>
+
+          <Link
+            href="/tools/scale-calculator"
+            className="rounded-xl border border-slate-700 px-6 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-400"
+          >
+            Ölçek Hesaplayıcı
+          </Link>
+        </div>
       </div>
     </section>
   );

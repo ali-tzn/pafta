@@ -37,7 +37,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="relative mt-8 w-full max-w-2xl">
+    <div className="relative w-full">
       <form onSubmit={handleSubmit} className="relative">
         <input
           type="search"

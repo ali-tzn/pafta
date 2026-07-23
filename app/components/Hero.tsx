@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import SearchBar from "./SearchBar";
 
 export default function Hero() {
   return (
@@ -24,7 +23,6 @@ export default function Hero() {
           mimarlık öğrencilerinin ihtiyaç duyduğu dijital çözümler tek yerde.
         </p>
 
-        <SearchBar />
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <Link

@@ -75,11 +75,11 @@ export default function ToolsPage() {
             );
 
             if (!isAvailable) {
-              return <div key={tool.title}>{card}</div>;
+              return <div key={tool.href}>{card}</div>;
             }
 
             return (
-              <Link key={tool.title} href={tool.href}>
+              <Link key={tool.href} href={tool.href}>
                 {card}
               </Link>
             );

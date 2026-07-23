@@ -23,6 +23,22 @@ const studentTools = [
   status: "Hazır",
   },
   {
+    title: "Teslim Kontrol Listesi",
+    description:
+      "Pafta, çizim, model, sunum ve teslim dosyalarını göndermeden önce kontrol et.",
+    href: "/student-tools/submission-checklist",
+    status: "Hazır",
+    icon: "✓",
+  },
+  {
+    title: "Dosya Adı Oluşturucu",
+    description:
+      "Ders, proje, teslim tarihi ve revizyon bilgileriyle düzenli dosya adları oluştur.",
+    href: "/student-tools/file-name-generator",
+    status: "Hazır",
+    icon: "Aa",
+  },
+  {
     title: "Devamsızlık Hesaplayıcı",
     description:
       "Toplam ders saati ve katılım durumuna göre kalan devamsızlık hakkını gör.",

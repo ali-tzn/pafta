@@ -38,12 +38,48 @@ export const tools: Tool[] = [
   {
     title: "Beton Hacmi Hesaplayıcı",
     description:
-      "Kolon, kiriş, döşeme ve temel için yaklaşık beton hacmini hesapla.",
+      "Döşeme, kolon, kiriş ve temel ölçülerinden toplam beton hacmini ve yaklaşık transmikser ihtiyacını hesapla.",
     href: "/tools/concrete-calculator",
+    category: "Uygulama",
+    status: "Hazır",
     icon: "🧱",
-    category: "Yapı Hesapları",
-    status: "Yakında",
   },
+  {
+    title: "Eğim Hesaplayıcı",
+    description:
+      "Kot farkı ve yatay mesafeden yüzde eğimi, eğim oranını ve açıyı hesapla.",
+    href: "/tools/slope-calculator",
+    category: "Mimari",
+    status: "Hazır",
+    icon: "📈",
+  },
+  {
+    title: "Otopark Hesaplayıcı",
+    description:
+      "Mevcut alandan araç kapasitesini veya hedef araç sayısı için gerekli yaklaşık otopark alanını hesapla.",
+    href: "/tools/parking-calculator",
+    category: "Mimari",
+    status: "Hazır",
+    icon: "🚗",
+  },
+  {
+  title: "Çatı Hesaplayıcı",
+  description:
+    "Çatı eğimine göre mahya yüksekliğini, mertek uzunluğunu ve yaklaşık kaplama alanını hesapla.",
+  href: "/tools/roof-calculator",
+  category: "Mimari",
+  status: "Hazır",
+  icon: "🏠",
+  },
+  {
+  title: "Seramik ve Karo Hesaplayıcı",
+  description:
+    "Alan, karo ölçüsü, derz ve fire payından gerekli karo ve kutu sayısını hesapla.",
+  href: "/tools/tile-calculator",
+  category: "Uygulama",
+  status: "Hazır",
+  icon: "◫",
+ },
   {
     title: "Rampa Hesaplayıcı",
     description:
@@ -54,22 +90,22 @@ export const tools: Tool[] = [
     status: "Hazır",
   },
   {
-    title: "Rampa Hesaplayıcı",
-    description:
-      "Kot farkı ve eğim yüzdesine göre gerekli rampa uzunluğunu hesapla.",
-    href: "/tools/ramp-calculator",
-    icon: "♿",
-    category: "Mimari Hesaplar",
-    status: "Yakında",
+  title: "Tuğla Hesaplayıcı",
+  description:
+    "Duvar alanı, tuğla ölçüsü ve fire payından gerekli tuğla ve paket sayısını hesapla.",
+  href: "/tools/brick-calculator",
+  category: "Uygulama",
+  status: "Hazır",
+  icon: "🧱",
   },
   {
-    title: "Otopark Hesaplayıcı",
-    description:
-      "Alan ve kullanım türüne göre yaklaşık otopark ihtiyacını hesapla.",
-    href: "/tools/parking-calculator",
-    icon: "🚗",
-    category: "Yerleşim Hesapları",
-    status: "Yakında",
+  title: "Duvar ve Boya Hesaplayıcı",
+  description:
+    "Kapı ve pencere boşluklarını düşerek net duvar alanını ve gerekli boya miktarını hesapla.",
+  href: "/tools/wall-paint-calculator",
+  category: "Uygulama",
+  status: "Hazır",
+  icon: "🎨",
   },
 ];
 

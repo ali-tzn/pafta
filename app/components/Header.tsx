@@ -15,6 +15,42 @@ const searchableItems = [
   href: "/tools/ramp-calculator",
   },
   {
+  title: "Seramik ve Karo Hesaplayıcı",
+  href: "/tools/tile-calculator",
+  },
+  {
+  title: "Çatı Hesaplayıcı",
+  href: "/tools/roof-calculator",
+  },
+  {
+  title: "Tuğla Hesaplayıcı",
+  href: "/tools/brick-calculator",
+  },
+  {
+  title: "Teslim Kontrol Listesi",
+  href: "/student-tools/submission-checklist",
+  },
+  {
+  title: "Dosya Adı Oluşturucu",
+  href: "/student-tools/file-name-generator",
+  },
+  {
+  title: "Beton Hacmi Hesaplayıcı",
+  href: "/tools/concrete-calculator",
+  },
+  {
+  title: "Otopark Hesaplayıcı",
+  href: "/tools/parking-calculator",
+  },
+  {
+  title: "Eğim Hesaplayıcı",
+  href: "/tools/slope-calculator",
+  },
+  {
+  title: "Duvar ve Boya Hesaplayıcı",
+  href: "/tools/wall-paint-calculator",
+  },
+  {
     title: "Merdiven Hesaplayıcı",
     href: "/tools/stair-calculator",
   },

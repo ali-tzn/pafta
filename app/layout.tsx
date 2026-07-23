@@ -4,13 +4,13 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: {
-    default: "PAFTA | Mimarlık Öğrencilerinin Dijital Kampüsü",
+    default: "PAFTA — Mimarlık Öğrencilerinin Dijital Kampüsü",
     template: "%s | PAFTA",
   },
   description:
-    "Mimarlık öğrencileri için hesap araçları, Revit rehberleri, CAD kaynakları ve dijital mimarlık içerikleri.",
+    "Mimarlık öğrencileri için hesaplama araçları, Revit, BIM, çizim ve proje kaynakları.",
 };
 
 export default function RootLayout({

@@ -5,6 +5,30 @@ import { useRouter } from "next/navigation";
 
 const tools = [
   {
+    title: "Mimarlık Rehberi",
+    href: "/mimarlik",
+  },
+  {
+    title: "Modernizm Nedir?",
+    href: "/mimarlik/modernizm-nedir",
+  },
+  {
+    title: "Bauhaus Nedir?",
+    href: "/mimarlik/bauhaus-nedir",
+  },
+  {
+    title: "Brutalizm Nedir?",
+    href: "/mimarlik/brutalizm-nedir",
+  },
+  {
+    title: "Postmodernizm Nedir?",
+    href: "/mimarlik/postmodernizm-nedir",
+  },
+  {
+    title: "Dekonstrüktivizm Nedir?",
+    href: "/mimarlik/dekonstruktivizm-nedir",
+  },
+  {
     title: "Ölçek Hesaplayıcı",
     href: "/tools/scale-calculator",
   },
@@ -47,7 +71,7 @@ export default function SearchBar() {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Ölçek, merdiven veya alan hesaplayıcı ara..."
+          placeholder="Araç, mimarlık akımı veya içerik ara..."
           className="w-full rounded-2xl border border-slate-700 bg-slate-900 px-5 py-4 pr-28 text-white outline-none placeholder:text-slate-500 focus:border-cyan-400"
         />
 

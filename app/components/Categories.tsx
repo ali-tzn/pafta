@@ -32,6 +32,12 @@ const categories = [
     href: "/bim",
   },
   {
+    title: "Mimarlık Rehberi",
+    description:
+      "Mimarlık akımları, önemli mimarlar, ikonik yapılar ve temel kavramlar.",
+    href: "/mimarlik",
+  },
+  {
     title: "Kaynaklar",
     description:
       "Mimarlık öğrencileri için dosyalar, bloklar, şablonlar ve yararlı içerikler.",

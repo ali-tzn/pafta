@@ -7,6 +7,36 @@ import { useRouter } from "next/navigation";
 
 const searchableItems = [
   {
+    title: "Mimarlık Rehberi",
+    href: "/mimarlik",
+    keywords: ["mimarlık kültürü", "mimarlık tarihi", "mimarlık akımları"],
+  },
+  {
+    title: "Modernizm Nedir?",
+    href: "/mimarlik/modernizm-nedir",
+    keywords: ["modern mimarlık", "modernist", "le corbusier", "mies"],
+  },
+  {
+    title: "Bauhaus Nedir?",
+    href: "/mimarlik/bauhaus-nedir",
+    keywords: ["bauhaus mimarlık", "walter gropius", "dessau"],
+  },
+  {
+    title: "Brutalizm Nedir?",
+    href: "/mimarlik/brutalizm-nedir",
+    keywords: ["brüt beton", "brutalist mimarlık", "beton"],
+  },
+  {
+    title: "Postmodernizm Nedir?",
+    href: "/mimarlik/postmodernizm-nedir",
+    keywords: ["postmodern mimarlık", "robert venturi"],
+  },
+  {
+    title: "Dekonstrüktivizm Nedir?",
+    href: "/mimarlik/dekonstruktivizm-nedir",
+    keywords: ["dekonstrüksiyon", "zaha hadid", "frank gehry"],
+  },
+  {
     title: "Ölçek Hesaplayıcı",
     href: "/tools/scale-calculator",
   },
@@ -153,11 +183,16 @@ export default function Header() {
   const results =
     normalizedQuery === ""
       ? []
-      : searchableItems.filter((item) =>
-          item.title
-            .toLocaleLowerCase("tr-TR")
-            .includes(normalizedQuery)
-        );
+      : searchableItems.filter((item) => {
+          const searchableText = [
+            item.title,
+            ...("keywords" in item && item.keywords ? item.keywords : []),
+          ]
+            .join(" ")
+            .toLocaleLowerCase("tr-TR");
+
+          return searchableText.includes(normalizedQuery);
+        });
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -339,6 +374,14 @@ export default function Header() {
             className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
           >
             BIM
+          </Link>
+
+          <Link
+            href="/mimarlik"
+            onClick={closeMenu}
+            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+          >
+            Mimarlık Rehberi
           </Link>
 
           <Link

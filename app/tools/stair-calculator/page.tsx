@@ -68,7 +68,7 @@ export default function StairCalculatorPage() {
   const recommendedOption = options[0];
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
+    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="mb-10">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">

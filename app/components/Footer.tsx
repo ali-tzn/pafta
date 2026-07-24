@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="border-t border-slate-800 bg-slate-950">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between">
         <div>
           <Link href="/" aria-label="PAFTA ana sayfa">
             <Image
@@ -22,7 +22,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="flex gap-6 text-sm text-slate-400">
+        <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-400">
           <Link href="/" className="transition hover:text-white">
             Ana Sayfa
           </Link>

@@ -41,20 +41,20 @@ const categories = [
 
 export default function Categories() {
   return (
-    <section className="bg-slate-950 px-6 pb-16 pt-2 text-white">
+    <section className="bg-slate-950 px-4 pb-12 pt-2 text-white sm:px-6 sm:pb-16">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10">
-          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+        <div className="mb-7 sm:mb-10">
+          <h2 className="mt-3 text-2xl font-bold sm:text-3xl md:text-4xl">
             İhtiyacın olan bölümü keşfet
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
           {categories.map((category) => (
             <Link
               key={category.href}
               href={category.href}
-              className="group rounded-3xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-slate-800"
+              className="group rounded-2xl border border-slate-800 bg-slate-900 p-5 transition hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-slate-800 sm:rounded-3xl sm:p-6"
             >
               <h3 className="text-xl font-semibold transition group-hover:text-cyan-400">
                 {category.title}

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function RevitKolonSivaPage() {
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
+    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
       <article className="mx-auto max-w-4xl">
         <nav className="mb-8 text-sm text-slate-400">
           <Link href="/" className="hover:text-cyan-400">

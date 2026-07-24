@@ -15,15 +15,17 @@ export default function ScaleCalculatorPage() {
   }, [realSize, scale]);
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-12 text-white">
+    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-12">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-5xl font-bold">Ölçek Hesaplayıcı</h1>
+        <h1 className="text-4xl font-bold sm:text-5xl">
+          Ölçek Hesaplayıcı
+        </h1>
 
         <p className="mt-4 text-slate-300">
           Gerçek ölçüyü girin, çizimde kaç santimetre olacağını anında görün.
         </p>
 
-        <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900 p-8">
+        <div className="mt-8 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:mt-10 sm:p-8">
 
           <label className="mb-2 block">
             Gerçek Ölçü (cm)
@@ -54,7 +56,7 @@ export default function ScaleCalculatorPage() {
           </select>
 
           <div className="mt-8 rounded-xl bg-cyan-500 p-6 text-center">
-            <p className="text-black text-lg">
+            <p className="text-lg text-black">
               Çizimde Görünecek Ölçü
             </p>
 

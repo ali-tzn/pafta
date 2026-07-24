@@ -146,7 +146,7 @@ export default function TileCalculatorPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
+    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
       <div className="mx-auto max-w-7xl">
         <nav className="mb-8 text-sm text-slate-400">
           <Link
@@ -408,7 +408,7 @@ export default function TileCalculatorPage() {
                     Gerekli kutu sayısı
                   </p>
 
-                  <p className="mt-5 text-5xl font-bold">
+                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
                     {result.boxCount} kutu
                   </p>
 

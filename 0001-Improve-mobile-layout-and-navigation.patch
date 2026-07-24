@@ -1,0 +1,1011 @@
+From 1a6dc156407674073fb7df003d4f1e832b7223a1 Mon Sep 17 00:00:00 2001
+From: Codex <codex@openai.com>
+Date: Fri, 24 Jul 2026 03:24:36 -0700
+Subject: [PATCH] Improve mobile layout and navigation
+
+---
+ app/bim/bim-nedir/page.tsx                    |  2 +-
+ app/bim/koordinasyon/page.tsx                 |  2 +-
+ app/bim/lod-seviyeleri/page.tsx               |  2 +-
+ app/bim/page.tsx                              |  2 +-
+ app/components/Categories.tsx                 | 12 +--
+ app/components/Footer.tsx                     |  6 +-
+ app/components/Header.tsx                     | 80 +++++++++++++++----
+ app/components/Hero.tsx                       | 14 ++--
+ app/globals.css                               | 14 ++++
+ app/pdf-tools/compress/page.tsx               |  2 +-
+ app/pdf-tools/images-to-pdf/page.tsx          |  2 +-
+ app/pdf-tools/info/page.tsx                   |  2 +-
+ app/pdf-tools/merge/page.tsx                  |  2 +-
+ app/pdf-tools/organize/page.tsx               |  2 +-
+ app/pdf-tools/page-numbers/page.tsx           |  2 +-
+ app/pdf-tools/page.tsx                        |  2 +-
+ app/pdf-tools/pdf-to-png/page.tsx             |  2 +-
+ app/pdf-tools/split/page.tsx                  |  2 +-
+ app/pdf-tools/watermark/page.tsx              |  2 +-
+ app/resources/cad-blok-kaynaklari/page.tsx    |  2 +-
+ app/resources/page.tsx                        |  2 +-
+ .../revit-family-kaynaklari/page.tsx          |  2 +-
+ app/revit/kolon-yuzeyine-siva-ekleme/page.tsx |  2 +-
+ app/revit/page.tsx                            |  2 +-
+ .../wall-sweep-neden-secilmiyor/page.tsx      |  2 +-
+ .../attendance-calculator/page.tsx            |  4 +-
+ app/student-tools/calendar/page.tsx           |  2 +-
+ .../file-name-generator/page.tsx              |  2 +-
+ app/student-tools/gno-calculator/page.tsx     |  2 +-
+ app/student-tools/grade-calculator/page.tsx   |  2 +-
+ app/student-tools/page.tsx                    |  2 +-
+ .../submission-checklist/page.tsx             |  4 +-
+ app/tools/area-calculator/page.tsx            |  2 +-
+ app/tools/brick-calculator/page.tsx           |  4 +-
+ app/tools/concrete-calculator/page.tsx        |  4 +-
+ app/tools/page.tsx                            |  2 +-
+ app/tools/parking-calculator/page.tsx         |  4 +-
+ app/tools/ramp-calculator/page.tsx            |  4 +-
+ app/tools/roof-calculator/page.tsx            |  4 +-
+ app/tools/scale-calculator/page.tsx           | 10 ++-
+ app/tools/slope-calculator/page.tsx           |  4 +-
+ app/tools/stair-calculator/page.tsx           |  2 +-
+ app/tools/taks-kaks/page.tsx                  |  2 +-
+ app/tools/tile-calculator/page.tsx            |  4 +-
+ app/tools/wall-paint-calculator/page.tsx      |  4 +-
+ 45 files changed, 149 insertions(+), 85 deletions(-)
+
+diff --git a/app/bim/bim-nedir/page.tsx b/app/bim/bim-nedir/page.tsx
+index 51da5ce..4d9c7be 100644
+--- a/app/bim/bim-nedir/page.tsx
++++ b/app/bim/bim-nedir/page.tsx
+@@ -2,7 +2,7 @@ import Link from "next/link";
+ 
+ export default function BimNedirPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <article className="mx-auto max-w-4xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+diff --git a/app/bim/koordinasyon/page.tsx b/app/bim/koordinasyon/page.tsx
+index 22186ba..63eafb9 100644
+--- a/app/bim/koordinasyon/page.tsx
++++ b/app/bim/koordinasyon/page.tsx
+@@ -43,7 +43,7 @@ const clashExamples = [
+ 
+ export default function BimKoordinasyonuPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <article className="mx-auto max-w-5xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+diff --git a/app/bim/lod-seviyeleri/page.tsx b/app/bim/lod-seviyeleri/page.tsx
+index 960ba9d..6acbf34 100644
+--- a/app/bim/lod-seviyeleri/page.tsx
++++ b/app/bim/lod-seviyeleri/page.tsx
+@@ -41,7 +41,7 @@ const lodLevels = [
+ 
+ export default function LodSeviyeleriPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <article className="mx-auto max-w-5xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+diff --git a/app/bim/page.tsx b/app/bim/page.tsx
+index 86e293b..63aeeed 100644
+--- a/app/bim/page.tsx
++++ b/app/bim/page.tsx
+@@ -26,7 +26,7 @@ const topics = [
+ 
+ export default function BimPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <div className="max-w-3xl">
+           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+diff --git a/app/components/Categories.tsx b/app/components/Categories.tsx
+index 24cbb35..a2770f3 100644
+--- a/app/components/Categories.tsx
++++ b/app/components/Categories.tsx
+@@ -41,20 +41,20 @@ const categories = [
+ 
+ export default function Categories() {
+   return (
+-    <section className="bg-slate-950 px-6 pb-16 pt-2 text-white">
++    <section className="bg-slate-950 px-4 pb-12 pt-2 text-white sm:px-6 sm:pb-16">
+       <div className="mx-auto max-w-7xl">
+-        <div className="mb-10">
+-          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
++        <div className="mb-7 sm:mb-10">
++          <h2 className="mt-3 text-2xl font-bold sm:text-3xl md:text-4xl">
+             İhtiyacın olan bölümü keşfet
+           </h2>
+         </div>
+ 
+-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
++        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+           {categories.map((category) => (
+             <Link
+               key={category.href}
+               href={category.href}
+-              className="group rounded-3xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-slate-800"
++              className="group rounded-2xl border border-slate-800 bg-slate-900 p-5 transition hover:-translate-y-1 hover:border-cyan-400/60 hover:bg-slate-800 sm:rounded-3xl sm:p-6"
+             >
+               <h3 className="text-xl font-semibold transition group-hover:text-cyan-400">
+                 {category.title}
+@@ -73,4 +73,4 @@ export default function Categories() {
+       </div>
+     </section>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/app/components/Footer.tsx b/app/components/Footer.tsx
+index 4d6aade..2518229 100644
+--- a/app/components/Footer.tsx
++++ b/app/components/Footer.tsx
+@@ -4,7 +4,7 @@ import Link from "next/link";
+ export default function Footer() {
+   return (
+     <footer className="border-t border-slate-800 bg-slate-950">
+-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between">
++      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between">
+         <div>
+           <Link href="/" aria-label="PAFTA ana sayfa">
+             <Image
+@@ -22,7 +22,7 @@ export default function Footer() {
+           </p>
+         </div>
+ 
+-        <div className="flex gap-6 text-sm text-slate-400">
++        <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-white">
+             Ana Sayfa
+           </Link>
+@@ -38,4 +38,4 @@ export default function Footer() {
+       </div>
+     </footer>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/app/components/Header.tsx b/app/components/Header.tsx
+index f653ea4..4227e5a 100644
+--- a/app/components/Header.tsx
++++ b/app/components/Header.tsx
+@@ -140,6 +140,7 @@ const searchableItems = [
+ export default function Header() {
+   const router = useRouter();
+   const [query, setQuery] = useState("");
++  const [isMenuOpen, setIsMenuOpen] = useState(false);
+ 
+   const normalizedQuery = query
+     .trim()
+@@ -168,14 +169,19 @@ export default function Header() {
+     setQuery("");
+   }
+ 
++  function closeMenu() {
++    setIsMenuOpen(false);
++  }
++
+   return (
+     <header className="relative z-50 border-b border-slate-800 bg-slate-950">
+-      <div className="mx-auto max-w-7xl px-6">
+-        <div className="flex flex-col gap-5 py-1 lg:flex-row lg:items-center lg:justify-between">
++      <div className="mx-auto max-w-7xl px-4 sm:px-6">
++        <div className="flex flex-wrap items-center justify-between gap-3 py-3 lg:flex-nowrap lg:gap-6 lg:py-1">
+           <Link
+             href="/"
+             aria-label="PAFTA ana sayfa"
+             className="shrink-0"
++            onClick={closeMenu}
+           >
+             <Image
+               src="/pafta-logo-white.png"
+@@ -183,11 +189,41 @@ export default function Header() {
+               width={700}
+               height={240}
+               priority
+-              className="h-28 w-80 object-cover object-center -my-3"
++              className="h-16 w-44 object-cover object-center sm:h-20 sm:w-56 lg:-my-3 lg:h-28 lg:w-80"
+             />
+           </Link>
+ 
+-          <div className="relative w-full lg:max-w-xl">
++          <button
++            type="button"
++            aria-expanded={isMenuOpen}
++            aria-controls="primary-navigation"
++            aria-label={isMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
++            onClick={() => setIsMenuOpen((open) => !open)}
++            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-700 text-slate-200 transition hover:border-cyan-400 hover:text-cyan-400 lg:hidden"
++          >
++            <span className="sr-only">
++              {isMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
++            </span>
++            <span className="flex w-5 flex-col gap-1.5" aria-hidden="true">
++              <span
++                className={`h-0.5 w-full bg-current transition ${
++                  isMenuOpen ? "translate-y-2 rotate-45" : ""
++                }`}
++              />
++              <span
++                className={`h-0.5 w-full bg-current transition ${
++                  isMenuOpen ? "opacity-0" : ""
++                }`}
++              />
++              <span
++                className={`h-0.5 w-full bg-current transition ${
++                  isMenuOpen ? "-translate-y-2 -rotate-45" : ""
++                }`}
++              />
++            </span>
++          </button>
++
++          <div className="relative order-3 w-full lg:order-none lg:max-w-xl">
+             <form onSubmit={handleSubmit} className="relative">
+               <label
+                 htmlFor="header-search"
+@@ -205,19 +241,19 @@ export default function Header() {
+                 }
+                 placeholder="Araç veya içerik ara..."
+                 autoComplete="off"
+-                className="w-full rounded-2xl border border-slate-700 bg-slate-900 px-5 py-3.5 pr-24 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
++                className="w-full rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 pr-20 text-base text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10 sm:px-5 sm:py-3.5 sm:pr-24"
+               />
+ 
+               <button
+                 type="submit"
+-                className="absolute bottom-2 right-2 top-2 rounded-xl bg-cyan-400 px-5 font-semibold text-slate-950 transition hover:bg-cyan-300"
++                className="absolute bottom-1.5 right-1.5 top-1.5 rounded-xl bg-cyan-400 px-4 font-semibold text-slate-950 transition hover:bg-cyan-300 sm:bottom-2 sm:right-2 sm:top-2 sm:px-5"
+               >
+                 Ara
+               </button>
+             </form>
+ 
+             {normalizedQuery !== "" && (
+-              <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 text-left shadow-2xl">
++              <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[60vh] overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900 text-left shadow-2xl">
+                 {results.length > 0 ? (
+                   results.map((item) => (
+                     <button
+@@ -247,52 +283,64 @@ export default function Header() {
+           </div>
+         </div>
+ 
+-        <nav className="flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-slate-800 py-4 text-sm font-medium text-slate-300">
++        <nav
++          id="primary-navigation"
++          className={`border-t border-slate-800 py-3 text-sm font-medium text-slate-300 lg:flex lg:flex-wrap lg:items-center lg:gap-x-7 lg:gap-y-3 lg:py-4 ${
++            isMenuOpen ? "grid" : "hidden"
++          }`}
++        >
+           <Link
+             href="/"
+-            className="transition hover:text-cyan-400"
++            onClick={closeMenu}
++            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+           >
+             Ana Sayfa
+           </Link>
+ 
+           <Link
+             href="/tools"
+-            className="transition hover:text-cyan-400"
++            onClick={closeMenu}
++            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+           >
+             Hesap Araçları
+           </Link>
+ 
+           <Link
+             href="/student-tools"
+-            className="transition hover:text-cyan-400"
++            onClick={closeMenu}
++            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+           >
+             Öğrenci Araçları
+           </Link>
+ 
+           <Link
+             href="/pdf-tools"
+-            className="transition hover:text-cyan-400"
++            onClick={closeMenu}
++            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+           >
+             PDF Araçları
+           </Link>
+ 
+           <Link
+             href="/revit"
+-            className="transition hover:text-cyan-400"
++            onClick={closeMenu}
++            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+           >
+             Revit
+           </Link>
+ 
+           <Link
+             href="/bim"
+-            className="transition hover:text-cyan-400"
++            onClick={closeMenu}
++            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+           >
+             BIM
+           </Link>
+ 
+           <Link
+             href="/resources"
+-            className="transition hover:text-cyan-400"
++            onClick={closeMenu}
++            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+           >
+             Kaynaklar
+           </Link>
+@@ -300,4 +348,4 @@ export default function Header() {
+       </div>
+     </header>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/app/components/Hero.tsx b/app/components/Hero.tsx
+index 9990593..ec77b36 100644
+--- a/app/components/Hero.tsx
++++ b/app/components/Hero.tsx
+@@ -3,7 +3,7 @@ import Link from "next/link";
+ 
+ export default function Hero() {
+   return (
+-    <section className="">
++    <section className="px-4 pb-10 pt-8 sm:px-6 sm:pb-14 sm:pt-12">
+       <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
+         <Image
+           src="/pafta-logo-white.png"
+@@ -11,10 +11,10 @@ export default function Hero() {
+           width={600}
+           height={200}
+           priority
+-          className="h-20 w-64 object-cover object-center md:h-24 md:w-80"
++          className="h-16 w-52 object-cover object-center sm:h-20 sm:w-64 md:h-24 md:w-80"
+         />
+ 
+-        <p className="-mt-2 text-lg font-medium text-cyan-400 md:text-xl">
++        <p className="-mt-1 text-base font-medium text-cyan-400 sm:text-lg md:text-xl">
+           Mimarlık öğrencilerinin dijital kampüsü.
+         </p>
+ 
+@@ -23,17 +23,17 @@ export default function Hero() {
+           mimarlık öğrencilerinin ihtiyaç duyduğu dijital çözümler tek yerde.
+         </p>
+ 
+-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
++        <div className="mt-7 flex w-full max-w-sm flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row">
+           <Link
+             href="/tools"
+-            className="rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
++            className="min-h-12 rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
+           >
+             Araçları Keşfet
+           </Link>
+ 
+           <Link
+             href="/revit"
+-            className="rounded-xl border border-slate-700 px-6 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-400"
++            className="min-h-12 rounded-xl border border-slate-700 px-6 py-3 font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-400"
+           >
+             Revit Rehberleri
+           </Link>
+@@ -41,4 +41,4 @@ export default function Hero() {
+       </div>
+     </section>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/app/globals.css b/app/globals.css
+index a2dc41e..8492bc5 100644
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -23,4 +23,18 @@ body {
+   background: var(--background);
+   color: var(--foreground);
+   font-family: Arial, Helvetica, sans-serif;
++  overflow-x: hidden;
++}
++
++button,
++a,
++input,
++select,
++textarea {
++  -webkit-tap-highlight-color: transparent;
++}
++
++button,
++a {
++  touch-action: manipulation;
+ }
+diff --git a/app/pdf-tools/compress/page.tsx b/app/pdf-tools/compress/page.tsx
+index c63693e..fc85a1f 100644
+--- a/app/pdf-tools/compress/page.tsx
++++ b/app/pdf-tools/compress/page.tsx
+@@ -400,7 +400,7 @@ export default function CompressPdfPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/pdf-tools/images-to-pdf/page.tsx b/app/pdf-tools/images-to-pdf/page.tsx
+index d2ae798..e27b880 100644
+--- a/app/pdf-tools/images-to-pdf/page.tsx
++++ b/app/pdf-tools/images-to-pdf/page.tsx
+@@ -454,7 +454,7 @@ export default function ImagesToPdfPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/pdf-tools/info/page.tsx b/app/pdf-tools/info/page.tsx
+index eed3e3e..e1b67af 100644
+--- a/app/pdf-tools/info/page.tsx
++++ b/app/pdf-tools/info/page.tsx
+@@ -241,7 +241,7 @@ export default function PdfInfoPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/pdf-tools/merge/page.tsx b/app/pdf-tools/merge/page.tsx
+index a22b960..009d75c 100644
+--- a/app/pdf-tools/merge/page.tsx
++++ b/app/pdf-tools/merge/page.tsx
+@@ -309,7 +309,7 @@ export default function MergePdfPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/pdf-tools/organize/page.tsx b/app/pdf-tools/organize/page.tsx
+index bd50a4a..cb1bb5c 100644
+--- a/app/pdf-tools/organize/page.tsx
++++ b/app/pdf-tools/organize/page.tsx
+@@ -501,7 +501,7 @@ export default function OrganizePdfPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/pdf-tools/page-numbers/page.tsx b/app/pdf-tools/page-numbers/page.tsx
+index e302879..2222cc5 100644
+--- a/app/pdf-tools/page-numbers/page.tsx
++++ b/app/pdf-tools/page-numbers/page.tsx
+@@ -468,7 +468,7 @@ export default function PageNumbersPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/pdf-tools/page.tsx b/app/pdf-tools/page.tsx
+index 38ff66e..c8b8315 100644
+--- a/app/pdf-tools/page.tsx
++++ b/app/pdf-tools/page.tsx
+@@ -77,7 +77,7 @@ const pdfTools = [
+ 
+ export default function PdfToolsPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+diff --git a/app/pdf-tools/pdf-to-png/page.tsx b/app/pdf-tools/pdf-to-png/page.tsx
+index 05f1855..4712d41 100644
+--- a/app/pdf-tools/pdf-to-png/page.tsx
++++ b/app/pdf-tools/pdf-to-png/page.tsx
+@@ -356,7 +356,7 @@ export default function PdfToPngPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/pdf-tools/split/page.tsx b/app/pdf-tools/split/page.tsx
+index 58c998e..88144c2 100644
+--- a/app/pdf-tools/split/page.tsx
++++ b/app/pdf-tools/split/page.tsx
+@@ -286,7 +286,7 @@ export default function SplitPdfPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+diff --git a/app/pdf-tools/watermark/page.tsx b/app/pdf-tools/watermark/page.tsx
+index f0c8d50..cf27dea 100644
+--- a/app/pdf-tools/watermark/page.tsx
++++ b/app/pdf-tools/watermark/page.tsx
+@@ -945,7 +945,7 @@ export default function WatermarkPage() {
+   };
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/resources/cad-blok-kaynaklari/page.tsx b/app/resources/cad-blok-kaynaklari/page.tsx
+index 8661b00..6a8c0e4 100644
+--- a/app/resources/cad-blok-kaynaklari/page.tsx
++++ b/app/resources/cad-blok-kaynaklari/page.tsx
+@@ -35,7 +35,7 @@ const cadSources = [
+ 
+ export default function CadBlokKaynaklariPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <article className="mx-auto max-w-5xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+diff --git a/app/resources/page.tsx b/app/resources/page.tsx
+index 215934d..7f70042 100644
+--- a/app/resources/page.tsx
++++ b/app/resources/page.tsx
+@@ -19,7 +19,7 @@ const resources = [
+ 
+ export default function ResourcesPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <div className="max-w-3xl">
+           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+diff --git a/app/resources/revit-family-kaynaklari/page.tsx b/app/resources/revit-family-kaynaklari/page.tsx
+index d2b6548..842161b 100644
+--- a/app/resources/revit-family-kaynaklari/page.tsx
++++ b/app/resources/revit-family-kaynaklari/page.tsx
+@@ -35,7 +35,7 @@ const familySources = [
+ 
+ export default function RevitFamilyKaynaklariPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <article className="mx-auto max-w-5xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+diff --git a/app/revit/kolon-yuzeyine-siva-ekleme/page.tsx b/app/revit/kolon-yuzeyine-siva-ekleme/page.tsx
+index 85d5800..dbbbb78 100644
+--- a/app/revit/kolon-yuzeyine-siva-ekleme/page.tsx
++++ b/app/revit/kolon-yuzeyine-siva-ekleme/page.tsx
+@@ -2,7 +2,7 @@ import Link from "next/link";
+ 
+ export default function RevitKolonSivaPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <article className="mx-auto max-w-4xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="hover:text-cyan-400">
+diff --git a/app/revit/page.tsx b/app/revit/page.tsx
+index 382dc7b..f128773 100644
+--- a/app/revit/page.tsx
++++ b/app/revit/page.tsx
+@@ -26,7 +26,7 @@ const articles = [
+ 
+ export default function RevitPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <div className="max-w-3xl">
+           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+diff --git a/app/revit/wall-sweep-neden-secilmiyor/page.tsx b/app/revit/wall-sweep-neden-secilmiyor/page.tsx
+index e775357..f55528a 100644
+--- a/app/revit/wall-sweep-neden-secilmiyor/page.tsx
++++ b/app/revit/wall-sweep-neden-secilmiyor/page.tsx
+@@ -2,7 +2,7 @@ import Link from "next/link";
+ 
+ export default function WallSweepGuidePage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <article className="mx-auto max-w-4xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="hover:text-cyan-400">
+diff --git a/app/student-tools/attendance-calculator/page.tsx b/app/student-tools/attendance-calculator/page.tsx
+index 2cbf5d9..e7361b6 100644
+--- a/app/student-tools/attendance-calculator/page.tsx
++++ b/app/student-tools/attendance-calculator/page.tsx
+@@ -124,7 +124,7 @@ export default function AttendanceCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -345,7 +345,7 @@ export default function AttendanceCalculatorPage() {
+                     Kalan devamsızlık hakkı
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {formatNumber(result.remainingAbsence)}
+                   </p>
+ 
+diff --git a/app/student-tools/calendar/page.tsx b/app/student-tools/calendar/page.tsx
+index 9ea31d0..0d3c11c 100644
+--- a/app/student-tools/calendar/page.tsx
++++ b/app/student-tools/calendar/page.tsx
+@@ -185,7 +185,7 @@ export default function StudentCalendarPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/student-tools/file-name-generator/page.tsx b/app/student-tools/file-name-generator/page.tsx
+index 4d2265b..c615058 100644
+--- a/app/student-tools/file-name-generator/page.tsx
++++ b/app/student-tools/file-name-generator/page.tsx
+@@ -169,7 +169,7 @@ export default function FileNameGeneratorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/student-tools/gno-calculator/page.tsx b/app/student-tools/gno-calculator/page.tsx
+index 45eb9da..4b2540e 100644
+--- a/app/student-tools/gno-calculator/page.tsx
++++ b/app/student-tools/gno-calculator/page.tsx
+@@ -342,7 +342,7 @@ export default function GnoCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="hover:text-cyan-400">
+diff --git a/app/student-tools/grade-calculator/page.tsx b/app/student-tools/grade-calculator/page.tsx
+index 33f8158..3ec3b9c 100644
+--- a/app/student-tools/grade-calculator/page.tsx
++++ b/app/student-tools/grade-calculator/page.tsx
+@@ -119,7 +119,7 @@ export default function GradeCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/student-tools/page.tsx b/app/student-tools/page.tsx
+index ab60255..145dd4c 100644
+--- a/app/student-tools/page.tsx
++++ b/app/student-tools/page.tsx
+@@ -49,7 +49,7 @@ const studentTools = [
+ 
+ export default function StudentToolsPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <div className="max-w-3xl">
+           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+diff --git a/app/student-tools/submission-checklist/page.tsx b/app/student-tools/submission-checklist/page.tsx
+index f4191fd..b699eea 100644
+--- a/app/student-tools/submission-checklist/page.tsx
++++ b/app/student-tools/submission-checklist/page.tsx
+@@ -394,7 +394,7 @@ export default function SubmissionChecklistPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -654,7 +654,7 @@ export default function SubmissionChecklistPage() {
+                 Teslim ilerlemesi
+               </p>
+ 
+-              <p className="mt-5 text-5xl font-bold">
++              <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                 %{progressPercent}
+               </p>
+ 
+diff --git a/app/tools/area-calculator/page.tsx b/app/tools/area-calculator/page.tsx
+index 2708165..d956c81 100644
+--- a/app/tools/area-calculator/page.tsx
++++ b/app/tools/area-calculator/page.tsx
+@@ -43,7 +43,7 @@ export default function AreaCalculatorPage() {
+   }, [length, width, unit]);
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-6xl">
+         <div className="mb-10">
+           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+diff --git a/app/tools/brick-calculator/page.tsx b/app/tools/brick-calculator/page.tsx
+index e6f19de..7e9281e 100644
+--- a/app/tools/brick-calculator/page.tsx
++++ b/app/tools/brick-calculator/page.tsx
+@@ -226,7 +226,7 @@ export default function BrickCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -545,7 +545,7 @@ export default function BrickCalculatorPage() {
+                     Gerekli tuğla
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {result.totalBrickCount} adet
+                   </p>
+ 
+diff --git a/app/tools/concrete-calculator/page.tsx b/app/tools/concrete-calculator/page.tsx
+index 032e58d..4265800 100644
+--- a/app/tools/concrete-calculator/page.tsx
++++ b/app/tools/concrete-calculator/page.tsx
+@@ -193,7 +193,7 @@ export default function ConcreteCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -579,7 +579,7 @@ export default function ConcreteCalculatorPage() {
+                 Sipariş beton miktarı
+               </p>
+ 
+-              <p className="mt-5 text-5xl font-bold">
++              <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                 {formatNumber(result.totalVolume)} m³
+               </p>
+ 
+diff --git a/app/tools/page.tsx b/app/tools/page.tsx
+index 486af3f..427a598 100644
+--- a/app/tools/page.tsx
++++ b/app/tools/page.tsx
+@@ -3,7 +3,7 @@ import { tools } from "../../lib/tools";
+ 
+ export default function ToolsPage() {
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <section className="mb-12">
+           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+diff --git a/app/tools/parking-calculator/page.tsx b/app/tools/parking-calculator/page.tsx
+index 5cebe9b..3fce98c 100644
+--- a/app/tools/parking-calculator/page.tsx
++++ b/app/tools/parking-calculator/page.tsx
+@@ -122,7 +122,7 @@ export default function ParkingCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -455,7 +455,7 @@ export default function ParkingCalculatorPage() {
+                     Hesap sonucu
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {mode === "area"
+                       ? `${result.vehicleCount} araç`
+                       : `${formatNumber(result.totalArea)} m²`}
+diff --git a/app/tools/ramp-calculator/page.tsx b/app/tools/ramp-calculator/page.tsx
+index 7f6c5d0..5ae1a23 100644
+--- a/app/tools/ramp-calculator/page.tsx
++++ b/app/tools/ramp-calculator/page.tsx
+@@ -60,7 +60,7 @@ export default function RampCalculatorPage() {
+     : null;
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+@@ -219,7 +219,7 @@ export default function RampCalculatorPage() {
+                     Hesap sonucu
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {mode === "length"
+                       ? `${formatNumber(result.length / 100)} m`
+                       : `%${formatNumber(result.slope)}`}
+diff --git a/app/tools/roof-calculator/page.tsx b/app/tools/roof-calculator/page.tsx
+index 0a0ce6f..a5ae19e 100644
+--- a/app/tools/roof-calculator/page.tsx
++++ b/app/tools/roof-calculator/page.tsx
+@@ -195,7 +195,7 @@ export default function RoofCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -444,7 +444,7 @@ export default function RoofCalculatorPage() {
+                     Mahya yüksekliği
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {formatNumber(
+                       result.ridgeHeight
+                     )}{" "}
+diff --git a/app/tools/scale-calculator/page.tsx b/app/tools/scale-calculator/page.tsx
+index 1d32778..0547476 100644
+--- a/app/tools/scale-calculator/page.tsx
++++ b/app/tools/scale-calculator/page.tsx
+@@ -15,15 +15,17 @@ export default function ScaleCalculatorPage() {
+   }, [realSize, scale]);
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-12 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-12">
+       <div className="mx-auto max-w-3xl">
+-        <h1 className="text-5xl font-bold">Ölçek Hesaplayıcı</h1>
++        <h1 className="text-4xl font-bold sm:text-5xl">
++          Ölçek Hesaplayıcı
++        </h1>
+ 
+         <p className="mt-4 text-slate-300">
+           Gerçek ölçüyü girin, çizimde kaç santimetre olacağını anında görün.
+         </p>
+ 
+-        <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900 p-8">
++        <div className="mt-8 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:mt-10 sm:p-8">
+ 
+           <label className="mb-2 block">
+             Gerçek Ölçü (cm)
+@@ -54,7 +56,7 @@ export default function ScaleCalculatorPage() {
+           </select>
+ 
+           <div className="mt-8 rounded-xl bg-cyan-500 p-6 text-center">
+-            <p className="text-black text-lg">
++            <p className="text-lg text-black">
+               Çizimde Görünecek Ölçü
+             </p>
+ 
+diff --git a/app/tools/slope-calculator/page.tsx b/app/tools/slope-calculator/page.tsx
+index 56fc51d..3fbca12 100644
+--- a/app/tools/slope-calculator/page.tsx
++++ b/app/tools/slope-calculator/page.tsx
+@@ -137,7 +137,7 @@ export default function SlopeCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -369,7 +369,7 @@ export default function SlopeCalculatorPage() {
+                     Hesap sonucu
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {mode === "slope" &&
+                       `%${formatNumber(result.slope)}`}
+ 
+diff --git a/app/tools/stair-calculator/page.tsx b/app/tools/stair-calculator/page.tsx
+index 4e7d9be..72ac5e5 100644
+--- a/app/tools/stair-calculator/page.tsx
++++ b/app/tools/stair-calculator/page.tsx
+@@ -68,7 +68,7 @@ export default function StairCalculatorPage() {
+   const recommendedOption = options[0];
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-6xl">
+         <div className="mb-10">
+           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+diff --git a/app/tools/taks-kaks/page.tsx b/app/tools/taks-kaks/page.tsx
+index 1150120..27d3d1e 100644
+--- a/app/tools/taks-kaks/page.tsx
++++ b/app/tools/taks-kaks/page.tsx
+@@ -223,7 +223,7 @@ export default function TaksKaksPage() {
+     validationMessages.length === 0;
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+diff --git a/app/tools/tile-calculator/page.tsx b/app/tools/tile-calculator/page.tsx
+index 8b16157..4bd5f20 100644
+--- a/app/tools/tile-calculator/page.tsx
++++ b/app/tools/tile-calculator/page.tsx
+@@ -146,7 +146,7 @@ export default function TileCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link
+@@ -408,7 +408,7 @@ export default function TileCalculatorPage() {
+                     Gerekli kutu sayısı
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {result.boxCount} kutu
+                   </p>
+ 
+diff --git a/app/tools/wall-paint-calculator/page.tsx b/app/tools/wall-paint-calculator/page.tsx
+index fb92f0d..f35140f 100644
+--- a/app/tools/wall-paint-calculator/page.tsx
++++ b/app/tools/wall-paint-calculator/page.tsx
+@@ -150,7 +150,7 @@ export default function WallPaintCalculatorPage() {
+   }
+ 
+   return (
+-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
++    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
+       <div className="mx-auto max-w-7xl">
+         <nav className="mb-8 text-sm text-slate-400">
+           <Link href="/" className="transition hover:text-cyan-400">
+@@ -522,7 +522,7 @@ export default function WallPaintCalculatorPage() {
+                     Gerekli boya miktarı
+                   </p>
+ 
+-                  <p className="mt-5 text-5xl font-bold">
++                  <p className="mt-5 text-4xl font-bold sm:text-5xl">
+                     {formatNumber(result.totalPaintLiters)} L
+                   </p>
+ 
+-- 
+2.51.1
+

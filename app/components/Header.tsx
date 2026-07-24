@@ -11,44 +11,105 @@ const searchableItems = [
     href: "/tools/scale-calculator",
   },
   {
-  title: "Rampa Hesaplayıcı",
-  href: "/tools/ramp-calculator",
+    title: "PDF Araçları",
+    href: "/pdf-tools",
   },
   {
-  title: "Seramik ve Karo Hesaplayıcı",
-  href: "/tools/tile-calculator",
+    title: "PDF Birleştirme",
+    href: "/pdf-tools/merge",
   },
   {
-  title: "Çatı Hesaplayıcı",
-  href: "/tools/roof-calculator",
+    title: "Rampa Hesaplayıcı",
+    href: "/tools/ramp-calculator",
   },
   {
-  title: "Tuğla Hesaplayıcı",
-  href: "/tools/brick-calculator",
+  title: "TAKS–KAKS ve Emsal Hesaplama",
+  description:
+    "Parsel alanı, TAKS ve KAKS değerlerine göre taban oturumunu ve toplam emsale esas inşaat alanını hesapla.",
+  href: "/tools/taks-kaks",
+  category: "Hesap Araçları",
+  keywords: [
+    "taks",
+    "kaks",
+    "emsal",
+    "imar",
+    "parsel",
+    "parsel alanı",
+    "taban oturumu",
+    "inşaat alanı",
+    "emsal hesabı",
+    "taks hesaplama",
+    "kaks hesaplama",
+    "imar hesaplama",
+  ],
   },
   {
-  title: "Teslim Kontrol Listesi",
-  href: "/student-tools/submission-checklist",
+  title: "PDF Sayfalarını Ayır",
+  href: "/pdf-tools/split",
   },
   {
-  title: "Dosya Adı Oluşturucu",
-  href: "/student-tools/file-name-generator",
+  title: "PDF’e Filigran Ekle",
+  href: "/pdf-tools/watermark",
   },
   {
-  title: "Beton Hacmi Hesaplayıcı",
-  href: "/tools/concrete-calculator",
+  title: "PDF Bilgilerini Görüntüle",
+  href: "/pdf-tools/info",
   },
   {
-  title: "Otopark Hesaplayıcı",
-  href: "/tools/parking-calculator",
+  title: "PDF’e Sayfa Numarası Ekle",
+  href: "/pdf-tools/page-numbers",
   },
   {
-  title: "Eğim Hesaplayıcı",
-  href: "/tools/slope-calculator",
+  title: "PDF Sayfalarını Düzenle",
+  href: "/pdf-tools/organize",
   },
   {
-  title: "Duvar ve Boya Hesaplayıcı",
-  href: "/tools/wall-paint-calculator",
+    title: "Seramik ve Karo Hesaplayıcı",
+    href: "/tools/tile-calculator",
+  },
+  {
+  title: "Görsellerden PDF",
+  href: "/pdf-tools/images-to-pdf",
+  },
+  {
+  title: "PDF Sıkıştırma",
+  href: "/pdf-tools/compress",
+ },
+  {
+    title: "Çatı Hesaplayıcı",
+    href: "/tools/roof-calculator",
+  },
+  {
+  title: "PDF’den PNG’ye",
+  href: "/pdf-tools/pdf-to-png",
+  },
+  {
+    title: "Tuğla Hesaplayıcı",
+    href: "/tools/brick-calculator",
+  },
+  {
+    title: "Teslim Kontrol Listesi",
+    href: "/student-tools/submission-checklist",
+  },
+  {
+    title: "Dosya Adı Oluşturucu",
+    href: "/student-tools/file-name-generator",
+  },
+  {
+    title: "Beton Hacmi Hesaplayıcı",
+    href: "/tools/concrete-calculator",
+  },
+  {
+    title: "Otopark Hesaplayıcı",
+    href: "/tools/parking-calculator",
+  },
+  {
+    title: "Eğim Hesaplayıcı",
+    href: "/tools/slope-calculator",
+  },
+  {
+    title: "Duvar ve Boya Hesaplayıcı",
+    href: "/tools/wall-paint-calculator",
   },
   {
     title: "Merdiven Hesaplayıcı",
@@ -71,8 +132,8 @@ const searchableItems = [
     href: "/student-tools/attendance-calculator",
   },
   {
-  title: "Öğrenci Takvimi",
-  href: "/student-tools/calendar",
+    title: "Öğrenci Takvimi",
+    href: "/student-tools/calendar",
   },
 ];
 
@@ -80,7 +141,9 @@ export default function Header() {
   const router = useRouter();
   const [query, setQuery] = useState("");
 
-  const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
+  const normalizedQuery = query
+    .trim()
+    .toLocaleLowerCase("tr-TR");
 
   const results =
     normalizedQuery === ""
@@ -108,7 +171,7 @@ export default function Header() {
   return (
     <header className="relative z-50 border-b border-slate-800 bg-slate-950">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col gap-5 py-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-5 py-1 lg:flex-row lg:items-center lg:justify-between">
           <Link
             href="/"
             aria-label="PAFTA ana sayfa"
@@ -117,16 +180,19 @@ export default function Header() {
             <Image
               src="/pafta-logo-white.png"
               alt="PAFTA"
-              width={600}
-              height={200}
+              width={700}
+              height={240}
               priority
-              className="h-16 w-52 object-cover object-center"
+              className="h-28 w-80 object-cover object-center -my-3"
             />
           </Link>
 
           <div className="relative w-full lg:max-w-xl">
             <form onSubmit={handleSubmit} className="relative">
-              <label htmlFor="header-search" className="sr-only">
+              <label
+                htmlFor="header-search"
+                className="sr-only"
+              >
                 PAFTA içinde ara
               </label>
 
@@ -134,7 +200,9 @@ export default function Header() {
                 id="header-search"
                 type="search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) =>
+                  setQuery(event.target.value)
+                }
                 placeholder="Araç veya içerik ara..."
                 autoComplete="off"
                 className="w-full rounded-2xl border border-slate-700 bg-slate-900 px-5 py-3.5 pr-24 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
@@ -170,7 +238,7 @@ export default function Header() {
                     </p>
 
                     <p className="mt-1 text-sm text-slate-400">
-                      Ölçek, merdiven, alan veya GNO yazmayı dene.
+                      Ölçek, PDF, Revit veya GNO yazmayı dene.
                     </p>
                   </div>
                 )}
@@ -180,7 +248,10 @@ export default function Header() {
         </div>
 
         <nav className="flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-slate-800 py-4 text-sm font-medium text-slate-300">
-          <Link href="/" className="transition hover:text-cyan-400">
+          <Link
+            href="/"
+            className="transition hover:text-cyan-400"
+          >
             Ana Sayfa
           </Link>
 
@@ -196,6 +267,13 @@ export default function Header() {
             className="transition hover:text-cyan-400"
           >
             Öğrenci Araçları
+          </Link>
+
+          <Link
+            href="/pdf-tools"
+            className="transition hover:text-cyan-400"
+          >
+            PDF Araçları
           </Link>
 
           <Link

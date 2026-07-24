@@ -8,10 +8,16 @@ const categories = [
     href: "/tools",
   },
   {
-  title: "Öğrenci Araçları",
-  description:
-    "GNO, ders notu, devamsızlık ve üniversite hayatını kolaylaştıran öğrenci araçları.",
-  href: "/student-tools",
+    title: "Öğrenci Araçları",
+    description:
+      "GNO, ders notu, devamsızlık ve üniversite hayatını kolaylaştıran öğrenci araçları.",
+    href: "/student-tools",
+  },
+  {
+    title: "PDF Araçları",
+    description:
+      "PDF dosyalarını birleştir, sıkıştır, dönüştür, ayır ve teslim için düzenle.",
+    href: "/pdf-tools",
   },
   {
     title: "Revit",
@@ -38,13 +44,12 @@ export default function Categories() {
     <section className="bg-slate-950 px-6 pb-16 pt-2 text-white">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10">
-         
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">
             İhtiyacın olan bölümü keşfet
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {categories.map((category) => (
             <Link
               key={category.href}

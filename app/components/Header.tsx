@@ -11,8 +11,8 @@ const searchableItems = [
     href: "/tools/scale-calculator",
   },
   {
-    title: "Pafta Boyutu ve Ölçek Dönüştürücü",
-    href: "/tools/sheet-scale-converter",
+    title: "PDF Pafta Boyutu ve Ölçek Ayarlama",
+    href: "/pdf-tools/resize-pages",
   },
   {
     title: "PDF Araçları",

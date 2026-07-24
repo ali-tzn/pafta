@@ -50,6 +50,14 @@ const pdfTools = [
     status: "Hazır",
   },
   {
+    title: "PDF Pafta Boyutu ve Ölçek Ayarlama",
+    description:
+      "PDF paftanın kâğıt boyutunu değiştir; içeriği sayfaya sığdır veya çizim ölçeğini koru.",
+    href: "/pdf-tools/resize-pages",
+    icon: "↔",
+    status: "Hazır",
+  },
+  {
     title: "PDF’e Sayfa Numarası Ekle",
     description:
       "PDF sayfalarına otomatik olarak sayfa numarası yerleştir.",

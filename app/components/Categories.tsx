@@ -38,6 +38,12 @@ const categories = [
     href: "/mimarlik",
   },
   {
+    title: "Yapı Malzemeleri",
+    description:
+      "Duvar, yalıtım, cam, ahşap, sıva, beton ve zemin malzemelerini incele ve karşılaştır.",
+    href: "/yapi-malzemeleri",
+  },
+  {
     title: "Kaynaklar",
     description:
       "Mimarlık öğrencileri için dosyalar, bloklar, şablonlar ve yararlı içerikler.",

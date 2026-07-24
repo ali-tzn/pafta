@@ -2,8 +2,10 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { materialSearchItems } from "@/app/yapi-malzemeleri/materials";
 
 const tools = [
+  ...materialSearchItems,
   {
     title: "Mimarlık Rehberi",
     href: "/mimarlik",
@@ -50,10 +52,12 @@ export default function SearchBar() {
   const router = useRouter();
   const [query, setQuery] = useState("");
 
+  const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
   const results = tools.filter((tool) =>
-    tool.title
+    [tool.title, ...("keywords" in tool && tool.keywords ? tool.keywords : [])]
+      .join(" ")
       .toLocaleLowerCase("tr-TR")
-      .includes(query.trim().toLocaleLowerCase("tr-TR"))
+      .includes(normalizedQuery)
   );
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {

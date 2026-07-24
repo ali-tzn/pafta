@@ -1,5 +1,21 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
+import {
+  materialCategories,
+  materials,
+} from "@/app/yapi-malzemeleri/materials";
+
+const materialRoutes = [
+  "/yapi-malzemeleri",
+  "/yapi-malzemeleri/karsilastir",
+  ...materialCategories.map(
+    (category) => `/yapi-malzemeleri/${category.slug}`
+  ),
+  ...materials.map(
+    (material) =>
+      `/yapi-malzemeleri/${material.category}/${material.slug}`
+  ),
+];
 
 const routes = [
   "",
@@ -13,6 +29,7 @@ const routes = [
   "/mimarlik/brutalizm-nedir",
   "/mimarlik/postmodernizm-nedir",
   "/mimarlik/dekonstruktivizm-nedir",
+  ...materialRoutes,
   "/tools",
   "/tools/area-calculator",
   "/tools/brick-calculator",

@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { materialSearchItems } from "@/app/yapi-malzemeleri/materials";
 
 const searchableItems = [
+  ...materialSearchItems,
   {
     title: "Mimarlık Rehberi",
     href: "/mimarlik",
@@ -382,6 +384,14 @@ export default function Header() {
             className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
           >
             Mimarlık Rehberi
+          </Link>
+
+          <Link
+            href="/yapi-malzemeleri"
+            onClick={closeMenu}
+            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+          >
+            Yapı Malzemeleri
           </Link>
 
           <Link

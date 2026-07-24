@@ -16,6 +16,13 @@ const articles = [
     status: "Hazır",
   },
   {
+    title: "Revit’e İndirilen Family Nasıl Yüklenir?",
+    description:
+      "RFA dosyasını projeye yükleme, doğru kategoriden yerleştirme ve görünmeme sorunlarını çözme.",
+    href: "/revit/indirilen-family-nasil-yuklenir",
+    status: "Hazır",
+  },
+  {
     title: "Revit’ten D5 Render’a Malzeme Aktarma",
     description:
       "Revit malzemelerinin D5 Render içinde doğru şekilde ayrılması ve görünmesi.",

@@ -40,6 +40,7 @@ const routes = [
   "/revit",
   "/revit/kolon-yuzeyine-siva-ekleme",
   "/revit/d5-render-malzeme-aktarma",
+  "/revit/indirilen-family-nasil-yuklenir",
   "/revit/wall-sweep-neden-secilmiyor",
   "/bim",
   "/bim/bim-nedir",

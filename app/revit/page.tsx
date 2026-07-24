@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { revitGuides } from "./guides";
 
 const articles = [
   {
@@ -31,6 +32,16 @@ const articles = [
   },
 ];
 
+const allArticles = [
+  ...articles,
+  ...revitGuides.map((guide) => ({
+    title: guide.title,
+    description: guide.description,
+    href: `/revit/${guide.slug}`,
+    status: "Hazır",
+  })),
+];
+
 export default function RevitPage() {
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
@@ -51,7 +62,7 @@ export default function RevitPage() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {articles.map((article) => (
+          {allArticles.map((article) => (
             <article
               key={article.href}
               className="flex flex-col rounded-3xl border border-slate-800 bg-slate-900 p-6"
@@ -91,8 +102,8 @@ export default function RevitPage() {
 
           <p className="mt-3 max-w-2xl leading-7 text-slate-300">
             PAFTA’da duvar katmanları, sıva çözümleri, family kaynakları,
-            malzeme atama ve render aktarımı gibi gerçek proje sorunlarına
-            yönelik içerikler yayınlanacak.
+            malzeme atama, arazi, dokümantasyon ve hata çözümü gibi gerçek
+            proje sorunlarına yönelik {allArticles.length} rehber bulunuyor.
           </p>
 
           <Link

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { bimGuides } from "./guides";
 
 const topics = [
   {
@@ -24,6 +25,16 @@ const topics = [
   },
 ];
 
+const allTopics = [
+  ...topics,
+  ...bimGuides.map((guide) => ({
+    title: guide.title,
+    description: guide.description,
+    href: `/bim/${guide.slug}`,
+    status: "Hazır",
+  })),
+];
+
 export default function BimPage() {
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
@@ -44,7 +55,7 @@ export default function BimPage() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {topics.map((topic) => (
+          {allTopics.map((topic) => (
             <article
               key={topic.href}
               className="flex flex-col rounded-3xl border border-slate-800 bg-slate-900 p-6"

@@ -511,3 +511,6 @@ export const architectureArticles: ArchitectureArticle[] = [
 export function getArchitectureArticle(slug: string) {
   return architectureArticles.find((article) => article.slug === slug);
 }
+
+architectureArticles.push(...additionalArchitectureArticles);
+import { additionalArchitectureArticles } from "./more-articles";

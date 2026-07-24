@@ -5,13 +5,77 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { materialSearchItems } from "@/app/yapi-malzemeleri/materials";
+import { revitGuides } from "@/app/revit/guides";
+import { bimGuides } from "@/app/bim/guides";
+import { architectureArticles } from "@/app/mimarlik/articles";
+import { guideCollections } from "@/app/rehberler/guides";
 
 const searchableItems = [
   ...materialSearchItems,
+  ...revitGuides.map((guide) => ({
+    title: guide.title,
+    href: `/revit/${guide.slug}`,
+    keywords: [guide.category, ...guide.keyPoints],
+  })),
+  ...bimGuides.map((guide) => ({
+    title: guide.title,
+    href: `/bim/${guide.slug}`,
+    keywords: [guide.category, ...guide.keyPoints],
+  })),
+  ...architectureArticles.map((article) => ({
+    title: article.shortTitle,
+    href: `/mimarlik/${article.slug}`,
+    keywords: article.keywords,
+  })),
+  ...guideCollections.map((guide) => ({
+    title: guide.name,
+    href: `/rehberler/${guide.slug}`,
+    keywords: guide.keywords,
+  })),
+  {
+    title: "Tasarım ve Proje Rehberleri",
+    href: "/rehberler",
+    keywords: ["çizim", "detay", "yönetmelik", "portfolyo", "jüri"],
+  },
+  {
+    title: "Mimarlık Yapay Zekâ Merkezi",
+    href: "/mimarlik-yapay-zeka",
+    keywords: ["mimarlık ai", "yapay zeka", "ai araçları"],
+  },
+  {
+    title: "Mimari Prompt Oluşturucu",
+    href: "/mimarlik-yapay-zeka/prompt-olusturucu",
+    keywords: ["render prompt", "yapay zeka prompt"],
+  },
+  {
+    title: "Mimarlık AI Araç Bulucu",
+    href: "/mimarlik-yapay-zeka/arac-bulucu",
+    keywords: ["ai aracı", "yapay zeka araç önerisi"],
+  },
   {
     title: "Mimarlık Rehberi",
     href: "/mimarlik",
     keywords: ["mimarlık kültürü", "mimarlık tarihi", "mimarlık akımları"],
+  },
+  {
+    title: "Mimarlık Akımları",
+    href: "/mimarlik/kategori/akimlar",
+    keywords: ["modernizm", "bauhaus", "brutalizm", "postmodernizm"],
+  },
+  {
+    title: "Mimari Kavramlar",
+    href: "/mimarlik/kategori/kavramlar",
+    keywords: ["bağlam", "tipoloji", "tektonik", "mekân", "işlev"],
+  },
+  {
+    title: "Önemli Mimarlar",
+    href: "/mimarlik/kategori/mimarlar",
+    keywords: ["le corbusier", "mies", "aalto", "tadao ando"],
+  },
+  {
+    title: "İkonik Yapılar",
+    href: "/mimarlik/kategori/yapilar",
+    keywords: ["villa savoye", "farnsworth", "fallingwater"],
   },
   {
     title: "Modernizm Nedir?",
@@ -185,16 +249,22 @@ export default function Header() {
   const results =
     normalizedQuery === ""
       ? []
-      : searchableItems.filter((item) => {
-          const searchableText = [
-            item.title,
-            ...("keywords" in item && item.keywords ? item.keywords : []),
-          ]
-            .join(" ")
-            .toLocaleLowerCase("tr-TR");
+      : searchableItems
+          .filter((item) => {
+            const searchableText = [
+              item.title,
+              ...("keywords" in item && item.keywords ? item.keywords : []),
+            ]
+              .join(" ")
+              .toLocaleLowerCase("tr-TR");
 
-          return searchableText.includes(normalizedQuery);
-        });
+            return searchableText.includes(normalizedQuery);
+          })
+          .filter(
+            (item, index, items) =>
+              items.findIndex((candidate) => candidate.href === item.href) ===
+              index
+          );
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -392,6 +462,22 @@ export default function Header() {
             className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
           >
             Yapı Malzemeleri
+          </Link>
+
+          <Link
+            href="/mimarlik-yapay-zeka"
+            onClick={closeMenu}
+            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+          >
+            Mimarlık AI
+          </Link>
+
+          <Link
+            href="/rehberler"
+            onClick={closeMenu}
+            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+          >
+            Proje Rehberleri
           </Link>
 
           <Link

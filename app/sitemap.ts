@@ -4,6 +4,11 @@ import {
   materialCategories,
   materials,
 } from "@/app/yapi-malzemeleri/materials";
+import { architectureArticles } from "@/app/mimarlik/articles";
+import { architectureCategories } from "@/app/mimarlik/categories";
+import { revitGuides } from "@/app/revit/guides";
+import { bimGuides } from "@/app/bim/guides";
+import { guideCollections } from "@/app/rehberler/guides";
 
 const materialRoutes = [
   "/yapi-malzemeleri",
@@ -15,6 +20,20 @@ const materialRoutes = [
     (material) =>
       `/yapi-malzemeleri/${material.category}/${material.slug}`
   ),
+];
+
+const expandedContentRoutes = [
+  ...architectureArticles.map((article) => `/mimarlik/${article.slug}`),
+  ...architectureCategories.map(
+    (category) => `/mimarlik/kategori/${category.slug}`
+  ),
+  ...revitGuides.map((guide) => `/revit/${guide.slug}`),
+  ...bimGuides.map((guide) => `/bim/${guide.slug}`),
+  "/mimarlik-yapay-zeka",
+  "/mimarlik-yapay-zeka/prompt-olusturucu",
+  "/mimarlik-yapay-zeka/arac-bulucu",
+  "/rehberler",
+  ...guideCollections.map((guide) => `/rehberler/${guide.slug}`),
 ];
 
 const routes = [
@@ -29,7 +48,9 @@ const routes = [
   "/mimarlik/brutalizm-nedir",
   "/mimarlik/postmodernizm-nedir",
   "/mimarlik/dekonstruktivizm-nedir",
+  "/mimarlik/kategori/akimlar",
   ...materialRoutes,
+  ...expandedContentRoutes,
   "/tools",
   "/tools/area-calculator",
   "/tools/brick-calculator",

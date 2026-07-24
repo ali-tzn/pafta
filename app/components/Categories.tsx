@@ -44,6 +44,18 @@ const categories = [
     href: "/yapi-malzemeleri",
   },
   {
+    title: "Mimarlık Yapay Zekâ Merkezi",
+    description:
+      "Mimari prompt oluştur, doğru AI iş akışını bul ve yapay zekâyı güvenli kullan.",
+    href: "/mimarlik-yapay-zeka",
+  },
+  {
+    title: "Tasarım ve Proje Rehberleri",
+    description:
+      "Mimari çizim, yapı türleri, detay, yönetmelik, sürdürülebilirlik, analiz ve jüri rehberleri.",
+    href: "/rehberler",
+  },
+  {
     title: "Kaynaklar",
     description:
       "Mimarlık öğrencileri için dosyalar, bloklar, şablonlar ve yararlı içerikler.",

@@ -3,12 +3,67 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { materialSearchItems } from "@/app/yapi-malzemeleri/materials";
+import { revitGuides } from "@/app/revit/guides";
+import { bimGuides } from "@/app/bim/guides";
+import { architectureArticles } from "@/app/mimarlik/articles";
+import { guideCollections } from "@/app/rehberler/guides";
 
 const tools = [
   ...materialSearchItems,
+  ...revitGuides.map((guide) => ({
+    title: guide.title,
+    href: `/revit/${guide.slug}`,
+    keywords: [guide.category],
+  })),
+  ...bimGuides.map((guide) => ({
+    title: guide.title,
+    href: `/bim/${guide.slug}`,
+    keywords: [guide.category],
+  })),
+  ...architectureArticles.map((article) => ({
+    title: article.shortTitle,
+    href: `/mimarlik/${article.slug}`,
+    keywords: article.keywords,
+  })),
+  ...guideCollections.map((guide) => ({
+    title: guide.name,
+    href: `/rehberler/${guide.slug}`,
+    keywords: guide.keywords,
+  })),
+  {
+    title: "Mimarlık Yapay Zekâ Merkezi",
+    href: "/mimarlik-yapay-zeka",
+    keywords: ["mimarlık ai", "yapay zeka"],
+  },
+  {
+    title: "Mimari Prompt Oluşturucu",
+    href: "/mimarlik-yapay-zeka/prompt-olusturucu",
+    keywords: ["render prompt"],
+  },
+  {
+    title: "Mimarlık AI Araç Bulucu",
+    href: "/mimarlik-yapay-zeka/arac-bulucu",
+    keywords: ["ai araç önerisi"],
+  },
   {
     title: "Mimarlık Rehberi",
     href: "/mimarlik",
+  },
+  {
+    title: "Mimarlık Akımları",
+    href: "/mimarlik/kategori/akimlar",
+  },
+  {
+    title: "Mimari Kavramlar",
+    href: "/mimarlik/kategori/kavramlar",
+  },
+  {
+    title: "Önemli Mimarlar",
+    href: "/mimarlik/kategori/mimarlar",
+  },
+  {
+    title: "İkonik Yapılar",
+    href: "/mimarlik/kategori/yapilar",
   },
   {
     title: "Modernizm Nedir?",
@@ -53,12 +108,17 @@ export default function SearchBar() {
   const [query, setQuery] = useState("");
 
   const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
-  const results = tools.filter((tool) =>
-    [tool.title, ...("keywords" in tool && tool.keywords ? tool.keywords : [])]
-      .join(" ")
-      .toLocaleLowerCase("tr-TR")
-      .includes(normalizedQuery)
-  );
+  const results = tools
+    .filter((tool) =>
+      [tool.title, ...("keywords" in tool && tool.keywords ? tool.keywords : [])]
+        .join(" ")
+        .toLocaleLowerCase("tr-TR")
+        .includes(normalizedQuery)
+    )
+    .filter(
+      (tool, index, items) =>
+        items.findIndex((candidate) => candidate.href === tool.href) === index
+    );
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

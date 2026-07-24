@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { architectureArticles } from "./articles";
+import { architectureCategories } from "./categories";
 
 export const metadata: Metadata = {
   title: "Mimarlık Rehberi: Akımlar, Kavramlar, Mimarlar ve Yapılar",
@@ -17,29 +18,6 @@ export const metadata: Metadata = {
     "mimari kavramlar",
   ],
 };
-
-const topics = [
-  {
-    title: "Mimarlık Akımları",
-    description:
-      "Bir dönemin düşünsel, teknolojik ve toplumsal koşullarının mimari biçime nasıl dönüştüğünü incele.",
-  },
-  {
-    title: "Önemli Mimarlar",
-    description:
-      "Mimarlık tarihini etkileyen tasarımcıların fikirlerini, projelerini ve tartışmalı yönlerini keşfet.",
-  },
-  {
-    title: "İkonik Yapılar",
-    description:
-      "Plan, kesit, strüktür, malzeme ve bağlam üzerinden önemli yapıların neden öne çıktığını öğren.",
-  },
-  {
-    title: "Mimari Kavramlar",
-    description:
-      "İşlev, bağlam, tipoloji, tektonik, mekân ve temsil gibi temel kavramları anlaşılır biçimde oku.",
-  },
-];
 
 export default function ArchitectureGuidePage() {
   const collectionData = {
@@ -90,19 +68,30 @@ export default function ArchitectureGuidePage() {
         </header>
 
         <section className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {topics.map((topic) => (
-            <article
-              key={topic.title}
+          {architectureCategories.map((category) => {
+            const count = architectureArticles.filter(
+              (article) => article.category === category.label
+            ).length;
+            return (
+            <Link
+              key={category.slug}
+              href={`/mimarlik/kategori/${category.slug}`}
               className="rounded-3xl border border-slate-800 bg-slate-900 p-6"
             >
               <h2 className="text-xl font-semibold text-cyan-300">
-                {topic.title}
+                {category.name}
               </h2>
               <p className="mt-3 leading-7 text-slate-400">
-                {topic.description}
+                {category.description}
               </p>
-            </article>
-          ))}
+              <p className="mt-4 text-sm text-slate-500">
+                {count > 0 ? `${count} kapsamlı içerik` : "İçerik planı hazır"}
+              </p>
+              <span className="mt-4 inline-flex font-semibold text-cyan-400">
+                Başlığı aç →
+              </span>
+            </Link>
+          )})}
         </section>
 
         <section className="mt-16">

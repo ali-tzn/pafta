@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ConsentManager from "./components/ConsentManager";
 import { siteConfig } from "@/lib/site";
-
+const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -66,6 +66,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
+       <head>
+    {adsenseClient && (
+      <meta
+        name="google-adsense-account"
+        content={adsenseClient}
+      />
+    )}
+  </head>
       <body className="bg-slate-950 text-white antialiased">
         <script
           type="application/ld+json"

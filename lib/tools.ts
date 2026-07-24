@@ -18,6 +18,15 @@ export const tools: Tool[] = [
     status: "Hazır",
   },
   {
+    title: "Pafta Boyutu ve Ölçek Dönüştürücü",
+    description:
+      "Paftayı farklı bir kâğıt boyutuna sığdırırken baskı yüzdesini ve oluşacak yeni ölçeği hesapla.",
+    href: "/tools/sheet-scale-converter",
+    icon: "↔",
+    category: "Pafta ve Baskı",
+    status: "Hazır",
+  },
+  {
     title: "Merdiven Hesaplayıcı",
     description:
       "Kat yüksekliğine göre rıht sayısını, basamak genişliğini ve yatay uzunluğu hesapla.",
@@ -108,4 +117,3 @@ export const tools: Tool[] = [
   icon: "🎨",
   },
 ];
-

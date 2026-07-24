@@ -15,6 +15,7 @@ const routes = [
   "/tools/ramp-calculator",
   "/tools/roof-calculator",
   "/tools/scale-calculator",
+  "/tools/sheet-scale-converter",
   "/tools/slope-calculator",
   "/tools/stair-calculator",
   "/tools/taks-kaks",

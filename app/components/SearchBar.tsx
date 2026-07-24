@@ -9,6 +9,10 @@ const tools = [
     href: "/tools/scale-calculator",
   },
   {
+    title: "Pafta Boyutu ve Ölçek Dönüştürücü",
+    href: "/tools/sheet-scale-converter",
+  },
+  {
     title: "Merdiven Hesaplayıcı",
     href: "/tools/stair-calculator",
   },

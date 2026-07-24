@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import CookieSettingsButton from "./CookieSettingsButton";
 
 export default function Footer() {
   return (
@@ -22,14 +23,24 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-400">
-          <Link href="/" className="transition hover:text-white">
-            Ana Sayfa
-          </Link>
-
-          <Link href="/tools" className="transition hover:text-white">
-            Araçlar
-          </Link>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-400 sm:grid-cols-3">
+          {[
+            ["Ana Sayfa", "/"],
+            ["Araçlar", "/tools"],
+            ["Hakkımızda", "/about"],
+            ["İletişim", "/contact"],
+            ["Gizlilik", "/privacy"],
+            ["Kullanım Koşulları", "/terms"],
+          ].map(([label, href]) => (
+            <Link
+              key={href}
+              href={href}
+              className="transition hover:text-white"
+            >
+              {label}
+            </Link>
+          ))}
+          <CookieSettingsButton />
         </div>
       </div>
 

@@ -127,7 +127,7 @@ export default function PdfToPngPage() {
         `${pdf.numPages} sayfalık PDF başarıyla yüklendi.`
       );
 
-      await pdf.destroy();
+      pdf.cleanup();
     } catch {
       setMessage(
         "PDF okunamadı. Dosya bozuk, şifreli veya desteklenmeyen bir yapıda olabilir."
@@ -266,7 +266,7 @@ export default function PdfToPngPage() {
         `${newPages.length} sayfa PNG formatına dönüştürüldü.`
       );
 
-      await pdf.destroy();
+      pdf.cleanup();
     } catch {
       setMessage(
         "PDF sayfaları dönüştürülürken bir sorun oluştu."

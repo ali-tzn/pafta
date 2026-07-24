@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
 };
 
-const contactEmail = "alitzngvn@gmail.com";
+const contactEmail = "iletisim@paftaedu.com";
 
 export default function ContactPage() {
   return (

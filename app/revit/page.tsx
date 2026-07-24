@@ -20,7 +20,7 @@ const articles = [
     description:
       "Revit malzemelerinin D5 Render içinde doğru şekilde ayrılması ve görünmesi.",
     href: "/revit/d5-render-malzeme-aktarma",
-    status: "Yakında",
+    status: "Hazır",
   },
 ];
 

@@ -40,6 +40,20 @@ export default function AboutPage() {
             </p>
           </section>
 
+          <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold">
+              Öğrenci deneyiminden doğan bir proje
+            </h2>
+            <p className="mt-4 leading-7 text-slate-300">
+              PAFTA, Özyeğin Üniversitesi Mimarlık Bölümü 4. sınıf öğrencisi
+              tarafından geliştiriliyor. Mimarlık eğitimi sırasında eksikliği
+              hissedilen hesaplama araçlarını, dosya işlemlerini ve uygulama
+              rehberlerini daha erişilebilir hâle getirmek amacıyla oluşturuldu.
+              Platformdaki içerikler ve araçlar, öğrencilik sürecinde karşılaşılan
+              gerçek ihtiyaçlardan yola çıkarak geliştiriliyor.
+            </p>
+          </section>
+
           <section className="grid gap-5 sm:grid-cols-3">
             {[
               {

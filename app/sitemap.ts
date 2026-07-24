@@ -39,6 +39,7 @@ const routes = [
   "/pdf-tools/watermark",
   "/revit",
   "/revit/kolon-yuzeyine-siva-ekleme",
+  "/revit/d5-render-malzeme-aktarma",
   "/revit/wall-sweep-neden-secilmiyor",
   "/bim",
   "/bim/bim-nedir",

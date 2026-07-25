@@ -9,11 +9,14 @@ import {
   useState,
 } from "react";
 import { PDFDocument } from "pdf-lib";
+import { trackToolEvent } from "@/lib/analytics";
+import RelatedTools from "@/app/components/RelatedTools";
 
 type PdfFileItem = {
   id: string;
   file: File;
   pageCount: number | null;
+  pageRange: string;
   error: string | null;
 };
 
@@ -30,21 +33,13 @@ export default function MergePdfPage() {
   const [isReading, setIsReading] = useState(false);
   const [isMerging, setIsMerging] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [draggedFileId, setDraggedFileId] = useState<string | null>(null);
 
   const [message, setMessage] = useState("");
 
   const validFiles = useMemo(
     () => files.filter((item) => item.error === null),
     [files]
-  );
-
-  const totalPageCount = useMemo(
-    () =>
-      validFiles.reduce(
-        (total, item) => total + (item.pageCount ?? 0),
-        0
-      ),
-    [validFiles]
   );
 
   const totalFileSize = useMemo(
@@ -92,6 +87,7 @@ export default function MergePdfPage() {
           id: createId(),
           file,
           pageCount: null,
+          pageRange: "",
           error: "Dosya boyutu 100 MB sınırını aşıyor.",
         });
 
@@ -109,6 +105,7 @@ export default function MergePdfPage() {
           id: createId(),
           file,
           pageCount: pdf.getPageCount(),
+          pageRange: `1-${pdf.getPageCount()}`,
           error: null,
         });
       } catch {
@@ -116,6 +113,7 @@ export default function MergePdfPage() {
           id: createId(),
           file,
           pageCount: null,
+          pageRange: "",
           error:
             "Dosya okunamadı. Şifreli veya bozuk bir PDF olabilir.",
         });
@@ -214,6 +212,40 @@ export default function MergePdfPage() {
     setMessage("");
   }
 
+  function updatePageRange(id: string, pageRange: string) {
+    setFiles((currentFiles) =>
+      currentFiles.map((item) =>
+        item.id === id ? { ...item, pageRange } : item
+      )
+    );
+  }
+
+  function reorderFiles(sourceId: string, targetId: string) {
+    if (sourceId === targetId) return;
+
+    setFiles((currentFiles) => {
+      const sourceIndex = currentFiles.findIndex((item) => item.id === sourceId);
+      const targetIndex = currentFiles.findIndex((item) => item.id === targetId);
+      if (sourceIndex < 0 || targetIndex < 0) return currentFiles;
+
+      const updated = [...currentFiles];
+      const [movedItem] = updated.splice(sourceIndex, 1);
+      updated.splice(targetIndex, 0, movedItem);
+      return updated;
+    });
+  }
+
+  const selectedPageCount = useMemo(
+    () =>
+      validFiles.reduce(
+        (total, item) =>
+          total +
+          parsePageRange(item.pageRange, item.pageCount ?? 0).length,
+        0
+      ),
+    [validFiles]
+  );
+
   async function mergeFiles() {
     if (validFiles.length < 2) {
       setMessage(
@@ -238,11 +270,16 @@ export default function MergePdfPage() {
             ignoreEncryption: false,
           });
 
-        const copiedPages =
-          await mergedPdf.copyPages(
-            sourcePdf,
-            sourcePdf.getPageIndices()
-          );
+        const selectedIndices = parsePageRange(
+          item.pageRange,
+          sourcePdf.getPageCount()
+        ).map((pageNumber) => pageNumber - 1);
+
+        if (selectedIndices.length === 0) {
+          throw new Error(`${item.file.name} için geçerli sayfa seçilmedi.`);
+        }
+
+        const copiedPages = await mergedPdf.copyPages(sourcePdf, selectedIndices);
 
         copiedPages.forEach((page) => {
           mergedPdf.addPage(page);
@@ -297,8 +334,12 @@ export default function MergePdfPage() {
       }, 1000);
 
       setMessage(
-        `${validFiles.length} PDF ve ${totalPageCount} sayfa başarıyla birleştirildi.`
+        `${validFiles.length} PDF ve ${selectedPageCount} seçili sayfa başarıyla birleştirildi.`
       );
+      trackToolEvent("pdf_merge", "completed", {
+        file_count: validFiles.length,
+        page_count: selectedPageCount,
+      });
     } catch {
       setMessage(
         "PDF dosyaları birleştirilirken bir sorun oluştu. Şifreli veya hasarlı dosya bulunup bulunmadığını kontrol et."
@@ -440,8 +481,8 @@ export default function MergePdfPage() {
                   </h2>
 
                   <p className="mt-2 text-sm text-slate-400">
-                    PDF dosyaları aşağıdaki sıraya
-                    göre birleştirilecektir.
+                    Kartları sürükleyerek sırala; istersen her dosyadan alınacak
+                    sayfaları ayrıca seç.
                   </p>
                 </div>
 
@@ -465,10 +506,21 @@ export default function MergePdfPage() {
                   files.map((item, index) => (
                     <div
                       key={item.id}
+                      draggable={!item.error}
+                      onDragStart={() => setDraggedFileId(item.id)}
+                      onDragEnd={() => setDraggedFileId(null)}
+                      onDragOver={(event) => event.preventDefault()}
+                      onDrop={(event) => {
+                        event.preventDefault();
+                        if (draggedFileId) reorderFiles(draggedFileId, item.id);
+                        setDraggedFileId(null);
+                      }}
                       className={`rounded-2xl border p-4 ${
                         item.error
                           ? "border-red-400/30 bg-red-400/10"
-                          : "border-slate-800 bg-slate-950"
+                          : draggedFileId === item.id
+                            ? "border-cyan-400 bg-cyan-400/10 opacity-70"
+                            : "cursor-grab border-slate-800 bg-slate-950 active:cursor-grabbing"
                       }`}
                     >
                       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -549,6 +601,29 @@ export default function MergePdfPage() {
                           </button>
                         </div>
                       </div>
+
+                      {!item.error && item.pageCount !== null && (
+                        <div className="mt-4 border-t border-slate-800 pt-4">
+                          <label className="block">
+                            <span className="text-xs font-semibold text-slate-400">
+                              Alınacak sayfalar
+                            </span>
+                            <input
+                              value={item.pageRange}
+                              onChange={(event) =>
+                                updatePageRange(item.id, event.target.value)
+                              }
+                              onMouseDown={(event) => event.stopPropagation()}
+                              placeholder="Örnek: 1-3, 5, 8"
+                              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm outline-none focus:border-cyan-400"
+                            />
+                          </label>
+                          <p className="mt-2 text-xs text-slate-500">
+                            {parsePageRange(item.pageRange, item.pageCount).length} /{" "}
+                            {item.pageCount} sayfa seçili
+                          </p>
+                        </div>
+                      )}
                     </div>
                   ))
                 )}
@@ -605,9 +680,9 @@ export default function MergePdfPage() {
                 />
 
                 <SummaryValue
-                  label="Toplam sayfa"
+                  label="Seçili sayfa"
                   value={String(
-                    totalPageCount
+                    selectedPageCount
                   )}
                 />
               </div>
@@ -671,6 +746,7 @@ export default function MergePdfPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools currentHref="/pdf-tools/merge" kind="pdf" />
       </div>
     </main>
   );
@@ -758,4 +834,37 @@ function formatFileSize(bytes: number) {
       maximumFractionDigits: 2,
     }
   )} ${units[unitIndex]}`;
+}
+
+function parsePageRange(value: string, pageCount: number) {
+  if (pageCount < 1) return [];
+
+  const normalized = value.trim();
+  if (!normalized) return [];
+
+  const pages = new Set<number>();
+
+  normalized.split(",").forEach((part) => {
+    const piece = part.trim();
+    if (!piece) return;
+
+    if (piece.includes("-")) {
+      const [rawStart, rawEnd] = piece.split("-");
+      const start = Number.parseInt(rawStart, 10);
+      const end = Number.parseInt(rawEnd, 10);
+      if (!Number.isInteger(start) || !Number.isInteger(end)) return;
+
+      const lower = Math.max(1, Math.min(start, end));
+      const upper = Math.min(pageCount, Math.max(start, end));
+      for (let page = lower; page <= upper; page += 1) pages.add(page);
+      return;
+    }
+
+    const page = Number.parseInt(piece, 10);
+    if (Number.isInteger(page) && page >= 1 && page <= pageCount) {
+      pages.add(page);
+    }
+  });
+
+  return Array.from(pages).sort((a, b) => a - b);
 }

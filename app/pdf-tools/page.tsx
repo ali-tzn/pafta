@@ -2,6 +2,14 @@ import Link from "next/link";
 
 const pdfTools = [
   {
+    title: "Mimari Teslim Kontrol Merkezi",
+    description:
+      "Pafta veya portfolyonu yükle; teslim ölçüsü, yönü, dosya boyutu ve teknik şartları otomatik kontrol et.",
+    href: "/teslim-araclari/kontrol-merkezi",
+    icon: "✓",
+    status: "Hazır",
+  },
+  {
     title: "PDF Birleştirme",
     description:
       "Birden fazla PDF dosyasını istediğin sırayla tek bir PDF halinde birleştir.",

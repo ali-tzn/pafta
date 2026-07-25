@@ -1,10 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import RelatedTools from "@/app/components/RelatedTools";
+import { trackToolEvent } from "@/lib/analytics";
 
 export default function ScaleCalculatorPage() {
   const [realSize, setRealSize] = useState("");
   const [scale, setScale] = useState("50");
+  const [copyStatus, setCopyStatus] = useState("");
 
   const result = useMemo(() => {
     const value = Number(realSize);
@@ -13,6 +16,17 @@ export default function ScaleCalculatorPage() {
 
     return (value / Number(scale)).toFixed(2);
   }, [realSize, scale]);
+
+  async function copyResult() {
+    if (!result) return;
+    await navigator.clipboard.writeText(
+      `${realSize} cm gerçek ölçü, 1/${scale} ölçekte çizimde ${result} cm olur.`
+    );
+    setCopyStatus("Sonuç kopyalandı.");
+    trackToolEvent("scale_calculator", "result_copied", {
+      scale: Number(scale),
+    });
+  }
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-12">
@@ -65,7 +79,21 @@ export default function ScaleCalculatorPage() {
             </h2>
           </div>
 
+          {result && (
+            <button
+              type="button"
+              onClick={copyResult}
+              className="mt-4 w-full rounded-xl border border-cyan-400/40 px-4 py-3 font-semibold text-cyan-300 hover:bg-cyan-400/10"
+            >
+              Sonucu kopyala
+            </button>
+          )}
+          {copyStatus && (
+            <p className="mt-3 text-center text-sm text-slate-400">{copyStatus}</p>
+          )}
+
         </div>
+        <RelatedTools currentHref="/tools/scale-calculator" kind="calculation" />
       </div>
     </main>
   );

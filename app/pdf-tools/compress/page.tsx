@@ -9,6 +9,8 @@ import {
   useState,
 } from "react";
 import { PDFDocument } from "pdf-lib";
+import { trackToolEvent } from "@/lib/analytics";
+import RelatedTools from "@/app/components/RelatedTools";
 
 type CompressionPreset = {
   id: "light" | "balanced" | "strong";
@@ -349,6 +351,11 @@ export default function CompressPdfPage() {
             savedPercent
           )} azaltıldı.`
         );
+        trackToolEvent("pdf_compress", "completed", {
+          page_count: pageCount,
+          preset: selectedPreset,
+          saved_percent: Math.round(savedPercent),
+        });
       } else {
         setMessage(
           "PDF hazırlandı ancak çıktı dosyası orijinalden daha küçük olmadı. Daha güçlü sıkıştırma seçeneğini dene."
@@ -790,6 +797,7 @@ export default function CompressPdfPage() {
             </section>
           </aside>
         </div>
+        <RelatedTools currentHref="/pdf-tools/compress" kind="pdf" />
       </div>
     </main>
   );

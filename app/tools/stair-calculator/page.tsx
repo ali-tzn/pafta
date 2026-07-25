@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import RelatedTools from "@/app/components/RelatedTools";
+import { trackToolEvent } from "@/lib/analytics";
 
 type StairOption = {
   riserCount: number;
@@ -13,6 +15,7 @@ type StairOption = {
 
 export default function StairCalculatorPage() {
   const [floorHeight, setFloorHeight] = useState("300");
+  const [copyStatus, setCopyStatus] = useState("");
 
   const options = useMemo<StairOption[]>(() => {
     const height = Number(floorHeight);
@@ -66,6 +69,22 @@ export default function StairCalculatorPage() {
   }, [floorHeight]);
 
   const recommendedOption = options[0];
+
+  async function copyRecommendedOption() {
+    if (!recommendedOption) return;
+    const text = [
+      "PAFTA MERDİVEN HESAP ÖZETİ",
+      `Kat yüksekliği: ${floorHeight} cm`,
+      `Rıht sayısı: ${recommendedOption.riserCount}`,
+      `Rıht yüksekliği: ${recommendedOption.riserHeight.toFixed(2)} cm`,
+      `Basamak genişliği: ${recommendedOption.treadDepth.toFixed(2)} cm`,
+      `Basamak sayısı: ${recommendedOption.riserCount - 1}`,
+      `Toplam yatay uzunluk: ${recommendedOption.horizontalLength.toFixed(2)} cm`,
+    ].join("\n");
+    await navigator.clipboard.writeText(text);
+    setCopyStatus("Önerilen çözüm kopyalandı.");
+    trackToolEvent("stair_calculator", "result_copied");
+  }
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
@@ -182,6 +201,16 @@ export default function StairCalculatorPage() {
                       {recommendedOption.status}
                     </span>
                   </div>
+                  <button
+                    type="button"
+                    onClick={copyRecommendedOption}
+                    className="mt-5 rounded-xl border border-cyan-400/40 bg-slate-950 px-4 py-3 text-sm font-semibold text-cyan-300 hover:bg-cyan-400/10"
+                  >
+                    Önerilen çözümü kopyala
+                  </button>
+                  {copyStatus && (
+                    <span className="ml-3 text-sm text-slate-400">{copyStatus}</span>
+                  )}
                 </div>
 
                 <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900">
@@ -249,6 +278,7 @@ export default function StairCalculatorPage() {
             )}
           </section>
         </div>
+        <RelatedTools currentHref="/tools/stair-calculator" kind="calculation" />
       </div>
     </main>
   );

@@ -9,6 +9,24 @@ export type Tool = {
 
 export const tools: Tool[] = [
   {
+    title: "Mimarlık Birim Dönüştürücü",
+    description:
+      "Uzunluk, alan ve hacim birimlerini dönüştür; gerçek ölçü ile pafta ölçüsü arasında hızlıca hesap yap.",
+    href: "/tools/architecture-unit-converter",
+    icon: "↔️",
+    category: "Temel Hesaplar",
+    status: "Hazır",
+  },
+  {
+    title: "TAKS–KAKS ve Emsal Hesaplama",
+    description:
+      "Parsel alanı, TAKS ve KAKS değerlerinden maksimum taban oturumunu, toplam emsale esas alanı ve yaklaşık kat alanını hesapla.",
+    href: "/tools/taks-kaks",
+    icon: "🏗️",
+    category: "İmar Hesapları",
+    status: "Hazır",
+  },
+  {
     title: "Ölçek Hesaplayıcı",
     description:
       "Gerçek ölçüyü seçtiğin ölçeğe göre çizim ölçüsüne dönüştür.",

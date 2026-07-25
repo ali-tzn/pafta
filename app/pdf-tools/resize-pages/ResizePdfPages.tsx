@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { ChangeEvent, DragEvent, useRef, useState } from "react";
 import { PDFDocument, rgb } from "pdf-lib";
+import { trackToolEvent } from "@/lib/analytics";
+import RelatedTools from "@/app/components/RelatedTools";
 
 type PaperKey = "A0" | "A1" | "A2" | "A3" | "A4" | "A5" | "CUSTOM";
 type Orientation = "landscape" | "portrait";
-type ResizeMode = "fit" | "preserve";
+type ResizeMode = "fit" | "preserve" | "scale";
 
 const papers: Record<Exclude<PaperKey, "CUSTOM">, [number, number]> = {
   A0: [841, 1189],
@@ -43,6 +45,7 @@ export default function ResizePdfPages() {
   const [customHeight, setCustomHeight] = useState(297);
   const [mode, setMode] = useState<ResizeMode>("fit");
   const [currentScale, setCurrentScale] = useState(100);
+  const [targetScale, setTargetScale] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
   const [message, setMessage] = useState("");
@@ -123,7 +126,9 @@ export default function ResizePdfPages() {
         const factor =
           mode === "fit"
             ? Math.min(targetWidth / sourceWidth, targetHeight / sourceHeight)
-            : 1;
+            : mode === "scale"
+              ? currentScale / targetScale
+              : 1;
         const width = sourceWidth * factor;
         const height = sourceHeight * factor;
         const page = output.addPage([targetWidth, targetHeight]);
@@ -155,6 +160,12 @@ export default function ResizePdfPages() {
       anchor.click();
       URL.revokeObjectURL(url);
       setMessage("Yeni PDF oluşturuldu ve indirildi.");
+      trackToolEvent("pdf_resize_scale", "completed", {
+        mode,
+        target_paper: paper,
+        current_scale: currentScale,
+        target_scale: mode === "scale" ? targetScale : undefined,
+      });
     } catch {
       setMessage("PDF oluşturulurken bir sorun meydana geldi.");
     } finally {
@@ -166,9 +177,23 @@ export default function ResizePdfPages() {
   const fitFactor = firstPage
     ? Math.min(targetWidth / firstPage[0], targetHeight / firstPage[1])
     : null;
-  const appliedFactor = mode === "preserve" ? 1 : fitFactor;
+  const appliedFactor =
+    mode === "preserve"
+      ? 1
+      : mode === "scale"
+        ? currentScale / targetScale
+        : fitFactor;
   const resultingScale =
     appliedFactor && currentScale > 0 ? currentScale / appliedFactor : null;
+  const scaledContentSize =
+    firstPage && appliedFactor
+      ? [firstPage[0] * appliedFactor, firstPage[1] * appliedFactor]
+      : null;
+  const contentWillOverflow = Boolean(
+    scaledContentSize &&
+      (scaledContentSize[0] > targetWidth ||
+        scaledContentSize[1] > targetHeight)
+  );
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
@@ -299,7 +324,7 @@ export default function ResizePdfPages() {
 
           <div className="md:col-span-2">
             <p className="text-sm font-semibold text-slate-300">İşlem modu</p>
-            <div className="mt-3 grid gap-3 md:grid-cols-2">
+            <div className="mt-3 grid gap-3 md:grid-cols-3">
               <button
                 type="button"
                 onClick={() => setMode("fit")}
@@ -328,6 +353,20 @@ export default function ResizePdfPages() {
                   İçerik %100 kalır; küçük kâğıtta taşan alan kırpılır.
                 </span>
               </button>
+              <button
+                type="button"
+                onClick={() => setMode("scale")}
+                className={`rounded-2xl border p-4 text-left ${
+                  mode === "scale"
+                    ? "border-cyan-400 bg-cyan-400/10"
+                    : "border-slate-700 bg-slate-950"
+                }`}
+              >
+                <strong>Yeni ölçeğe dönüştür</strong>
+                <span className="mt-1 block text-sm text-slate-400">
+                  Örneğin 1/100 çizimi 1/50 veya 1/200 ölçeğe getirir.
+                </span>
+              </button>
             </div>
           </div>
 
@@ -344,6 +383,23 @@ export default function ResizePdfPages() {
             />
           </label>
 
+          {mode === "scale" && (
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-300">
+                Hedef çizim ölçeği (1/x)
+              </span>
+              <input
+                type="number"
+                min="1"
+                value={targetScale}
+                onChange={(event) =>
+                  setTargetScale(Math.max(1, Number(event.target.value) || 1))
+                }
+                className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 p-3"
+              />
+            </label>
+          )}
+
           <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4">
             <p className="text-sm text-slate-300">Hedef sayfa</p>
             <p className="mt-1 text-xl font-semibold text-cyan-300">
@@ -356,6 +412,19 @@ export default function ResizePdfPages() {
               </p>
             )}
           </div>
+
+          {contentWillOverflow && (
+            <div className="rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 md:col-span-2">
+              <p className="font-semibold text-amber-300">
+                İçerik hedef kâğıda sığmıyor
+              </p>
+              <p className="mt-2 text-sm leading-6 text-amber-100">
+                Ölçekli içerik yaklaşık {scaledContentSize?.[0].toFixed(1)} ×{" "}
+                {scaledContentSize?.[1].toFixed(1)} mm olacak. Daha büyük bir
+                kâğıt seçmezsen taşan kenarlar kırpılır.
+              </p>
+            </div>
+          )}
         </section>
 
         {mode === "preserve" && firstPage && fitFactor && fitFactor < 1 && (
@@ -379,6 +448,7 @@ export default function ResizePdfPages() {
             {message}
           </p>
         )}
+        <RelatedTools currentHref="/pdf-tools/resize-pages" kind="pdf" />
       </div>
     </main>
   );

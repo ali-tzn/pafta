@@ -5,6 +5,6 @@ export const siteConfig = {
     "Mimarlık öğrencileri için ücretsiz hesaplama araçları, PDF araçları, Revit ve BIM rehberleri ile proje kaynakları.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-    "http://localhost:3000",
+    "https://paftaedu.com",
   locale: "tr_TR",
 } as const;

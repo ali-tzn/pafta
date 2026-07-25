@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { trackToolEvent } from "@/lib/analytics";
+import RelatedTools from "@/app/components/RelatedTools";
 
 type CalculationResult = {
   parcelArea: number;
@@ -42,6 +44,7 @@ export default function TaksKaksPage() {
   const [kaks, setKaks] = useState("");
   const [floorCount, setFloorCount] = useState("");
   const [floorHeight, setFloorHeight] = useState("3,20");
+  const [copyStatus, setCopyStatus] = useState("");
 
   const parsedParcelArea = parsePositiveNumber(parcelArea);
   const parsedUsableParcelArea =
@@ -214,6 +217,82 @@ export default function TaksKaksPage() {
     setKaks("");
     setFloorCount("");
     setFloorHeight("3,20");
+    setCopyStatus("");
+  }
+
+  async function copyResult() {
+    if (!result) return;
+
+    const lines = [
+      "PAFTA TAKS–KAKS HESAP ÖZETİ",
+      `Parsel alanı: ${formatNumber(result.parcelArea)} m²`,
+      `Hesapta kullanılan alan: ${formatNumber(result.usableParcelArea)} m²`,
+      `TAKS: ${formatDecimal(result.taks)}`,
+      `KAKS / Emsal: ${formatDecimal(result.kaks)}`,
+      `Maksimum taban oturumu: ${formatNumber(result.maximumFootprint)} m²`,
+      `Toplam emsale esas alan: ${formatNumber(result.totalEquivalentArea)} m²`,
+      result.approximateFloorArea !== null
+        ? `Yaklaşık kat başına alan: ${formatNumber(result.approximateFloorArea)} m²`
+        : null,
+      `Yaklaşık açık alan: ${formatNumber(result.openArea)} m²`,
+      result.estimatedBuildingHeight !== null
+        ? `Yaklaşık yapı yüksekliği: ${formatNumber(result.estimatedBuildingHeight)} m`
+        : null,
+      "",
+      "Not: Bu sonuç ön hesaplamadır; imar durumu ve plan notlarıyla doğrulanmalıdır.",
+    ].filter((line): line is string => line !== null);
+
+    try {
+      await navigator.clipboard.writeText(lines.join("\n"));
+      setCopyStatus("Sonuç panoya kopyalandı.");
+      trackToolEvent("taks_kaks", "result_copied", {
+        parcel_area: result.parcelArea,
+      });
+    } catch {
+      setCopyStatus("Kopyalama başarısız oldu. Tarayıcı iznini kontrol et.");
+    }
+  }
+
+  function printResult() {
+    if (!result) return;
+
+    const reportWindow = window.open("", "_blank");
+    if (!reportWindow) {
+      setCopyStatus("Rapor penceresi açılamadı. Açılır pencere iznini kontrol et.");
+      return;
+    }
+
+    const rows = [
+      ["Parsel alanı", `${formatNumber(result.parcelArea)} m²`],
+      ["Hesapta kullanılan alan", `${formatNumber(result.usableParcelArea)} m²`],
+      ["TAKS", formatDecimal(result.taks)],
+      ["KAKS / Emsal", formatDecimal(result.kaks)],
+      ["Maksimum taban oturumu", `${formatNumber(result.maximumFootprint)} m²`],
+      ["Toplam emsale esas alan", `${formatNumber(result.totalEquivalentArea)} m²`],
+      ["Yaklaşık açık alan", `${formatNumber(result.openArea)} m²`],
+    ];
+
+    reportWindow.document.write(`<!doctype html>
+      <html lang="tr"><head><meta charset="utf-8"><title>PAFTA TAKS–KAKS Raporu</title>
+      <style>
+        body{font-family:Arial,sans-serif;color:#0f172a;margin:40px;line-height:1.5}
+        h1{font-size:26px;margin:0 0 6px}.sub{color:#64748b;margin-bottom:28px}
+        table{width:100%;border-collapse:collapse}td{border-bottom:1px solid #cbd5e1;padding:12px 6px}
+        td:last-child{text-align:right;font-weight:700}.note{margin-top:28px;padding:14px;background:#fef3c7;font-size:13px}
+        .brand{color:#0891b2;font-weight:700;font-size:12px;letter-spacing:2px}
+        @media print{body{margin:18mm}}
+      </style></head><body>
+      <div class="brand">PAFTA / HESAP RAPORU</div>
+      <h1>TAKS–KAKS ve Emsal Hesabı</h1>
+      <div class="sub">${new Date().toLocaleDateString("tr-TR")} tarihinde oluşturuldu.</div>
+      <table>${rows
+        .map(([label, value]) => `<tr><td>${label}</td><td>${value}</td></tr>`)
+        .join("")}</table>
+      <div class="note">Bu belge matematiksel ön hesaplamadır. Kesin yapılaşma hakkı için imar durumu, plan notları ve ilgili belediye uygulamaları doğrulanmalıdır.</div>
+      <script>window.onload=()=>window.print()<\/script>
+      </body></html>`);
+    reportWindow.document.close();
+    trackToolEvent("taks_kaks", "report_opened");
   }
 
   const calculationReady =
@@ -588,6 +667,28 @@ export default function TaksKaksPage() {
                       olabilir.
                     </p>
                   </div>
+
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={copyResult}
+                      className="rounded-xl border border-cyan-400/40 bg-slate-950 px-3 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/10"
+                    >
+                      Özeti kopyala
+                    </button>
+                    <button
+                      type="button"
+                      onClick={printResult}
+                      className="rounded-xl border border-violet-400/40 bg-slate-950 px-3 py-3 text-sm font-semibold text-violet-300 transition hover:bg-violet-400/10"
+                    >
+                      Yazdır / PDF kaydet
+                    </button>
+                  </div>
+                  {copyStatus && (
+                    <p className="mt-3 text-center text-sm text-slate-300">
+                      {copyStatus}
+                    </p>
+                  )}
                 </>
               ) : (
                 <div className="mt-7 flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-700 bg-slate-950 px-6 text-center">
@@ -609,6 +710,7 @@ export default function TaksKaksPage() {
             </div>
           </aside>
         </div>
+        <RelatedTools currentHref="/tools/taks-kaks" kind="calculation" />
       </div>
     </main>
   );

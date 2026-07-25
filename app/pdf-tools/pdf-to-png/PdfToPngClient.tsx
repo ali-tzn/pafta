@@ -9,12 +9,15 @@ import {
   useState,
 } from "react";
 import JSZip from "jszip";
+import { trackToolEvent } from "@/lib/analytics";
 
 type ResolutionOption = {
   label: string;
   description: string;
-  scale: number;
+  dpi: number;
 };
+
+type OutputFormat = "png" | "jpeg";
 
 type ConvertedPage = {
   pageNumber: number;
@@ -29,17 +32,17 @@ const resolutionOptions: ResolutionOption[] = [
   {
     label: "Standart",
     description: "Ekran görüntüleme ve hızlı dönüşüm",
-    scale: 1.5,
+    dpi: 96,
   },
   {
     label: "Yüksek",
     description: "Sunumlar ve çoğu pafta kullanımı",
-    scale: 2,
+    dpi: 150,
   },
   {
-    label: "Çok yüksek",
-    description: "Daha keskin çıktı, daha büyük dosya",
-    scale: 3,
+    label: "Baskı",
+    description: "Büyük pafta ve keskin baskı çıktısı",
+    dpi: 300,
   },
 ];
 
@@ -57,7 +60,9 @@ export default function PdfToPngClient({
 
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
-  const [selectedScale, setSelectedScale] = useState(2);
+  const [selectedDpi, setSelectedDpi] = useState(150);
+  const [outputFormat, setOutputFormat] = useState<OutputFormat>("png");
+  const [jpegQuality, setJpegQuality] = useState(90);
   const [pageRange, setPageRange] = useState("");
   const [outputPrefix, setOutputPrefix] = useState("PAFTA");
   const [convertedPages, setConvertedPages] = useState<
@@ -213,7 +218,7 @@ export default function PdfToPngClient({
         const page = await pdf.getPage(pageNumber);
 
         const viewport = page.getViewport({
-          scale: selectedScale,
+          scale: selectedDpi / 72,
         });
 
         const canvas = document.createElement("canvas");
@@ -242,14 +247,19 @@ export default function PdfToPngClient({
           canvas,
         }).promise;
 
-        const blob = await canvasToBlob(canvas);
+        const blob = await canvasToBlob(
+          canvas,
+          outputFormat,
+          jpegQuality / 100
+        );
+        const extension = outputFormat === "png" ? "png" : "jpg";
 
         const fileName = `${normalizeFileName(
           outputPrefix
         )}_SAYFA_${String(pageNumber).padStart(
           2,
           "0"
-        )}.png`;
+        )}.${extension}`;
 
         newPages.push({
           pageNumber,
@@ -272,8 +282,13 @@ export default function PdfToPngClient({
       setConvertedPages(newPages);
 
       setMessage(
-        `${newPages.length} sayfa PNG formatına dönüştürüldü.`
+        `${newPages.length} sayfa ${outputFormat === "png" ? "PNG" : "JPG"} formatına dönüştürüldü.`
       );
+      trackToolEvent("pdf_to_image", "completed", {
+        page_count: newPages.length,
+        output_format: outputFormat,
+        dpi: selectedDpi,
+      });
 
       await loadingTask.destroy();
     } catch {
@@ -300,7 +315,8 @@ export default function PdfToPngClient({
     try {
       const zip = new JSZip();
       const folderName =
-        normalizeFileName(outputPrefix) || "PAFTA_PNG";
+        normalizeFileName(outputPrefix) ||
+        `PAFTA_${outputFormat === "png" ? "PNG" : "JPG"}`;
 
       const folder = zip.folder(folderName);
 
@@ -324,7 +340,7 @@ export default function PdfToPngClient({
 
       triggerDownload(
         zipUrl,
-        `${folderName}_PNG.zip`
+        `${folderName}_${outputFormat === "png" ? "PNG" : "JPG"}.zip`
       );
 
       window.setTimeout(() => {
@@ -332,7 +348,7 @@ export default function PdfToPngClient({
       }, 1000);
 
       setMessage(
-        `${convertedPages.length} PNG dosyası ZIP olarak hazırlandı.`
+        `${convertedPages.length} ${outputFormat === "png" ? "PNG" : "JPG"} dosyası ZIP olarak hazırlandı.`
       );
     } catch {
       setMessage(
@@ -395,11 +411,11 @@ export default function PdfToPngClient({
           </p>
 
           <h1 className="mt-3 text-4xl font-bold md:text-5xl">
-            PDF’yi Ücretsiz PNG’ye Dönüştür
+            PDF’yi PNG veya JPG’ye Dönüştür
           </h1>
 
           <p className="mt-5 text-lg leading-8 text-slate-300">
-            PDF sayfalarını yüksek çözünürlüklü PNG
+            PDF sayfalarını 96, 150 veya 300 DPI çözünürlükte PNG ya da JPG
             görsellerine dönüştür. Sayfaları ayrı ayrı veya
             tek ZIP dosyası içinde indir.
           </p>
@@ -510,20 +526,20 @@ export default function PdfToPngClient({
 
               <div className="mt-6">
                 <p className="mb-3 text-sm font-medium text-slate-300">
-                  PNG çözünürlüğü
+                  Çıktı çözünürlüğü
                 </p>
 
                 <div className="grid gap-4 md:grid-cols-3">
                   {resolutionOptions.map((option) => {
                     const selected =
-                      selectedScale === option.scale;
+                      selectedDpi === option.dpi;
 
                     return (
                       <button
-                        key={option.scale}
+                        key={option.dpi}
                         type="button"
                         onClick={() =>
-                          setSelectedScale(option.scale)
+                          setSelectedDpi(option.dpi)
                         }
                         className={`rounded-2xl border p-5 text-left transition ${
                           selected
@@ -546,12 +562,67 @@ export default function PdfToPngClient({
                         </p>
 
                         <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                          {option.scale}×
+                          {option.dpi} DPI
                         </p>
                       </button>
                     );
                   })}
                 </div>
+              </div>
+
+              <div className="mt-7 grid gap-5 md:grid-cols-2">
+                <div>
+                  <p className="mb-3 text-sm font-medium text-slate-300">
+                    Çıktı formatı
+                  </p>
+                  <div className="grid grid-cols-2 gap-3">
+                    {([
+                      ["png", "PNG", "Çizgi ve yazılar için"],
+                      ["jpeg", "JPG", "Daha küçük dosya için"],
+                    ] as const).map(([value, label, detail]) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => {
+                          setOutputFormat(value);
+                          clearConvertedPages();
+                        }}
+                        className={`rounded-xl border p-4 text-left ${
+                          outputFormat === value
+                            ? "border-cyan-400 bg-cyan-400/10"
+                            : "border-slate-700 bg-slate-950"
+                        }`}
+                      >
+                        <strong>{label}</strong>
+                        <span className="mt-1 block text-xs text-slate-500">
+                          {detail}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {outputFormat === "jpeg" && (
+                  <label className="block">
+                    <span className="text-sm font-medium text-slate-300">
+                      JPG kalitesi: %{jpegQuality}
+                    </span>
+                    <input
+                      type="range"
+                      min="50"
+                      max="100"
+                      step="5"
+                      value={jpegQuality}
+                      onChange={(event) =>
+                        setJpegQuality(Number(event.target.value))
+                      }
+                      className="mt-5 w-full accent-cyan-400"
+                    />
+                    <span className="mt-2 block text-xs text-slate-500">
+                      Düşük kalite daha küçük, yüksek kalite daha net dosya oluşturur.
+                    </span>
+                  </label>
+                )}
               </div>
 
               <div className="mt-7 grid gap-5 md:grid-cols-2">
@@ -599,7 +670,8 @@ export default function PdfToPngClient({
                   />
 
                   <p className="mt-2 text-xs leading-5 text-slate-500">
-                    Örnek: PAFTA_SAYFA_01.png
+                    Örnek: PAFTA_SAYFA_01.
+                    {outputFormat === "png" ? "png" : "jpg"}
                   </p>
                 </div>
               </div>
@@ -663,7 +735,7 @@ export default function PdfToPngClient({
                           }
                           className="mt-4 w-full rounded-xl border border-cyan-400/30 px-4 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/10"
                         >
-                          PNG’yi indir
+                          {outputFormat === "png" ? "PNG" : "JPG"}’yi indir
                         </button>
                       </div>
                     </div>
@@ -686,7 +758,7 @@ export default function PdfToPngClient({
                 />
 
                 <SummaryValue
-                  label="PNG çıktısı"
+                  label={`${outputFormat === "png" ? "PNG" : "JPG"} çıktısı`}
                   value={String(convertedPages.length)}
                 />
               </div>
@@ -694,7 +766,7 @@ export default function PdfToPngClient({
               {convertedPages.length > 0 && (
                 <div className="mt-4">
                   <SummaryValue
-                    label="Toplam PNG boyutu"
+                    label={`Toplam ${outputFormat === "png" ? "PNG" : "JPG"} boyutu`}
                     value={formatFileSize(
                       totalConvertedSize
                     )}
@@ -738,7 +810,7 @@ export default function PdfToPngClient({
               >
                 {isConverting
                   ? `Dönüştürülüyor: %${progress}`
-                  : "PDF’yi PNG’ye dönüştür"}
+                  : `PDF’yi ${outputFormat === "png" ? "PNG" : "JPG"}’ye dönüştür`}
               </button>
 
               {convertedPages.length > 0 && (
@@ -796,7 +868,7 @@ export default function PdfToPngClient({
             Kullanım rehberi
           </p>
           <h2 className="mt-3 text-3xl font-bold">
-            PDF’den PNG’ye nasıl dönüştürülür?
+                PDF’den görsele nasıl dönüştürülür?
           </h2>
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -926,17 +998,21 @@ function SummaryValue({
   );
 }
 
-function canvasToBlob(canvas: HTMLCanvasElement) {
+function canvasToBlob(
+  canvas: HTMLCanvasElement,
+  format: OutputFormat,
+  quality: number
+) {
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) {
         resolve(blob);
       } else {
         reject(
-          new Error("PNG dosyası oluşturulamadı.")
+          new Error("Görsel dosyası oluşturulamadı.")
         );
       }
-    }, "image/png");
+    }, format === "png" ? "image/png" : "image/jpeg", quality);
   });
 }
 

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import PdfToPngClient from "./PdfToPngClient";
 
 export const metadata: Metadata = {
-  title: "PDF’den PNG’ye Dönüştürme – Ücretsiz ve Yüksek Kaliteli",
+  title: "PDF’den PNG veya JPG’ye Dönüştürme – 300 DPI Ücretsiz",
   description:
-    "PDF sayfalarını ücretsiz ve yüksek kaliteli PNG görsellerine dönüştür. İstediğin sayfaları seç, ayrı indir veya tek ZIP dosyası oluştur.",
+    "PDF sayfalarını 96, 150 veya 300 DPI çözünürlükte PNG ve JPG görsellerine dönüştür. Sayfaları seç, ayrı indir veya ZIP oluştur.",
   alternates: {
     canonical: "/pdf-tools/pdf-to-png",
   },
@@ -14,10 +14,17 @@ export const metadata: Metadata = {
     "PDF sayfalarını PNG yapma",
     "ücretsiz PDF PNG",
     "mimari paftayı PNG yapma",
+    "PDF JPG dönüştürme",
+    "PDF 300 DPI PNG",
   ],
 };
 
 const frequentlyAskedQuestions = [
+  {
+    question: "PDF’yi JPG formatına da dönüştürebilir miyim?",
+    answer:
+      "Evet. Çıktı formatından JPG seçebilir ve yüzde 50 ile 100 arasında görüntü kalitesini ayarlayabilirsin.",
+  },
   {
     question: "PDF’den PNG’ye dönüştürme ücretsiz mi?",
     answer:
@@ -36,7 +43,7 @@ const frequentlyAskedQuestions = [
   {
     question: "Mimari pafta için hangi çözünürlüğü seçmeliyim?",
     answer:
-      "Ekran sunumu için Yüksek, çizgi ve yazıların daha keskin olması gereken büyük paftalar için Çok yüksek seçeneği uygundur.",
+      "Hızlı ekran kullanımı için 96 DPI, sunum için 150 DPI, büyük pafta ve baskıya yakın kullanım için 300 DPI seçeneğini kullanabilirsin.",
   },
 ];
 
@@ -44,7 +51,7 @@ export default function PdfToPngPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "PAFTA PDF’den PNG’ye Dönüştürücü",
+    name: "PAFTA PDF’den PNG ve JPG’ye Dönüştürücü",
     url: "https://paftaedu.com/pdf-tools/pdf-to-png",
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
@@ -55,6 +62,8 @@ export default function PdfToPngPage() {
     },
     featureList: [
       "PDF sayfalarını PNG formatına dönüştürme",
+      "PDF sayfalarını JPG formatına dönüştürme",
+      "96, 150 ve 300 DPI çözünürlük seçimi",
       "Sayfa aralığı seçme",
       "Yüksek çözünürlüklü çıktı",
       "PNG dosyalarını ZIP olarak indirme",

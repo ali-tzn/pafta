@@ -188,6 +188,21 @@ const searchableItems = [
     href: "/tools/brick-calculator",
   },
   {
+    title: "Teslim Araçları",
+    href: "/teslim-araclari",
+    keywords: ["pafta teslim", "portfolyo", "jüri", "dosya kontrol"],
+  },
+  {
+    title: "Mimari Teslim Kontrol Merkezi",
+    href: "/teslim-araclari/kontrol-merkezi",
+    keywords: ["pafta kontrol", "dpi", "kağıt ölçüsü", "teslim kontrol"],
+  },
+  {
+    title: "Jüri Gözü – Pafta Okunabilirlik Simülatörü",
+    href: "/teslim-araclari/juri-gozu",
+    keywords: ["pafta okunabilirlik", "jüri görünümü", "metin boyutu", "pafta analizi"],
+  },
+  {
     title: "Teslim Kontrol Listesi",
     href: "/student-tools/submission-checklist",
   },
@@ -414,6 +429,14 @@ export default function Header() {
             className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
           >
             Hesap Araçları
+          </Link>
+
+          <Link
+            href="/teslim-araclari"
+            onClick={closeMenu}
+            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
+          >
+            Teslim Araçları
           </Link>
 
           <Link

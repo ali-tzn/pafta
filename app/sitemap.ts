@@ -52,6 +52,7 @@ const routes = [
   ...materialRoutes,
   ...expandedContentRoutes,
   "/tools",
+  "/tools/architecture-unit-converter",
   "/tools/area-calculator",
   "/tools/brick-calculator",
   "/tools/concrete-calculator",
@@ -59,12 +60,16 @@ const routes = [
   "/tools/ramp-calculator",
   "/tools/roof-calculator",
   "/tools/scale-calculator",
+  "/tools/sheet-scale-converter",
   "/tools/slope-calculator",
   "/tools/stair-calculator",
   "/tools/taks-kaks",
   "/tools/tile-calculator",
   "/tools/wall-paint-calculator",
   "/student-tools",
+  "/teslim-araclari",
+  "/teslim-araclari/kontrol-merkezi",
+  "/teslim-araclari/juri-gozu",
   "/student-tools/attendance-calculator",
   "/student-tools/calendar",
   "/student-tools/file-name-generator",
@@ -97,9 +102,9 @@ const routes = [
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
+  return Array.from(new Set(routes)).map((route) => ({
     url: `${siteConfig.url}${route}`,
-    lastModified: "2026-07-24",
+    lastModified: "2026-07-25",
     changeFrequency: route === "" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route.split("/").length === 2 ? 0.9 : 0.8,
   }));

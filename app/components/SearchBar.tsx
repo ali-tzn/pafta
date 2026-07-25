@@ -7,8 +7,34 @@ import { revitGuides } from "@/app/revit/guides";
 import { bimGuides } from "@/app/bim/guides";
 import { architectureArticles } from "@/app/mimarlik/articles";
 import { guideCollections } from "@/app/rehberler/guides";
+import { tools as calculationTools } from "@/lib/tools";
 
-const tools = [
+type SearchItem = {
+  title: string;
+  href: string;
+  keywords?: string[];
+};
+
+const tools: SearchItem[] = [
+  ...calculationTools.map((tool) => ({
+    title: tool.title,
+    href: tool.href,
+    keywords: [tool.category, tool.description],
+  })),
+  ...[
+    ["Teslim Araçları", "/teslim-araclari"],
+    ["Mimari Teslim Kontrol Merkezi", "/teslim-araclari/kontrol-merkezi"],
+    ["Jüri Gözü – Pafta Okunabilirlik Simülatörü", "/teslim-araclari/juri-gozu"],
+    ["PDF Araçları", "/pdf-tools"],
+    ["PDF Birleştirme", "/pdf-tools/merge"],
+    ["PDF Sıkıştırma", "/pdf-tools/compress"],
+    ["PDF’den PNG veya JPG’ye", "/pdf-tools/pdf-to-png"],
+    ["Görsellerden PDF", "/pdf-tools/images-to-pdf"],
+    ["PDF Sayfalarını Ayır", "/pdf-tools/split"],
+    ["PDF Sayfalarını Düzenle", "/pdf-tools/organize"],
+    ["PDF Sayfa Numarası", "/pdf-tools/page-numbers"],
+    ["PDF Filigran", "/pdf-tools/watermark"],
+  ].map(([title, href]) => ({ title, href })),
   ...materialSearchItems,
   ...revitGuides.map((guide) => ({
     title: guide.title,
@@ -88,6 +114,11 @@ const tools = [
   {
     title: "Ölçek Hesaplayıcı",
     href: "/tools/scale-calculator",
+  },
+  {
+    title: "TAKS–KAKS ve Emsal Hesaplama",
+    href: "/tools/taks-kaks",
+    keywords: ["taks", "kaks", "emsal", "imar", "parsel", "taban oturumu"],
   },
   {
     title: "PDF Pafta Boyutu ve Ölçek Ayarlama",

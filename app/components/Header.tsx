@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { materialSearchItems } from "@/app/yapi-malzemeleri/materials";
 import { revitGuides } from "@/app/revit/guides";
@@ -10,8 +10,21 @@ import { bimGuides } from "@/app/bim/guides";
 import { architectureArticles } from "@/app/mimarlik/articles";
 import { guideCollections } from "@/app/rehberler/guides";
 import { architecturalDetails } from "@/app/mimari-detaylar/details";
+import { tools as calculationTools } from "@/lib/tools";
+import {
+  getSearchCategory,
+  scoreSearchItem,
+  type SearchableItem,
+} from "@/lib/site-search";
+import { trackToolEvent } from "@/lib/analytics";
 
 const searchableItems = [
+  ...calculationTools.map((tool) => ({
+    title: tool.title,
+    description: tool.description,
+    href: tool.href,
+    keywords: [tool.category],
+  })),
   ...materialSearchItems,
   ...revitGuides.map((guide) => ({
     title: guide.title,
@@ -318,70 +331,116 @@ const searchableItems = [
   },
 ];
 
+const uniqueSearchItems: SearchableItem[] = searchableItems.filter(
+  (item, index, items) =>
+    items.findIndex((candidate) => candidate.href === item.href) === index
+);
+
 const navigationGroups = [
   {
-    title: "Tasarım",
+    title: "Tasarım ve Proje",
+    description: "Fikirden yerleşime tasarım kararları",
+    icon: "◇",
+    href: "/proje-araclari",
     items: [
-      ["Tasarım Araçları", "/proje-araclari"],
+      ["Tüm Tasarım Araçları", "/proje-araclari"],
       ["Proje Başlangıç Merkezi", "/proje-araclari/proje-baslangic"],
       ["Balon Diyagramı", "/proje-araclari/balon-diyagrami"],
-      ["Güneş ve Cephe Asistanı", "/proje-araclari/gunes-yonlenme"],
+      ["Güneş ve Cephe", "/proje-araclari/gunes-yonlenme"],
       ["Vaziyet Simülatörü", "/proje-araclari/vaziyet-simulatoru"],
       ["Emsal Proje Atlası", "/proje-araclari/emsal-atlasi"],
-    ],
-  },
-  {
-    title: "Teknik + Hesap",
-    items: [
-      ["Tüm Teknik Hesaplar", "/tools"],
-      ["TAKS–KAKS / Emsal", "/tools/taks-kaks"],
+      ["Mekân Ölçüleri", "/proje-araclari/mekan-olculeri"],
+      ["Pafta Yerleşimi", "/proje-araclari/pafta-yerlesimi"],
       ["U-Değeri Tasarımcısı", "/proje-araclari/u-degeri-tasarimcisi"],
       ["Yönetmelik Asistanı", "/proje-araclari/yonetmelik-kontrol"],
-      ["Merdiven ve Rampa", "/tools/stair-calculator"],
-      ["Metraj Hesapları", "/tools/concrete-calculator"],
     ],
   },
   {
-    title: "PDF",
+    title: "Teknik ve Hesap",
+    description: "Ölçek, imar, metraj ve yapı hesapları",
+    icon: "∑",
+    href: "/tools",
+    items: [
+      ["Tüm Hesap Araçları", "/tools"],
+      ["Mimarlık Birim Dönüştürücü", "/tools/architecture-unit-converter"],
+      ["TAKS–KAKS / Emsal", "/tools/taks-kaks"],
+      ["Ölçek Hesaplama", "/tools/scale-calculator"],
+      ["Pafta Ölçek Dönüştürücü", "/tools/sheet-scale-converter"],
+      ["Merdiven Hesaplama", "/tools/stair-calculator"],
+      ["Rampa Hesaplama", "/tools/ramp-calculator"],
+      ["Alan Hesaplama", "/tools/area-calculator"],
+      ["Eğim Hesaplama", "/tools/slope-calculator"],
+      ["Otopark Hesaplama", "/tools/parking-calculator"],
+      ["Çatı Hesaplama", "/tools/roof-calculator"],
+      ["Beton Hacmi", "/tools/concrete-calculator"],
+      ["Tuğla Hesaplama", "/tools/brick-calculator"],
+      ["Seramik ve Karo", "/tools/tile-calculator"],
+      ["Duvar ve Boya", "/tools/wall-paint-calculator"],
+    ],
+  },
+  {
+    title: "PDF ve Dosya",
+    description: "Pafta ve belgeleri tarayıcıda düzenle",
+    icon: "▤",
+    href: "/pdf-tools",
     items: [
       ["Tüm PDF Araçları", "/pdf-tools"],
       ["PDF → PNG / JPG", "/pdf-tools/pdf-to-png"],
+      ["Görsellerden PDF", "/pdf-tools/images-to-pdf"],
       ["PDF Birleştir", "/pdf-tools/merge"],
       ["PDF Sıkıştır", "/pdf-tools/compress"],
       ["Sayfaları Ayır", "/pdf-tools/split"],
+      ["Sayfaları Düzenle", "/pdf-tools/organize"],
       ["Pafta Boyutu ve Ölçek", "/pdf-tools/resize-pages"],
-      ["PDF Düzenle", "/pdf-tools/organize"],
+      ["Sayfa Numarası Ekle", "/pdf-tools/page-numbers"],
+      ["Filigran Ekle", "/pdf-tools/watermark"],
+      ["PDF Bilgilerini Gör", "/pdf-tools/info"],
     ],
   },
   {
-    title: "Pafta + Teslim",
+    title: "Pafta ve Teslim",
+    description: "Sunum, jüri ve teslim öncesi kontroller",
+    icon: "▦",
+    href: "/teslim-araclari",
     items: [
       ["Tüm Teslim Araçları", "/teslim-araclari"],
       ["Pafta Yerleşimi", "/proje-araclari/pafta-yerlesimi"],
       ["Jüri Gözü", "/teslim-araclari/juri-gozu"],
       ["Teslim Kontrol Merkezi", "/teslim-araclari/kontrol-merkezi"],
       ["Teslim Kontrol Listesi", "/student-tools/submission-checklist"],
+      ["Dosya Adı Oluşturucu", "/student-tools/file-name-generator"],
     ],
   },
   {
-    title: "Kütüphaneler",
+    title: "Bilgi Kütüphanesi",
+    description: "Detay, malzeme ve mimarlık kaynakları",
+    icon: "▥",
+    href: "/kutuphaneler",
     items: [
       ["Tüm Kütüphaneler", "/kutuphaneler"],
       ["Mimari Detaylar", "/mimari-detaylar"],
       ["Yapı Malzemeleri", "/yapi-malzemeleri"],
       ["Mimarlık Rehberi", "/mimarlik"],
+      ["Tasarım ve Proje Rehberleri", "/rehberler"],
       ["Revit Merkezi", "/revit"],
       ["BIM Merkezi", "/bim"],
+      ["CAD ve Family Kaynakları", "/resources"],
     ],
   },
   {
-    title: "Öğrenci + AI",
+    title: "Öğrenci ve AI",
+    description: "Okul hayatı ve yapay zekâ yardımcıları",
+    icon: "✦",
+    href: "/student-tools",
     items: [
-      ["Öğrenci Araçları", "/student-tools"],
+      ["Tüm Öğrenci Araçları", "/student-tools"],
       ["GNO / Not Hesaplama", "/student-tools/gno-calculator"],
-      ["Takvim", "/student-tools/calendar"],
+      ["Ders Notu Hesaplama", "/student-tools/grade-calculator"],
+      ["Devamsızlık Hesaplama", "/student-tools/attendance-calculator"],
+      ["Öğrenci Takvimi", "/student-tools/calendar"],
       ["Mimarlık AI Merkezi", "/mimarlik-yapay-zeka"],
       ["AI Araç Bulucu", "/mimarlik-yapay-zeka/arac-bulucu"],
+      ["Prompt Oluşturucu", "/mimarlik-yapay-zeka/prompt-olusturucu"],
     ],
   },
 ] as const;
@@ -389,256 +448,369 @@ const navigationGroups = [
 export default function Header() {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [selectedResultIndex, setSelectedResultIndex] = useState(0);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const desktopSearchRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
-      if (
-        headerRef.current &&
-        !headerRef.current.contains(event.target as Node)
-      ) {
-        setActiveDropdown(null);
-        setIsMenuOpen(false);
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setActiveCategory(null);
+      }
+      const target = event.target as Node;
+      const isInsideDesktopSearch = desktopSearchRef.current?.contains(target);
+      const isInsideMobileSearch = mobileSearchRef.current?.contains(target);
+      if (!isInsideDesktopSearch && !isInsideMobileSearch) {
+        setQuery("");
       }
     }
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setActiveDropdown(null);
-        setIsMenuOpen(false);
+        setActiveCategory(null);
+        setQuery("");
       }
     }
 
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleKeyDown);
-
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
-  const normalizedQuery = query
-    .trim()
-    .toLocaleLowerCase("tr-TR");
-
-  const results =
-    normalizedQuery === ""
-      ? []
-      : searchableItems
-          .filter((item) => {
-            const searchableText = [
-              item.title,
-              ...("keywords" in item && item.keywords ? item.keywords : []),
-            ]
-              .join(" ")
-              .toLocaleLowerCase("tr-TR");
-
-            return searchableText.includes(normalizedQuery);
-          })
-          .filter(
-            (item, index, items) =>
-              items.findIndex((candidate) => candidate.href === item.href) ===
-              index
-          );
+  const normalizedQuery = query.trim();
+  const results = useMemo(
+    () =>
+      normalizedQuery === ""
+        ? []
+        : uniqueSearchItems
+            .map((item) => ({
+              ...item,
+              score: scoreSearchItem(item, normalizedQuery),
+            }))
+            .filter((item) => item.score >= 12)
+            .sort((first, second) => second.score - first.score)
+            .slice(0, 8),
+    [normalizedQuery]
+  );
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     if (results.length > 0) {
-      router.push(results[0].href);
+      const selectedResult = results[selectedResultIndex] ?? results[0];
+      trackToolEvent("site_search", "result_opened", {
+        query,
+        href: selectedResult.href,
+      });
+      router.push(selectedResult.href);
       setQuery("");
+      setActiveCategory(null);
     }
   }
 
   function goToItem(href: string) {
+    trackToolEvent("site_search", "result_opened", { query, href });
     router.push(href);
     setQuery("");
+    setActiveCategory(null);
   }
 
   function closeMenu() {
-    setIsMenuOpen(false);
-    setActiveDropdown(null);
+    setActiveCategory(null);
+    setQuery("");
+  }
+
+  function updateQuery(value: string) {
+    setQuery(value);
+    setSelectedResultIndex(0);
+  }
+
+  const activeGroup = navigationGroups.find(
+    (group) => group.title === activeCategory
+  );
+
+  function handleSearchKeyDown(event: ReactKeyboardEvent<HTMLInputElement>) {
+    if (event.key === "ArrowDown" && results.length > 0) {
+      event.preventDefault();
+      setSelectedResultIndex((current) => (current + 1) % results.length);
+    }
+    if (event.key === "ArrowUp" && results.length > 0) {
+      event.preventDefault();
+      setSelectedResultIndex(
+        (current) => (current - 1 + results.length) % results.length
+      );
+    }
+    if (event.key === "Enter" && results.length > 0) {
+      event.preventDefault();
+      const selectedResult = results[selectedResultIndex] ?? results[0];
+      goToItem(selectedResult.href);
+    }
   }
 
   return (
-    <header ref={headerRef} className="relative z-50 border-b border-slate-800 bg-slate-950">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-slate-800/90 bg-slate-950/95 text-white shadow-lg shadow-black/10 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-wrap items-center justify-between gap-3 py-3 lg:flex-nowrap lg:gap-6 lg:py-1">
-          <Link
-            href="/"
-            aria-label="PAFTA ana sayfa"
-            className="shrink-0"
-            onClick={closeMenu}
-          >
+        <div className="flex h-20 items-center gap-4 lg:h-24 lg:gap-8">
+          <Link href="/" aria-label="PAFTA ana sayfa" className="shrink-0" onClick={closeMenu}>
             <Image
               src="/pafta-logo-white.png"
               alt="PAFTA"
               width={700}
               height={240}
               priority
-              className="h-16 w-44 object-cover object-center sm:h-20 sm:w-56 lg:-my-3 lg:h-28 lg:w-80"
+              className="h-16 w-44 object-cover object-center lg:h-20 lg:w-56"
             />
           </Link>
 
-          <button
-            type="button"
-            aria-expanded={isMenuOpen}
-            aria-controls="primary-navigation"
-            aria-label={isMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
-            onClick={() =>
-              setIsMenuOpen((open) => {
-                if (open) setActiveDropdown(null);
-                return !open;
-              })
-            }
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-700 text-slate-200 transition hover:border-cyan-400 hover:text-cyan-400 lg:hidden"
-          >
-            <span className="sr-only">
-              {isMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
-            </span>
-            <span className="flex w-5 flex-col gap-1.5" aria-hidden="true">
-              <span
-                className={`h-0.5 w-full bg-current transition ${
-                  isMenuOpen ? "translate-y-2 rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`h-0.5 w-full bg-current transition ${
-                  isMenuOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`h-0.5 w-full bg-current transition ${
-                  isMenuOpen ? "-translate-y-2 -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-
-          <div className="relative order-3 w-full lg:order-none lg:max-w-xl">
+          <div ref={desktopSearchRef} className="relative ml-auto hidden w-full max-w-lg md:block">
             <form onSubmit={handleSubmit} className="relative">
-              <label
-                htmlFor="header-search"
-                className="sr-only"
-              >
-                PAFTA içinde ara
-              </label>
-
+              <label htmlFor="header-search" className="sr-only">PAFTA içinde ara</label>
+              <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" aria-hidden="true">⌕</span>
               <input
                 id="header-search"
                 type="search"
                 value={query}
-                onChange={(event) =>
-                  setQuery(event.target.value)
-                }
-                placeholder="Araç veya içerik ara..."
+                onChange={(event) => updateQuery(event.target.value)}
+                onKeyDown={handleSearchKeyDown}
+                onFocus={() => setActiveCategory(null)}
+                placeholder="Araç veya içerik ara"
                 autoComplete="off"
-                className="w-full rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 pr-20 text-base text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10 sm:px-5 sm:py-3.5 sm:pr-24"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded={normalizedQuery !== ""}
+                aria-controls="desktop-search-results"
+                aria-activedescendant={
+                  results.length > 0
+                    ? `desktop-search-result-${selectedResultIndex}`
+                    : undefined
+                }
+                className="w-full rounded-xl border border-slate-700 bg-slate-900 py-2.5 pl-10 pr-14 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
               />
-
-              <button
-                type="submit"
-                className="absolute bottom-1.5 right-1.5 top-1.5 rounded-xl bg-cyan-400 px-4 font-semibold text-slate-950 transition hover:bg-cyan-300 sm:bottom-2 sm:right-2 sm:top-2 sm:px-5"
-              >
-                Ara
-              </button>
+              <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded border border-slate-700 px-1.5 py-0.5 text-[10px] text-slate-500">ARA</kbd>
             </form>
 
             {normalizedQuery !== "" && (
-              <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[60vh] overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900 text-left shadow-2xl">
-                {results.length > 0 ? (
-                  results.map((item) => (
-                    <button
-                      key={item.href}
-                      type="button"
-                      onClick={() => goToItem(item.href)}
-                      className="block w-full border-b border-slate-800 px-5 py-4 text-left transition last:border-b-0 hover:bg-slate-800"
-                    >
-                      <span className="font-semibold text-white">
-                        {item.title}
-                      </span>
-                    </button>
-                  ))
-                ) : (
-                  <div className="px-5 py-4">
-                    <p className="font-medium text-white">
-                      Sonuç bulunamadı
-                    </p>
-
-                    <p className="mt-1 text-sm text-slate-400">
-                      Ölçek, PDF, Revit veya GNO yazmayı dene.
-                    </p>
-                  </div>
-                )}
-              </div>
+              <SearchResults
+                id="desktop-search-results"
+                itemIdPrefix="desktop-search-result"
+                results={results}
+                selectedIndex={selectedResultIndex}
+                onSelect={goToItem}
+                onHover={setSelectedResultIndex}
+              />
             )}
           </div>
+
+        </div>
+
+        <div className="relative pb-3 md:hidden" ref={mobileSearchRef}>
+          <form onSubmit={handleSubmit} className="relative">
+            <label htmlFor="mobile-header-search" className="sr-only">PAFTA içinde ara</label>
+            <input
+              id="mobile-header-search"
+              type="search"
+              value={query}
+              onChange={(event) => updateQuery(event.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              onFocus={() => setActiveCategory(null)}
+              placeholder="Araç veya içerik ara..."
+              autoComplete="off"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={normalizedQuery !== ""}
+              aria-controls="mobile-search-results"
+              aria-activedescendant={
+                results.length > 0
+                  ? `mobile-search-result-${selectedResultIndex}`
+                  : undefined
+              }
+              className="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 pr-16 text-sm outline-none placeholder:text-slate-500 focus:border-cyan-400"
+            />
+            <button type="submit" className="absolute bottom-1.5 right-1.5 top-1.5 rounded-lg bg-cyan-400 px-3 text-sm font-bold text-slate-950">Ara</button>
+          </form>
+          {normalizedQuery !== "" && (
+            <SearchResults
+              id="mobile-search-results"
+              itemIdPrefix="mobile-search-result"
+              results={results}
+              selectedIndex={selectedResultIndex}
+              onSelect={goToItem}
+              onHover={setSelectedResultIndex}
+            />
+          )}
         </div>
 
         <nav
-          id="primary-navigation"
-          className={`border-t border-slate-800 py-3 text-sm font-medium text-slate-300 lg:flex lg:items-center lg:gap-3 lg:py-3 ${
-            isMenuOpen ? "grid" : "hidden"
-          }`}
+          aria-label="Ana kategoriler"
+          className="-mx-4 flex snap-x snap-mandatory overflow-x-auto border-t border-slate-800 px-4 sm:-mx-6 sm:px-6"
         >
-          <Link
-            href="/"
-            onClick={closeMenu}
-            className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-cyan-400 lg:px-0 lg:py-0 lg:hover:bg-transparent"
-          >
-            Ana Sayfa
-          </Link>
           {navigationGroups.map((group) => {
-            const isOpen = activeDropdown === group.title;
-
+            const isActive = activeCategory === group.title;
             return (
-              <div key={group.title} className="relative">
-                <button
-                  type="button"
-                  aria-expanded={isOpen}
-                  onClick={() =>
-                    setActiveDropdown((current) =>
-                      current === group.title ? null : group.title
-                    )
-                  }
-                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-3 text-left transition lg:w-auto lg:py-2 ${
-                    isOpen
-                      ? "bg-slate-900 text-cyan-300"
-                      : "hover:bg-slate-900 hover:text-cyan-400"
+              <button
+                key={group.title}
+                type="button"
+                aria-expanded={isActive}
+                aria-controls="category-tools-panel"
+                onClick={() => {
+                  setQuery("");
+                  setActiveCategory((current) =>
+                    current === group.title ? null : group.title
+                  );
+                }}
+                className={`min-h-12 shrink-0 snap-start border-b-2 px-4 py-3.5 text-sm font-semibold transition lg:flex-1 lg:px-3 ${
+                  isActive
+                    ? "border-cyan-400 bg-cyan-400/5 text-cyan-300"
+                    : "border-transparent text-slate-300 hover:border-slate-600 hover:bg-slate-900 hover:text-white"
+                }`}
+              >
+                {group.title}
+                <span
+                  className={`ml-2 inline-block text-xs transition ${
+                    isActive ? "rotate-180" : ""
                   }`}
+                  aria-hidden="true"
                 >
-                  {group.title}
-                  <span
-                    className={`text-xs transition ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    ⌄
-                  </span>
-                </button>
-
-                {isOpen && (
-                  <div className="grid overflow-hidden rounded-xl border border-slate-800 bg-slate-900 p-1 shadow-2xl lg:absolute lg:left-0 lg:top-full lg:z-50 lg:mt-1 lg:min-w-56">
-                    {group.items.map(([label, href]) => (
-                      <Link
-                        key={href}
-                        href={href}
-                        onClick={closeMenu}
-                        className="rounded-lg px-4 py-3 text-slate-300 transition hover:bg-slate-800 hover:text-cyan-300"
-                      >
-                        {label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+                  ▾
+                </span>
+              </button>
             );
           })}
         </nav>
       </div>
+
+      {activeGroup && (
+        <div
+          id="category-tools-panel"
+          className="absolute left-0 right-0 top-full max-h-[calc(100vh-12rem)] overflow-y-auto overscroll-contain border-b border-slate-800 bg-slate-950 shadow-2xl shadow-black/40 md:max-h-[calc(100vh-10rem)]"
+        >
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
+            <div className="flex items-start justify-between gap-5 border-b border-slate-800 pb-5">
+              <div>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-400/10 text-xl font-bold text-cyan-300">
+                    {activeGroup.icon}
+                  </span>
+                  <div>
+                    <h2 className="text-xl font-bold text-white">
+                      {activeGroup.title}
+                    </h2>
+                    <p className="mt-1 text-sm text-slate-400">
+                      {activeGroup.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={closeMenu}
+                aria-label="Kategori menüsünü kapat"
+                className="rounded-xl border border-slate-700 px-3 py-2 text-sm text-slate-400 transition hover:border-slate-500 hover:text-white"
+              >
+                Kapat ×
+              </button>
+            </div>
+
+            <nav
+              aria-label={`${activeGroup.title} bağlantıları`}
+              className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            >
+              {activeGroup.items.map(([label, href], index) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={closeMenu}
+                  className={`group flex min-h-14 items-center justify-between gap-3 rounded-xl border px-4 py-3 text-sm font-semibold transition ${
+                    index === 0
+                      ? "border-cyan-400/40 bg-cyan-400/10 text-cyan-200"
+                      : "border-slate-800 bg-slate-900 text-slate-200 hover:border-cyan-400/40 hover:text-cyan-300"
+                  }`}
+                >
+                  {label}
+                  <span
+                    className="text-cyan-400 transition group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
+  );
+}
+
+function SearchResults({
+  id,
+  itemIdPrefix,
+  results,
+  selectedIndex,
+  onSelect,
+  onHover,
+}: {
+  id: string;
+  itemIdPrefix: string;
+  results: (SearchableItem & { score: number })[];
+  selectedIndex: number;
+  onSelect: (href: string) => void;
+  onHover: (index: number) => void;
+}) {
+  return (
+    <div
+      id={id}
+      role="listbox"
+      className="absolute left-0 right-0 top-full z-50 mt-2 max-h-[55vh] overflow-y-auto overscroll-contain rounded-2xl border border-slate-700 bg-slate-900 p-1.5 text-left shadow-2xl"
+    >
+      {results.length > 0 ? (
+        <>
+          <div className="flex items-center justify-between px-3 pb-2 pt-1">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              En iyi sonuçlar
+            </p>
+            <span className="hidden text-[10px] text-slate-600 sm:inline">
+              ↑↓ seç · Enter aç
+            </span>
+          </div>
+          {results.map((item, index) => (
+            <button
+              key={item.href}
+              id={`${itemIdPrefix}-${index}`}
+              role="option"
+              aria-selected={selectedIndex === index}
+              type="button"
+              onMouseEnter={() => onHover(index)}
+              onClick={() => onSelect(item.href)}
+              className={`flex w-full items-center justify-between gap-3 rounded-xl px-3 py-3 text-left transition ${
+                selectedIndex === index ? "bg-slate-800" : "hover:bg-slate-800"
+              }`}
+            >
+              <span>
+                <span className="block text-sm font-semibold text-white">
+                  {item.title}
+                </span>
+                <span className="mt-1 block text-[11px] font-semibold uppercase tracking-wider text-cyan-400">
+                  {getSearchCategory(item.href)}
+                </span>
+              </span>
+              <span className="text-cyan-300" aria-hidden="true">→</span>
+            </button>
+          ))}
+        </>
+      ) : (
+        <div className="px-4 py-5">
+          <p className="font-medium text-white">Sonuç bulunamadı</p>
+          <p className="mt-1 text-sm text-slate-400">
+            Daha kısa bir ifade dene veya aşağıdaki ana kategorilerden ilerle.
+          </p>
+        </div>
+      )}
+    </div>
   );
 }

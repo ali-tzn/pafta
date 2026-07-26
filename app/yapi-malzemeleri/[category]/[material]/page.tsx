@@ -5,7 +5,6 @@ import {
   getCategory,
   getMaterial,
   getMaterialsByCategory,
-  materialCategories,
   materials,
   ratingLabels,
 } from "../../materials";

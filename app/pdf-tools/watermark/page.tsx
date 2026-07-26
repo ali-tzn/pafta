@@ -1559,9 +1559,12 @@ function WatermarkPreview({
               maxHeight: "560px",
             }}
           >
+            {/* Blob URL is generated locally and cannot use next/image. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={previewUrl}
               alt={`PDF sayfası ${previewPageNumber}`}
+              decoding="async"
               className="absolute inset-0 h-full w-full object-fill"
             />
 

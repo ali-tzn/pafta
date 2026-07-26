@@ -1,110 +1,71 @@
-import Link from "next/link";
-import { tools } from "../../lib/tools";
+import CategoryHub, { type CategoryHubItem } from "@/app/components/CategoryHub";
+import { tools } from "@/lib/tools";
 
-const technicalDesignTools = [
+const extraTools: CategoryHubItem[] = [
   {
     title: "Katman ve U-Değeri Tasarımcısı",
     description: "Duvar, çatı ve döşeme katmanlarını kur; ısıl direnci ve U-değerini hesapla.",
     href: "/proje-araclari/u-degeri-tasarimcisi",
     icon: "▤",
-    category: "Yapı Fiziği",
-    status: "Hazır" as const,
+    group: "Yapı Fiziği",
+    badge: "Gelişmiş",
+    featured: true,
   },
   {
     title: "Yönetmelik Kontrol Asistanı",
-    description: "Parsel ve proje verilerine göre temel imar, çekme, oturum ve belge kontrollerini oluştur.",
+    description: "Parsel ve proje verilerinden imar, çekme, oturum ve belge ön kontrol raporu oluştur.",
     href: "/proje-araclari/yonetmelik-kontrol",
     icon: "§",
-    category: "İmar ve Mevzuat",
-    status: "Hazır" as const,
+    group: "İmar",
+    badge: "Gelişmiş",
+    featured: true,
   },
 ];
 
+const featuredHrefs = new Set([
+  "/tools/taks-kaks",
+  "/tools/scale-calculator",
+]);
+
+const allTools: CategoryHubItem[] = [
+  ...extraTools,
+  ...tools.map((tool) => ({
+    title: tool.title,
+    description: tool.description,
+    href: tool.href,
+    icon: tool.icon,
+    group: normalizeGroup(tool.category),
+    badge: featuredHrefs.has(tool.href) ? "Popüler" : undefined,
+    featured: featuredHrefs.has(tool.href),
+  })),
+];
+
+function normalizeGroup(category: string) {
+  if (category.includes("İmar")) return "İmar";
+  if (category.includes("Temel")) return "Ölçek ve Birim";
+  if (category.includes("Uygulama")) return "Metraj";
+  return "Mimari Hesap";
+}
+
 export default function ToolsPage() {
   return (
-    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
-      <div className="mx-auto max-w-7xl">
-        <section className="mb-12">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
-            PAFTA / Teknik Proje ve Hesap
-          </p>
-
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight md:text-6xl">
-            Teknik kararlar ve mimari hesaplar
-          </h1>
-
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-            İmar ve yapı fiziğinden merdiven, rampa, çatı ve metraja kadar
-            sayısal proje kontrollerini tek yerde yap.
-          </p>
-        </section>
-
-        <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {[...technicalDesignTools, ...tools].map((tool) => {
-            const isAvailable = tool.status === "Hazır";
-
-            const card = (
-              <article
-                className={`group h-full rounded-3xl border p-6 transition duration-300 ${
-                  isAvailable
-                    ? "border-slate-800 bg-slate-900 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-cyan-950/30"
-                    : "cursor-not-allowed border-slate-800 bg-slate-900/60 opacity-70"
-                }`}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-950 text-3xl">
-                    {tool.icon}
-                  </div>
-
-                  <span
-                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                      isAvailable
-                        ? "bg-emerald-500/15 text-emerald-300"
-                        : "bg-amber-500/15 text-amber-300"
-                    }`}
-                  >
-                    {tool.status}
-                  </span>
-                </div>
-
-                <p className="mt-6 text-sm font-medium text-cyan-400">
-                  {tool.category}
-                </p>
-
-                <h2 className="mt-2 text-2xl font-bold">{tool.title}</h2>
-
-                <p className="mt-3 leading-7 text-slate-400">
-                  {tool.description}
-                </p>
-
-                <div className="mt-8 flex items-center justify-between border-t border-slate-800 pt-5">
-                  <span className="text-sm font-semibold text-slate-200">
-                    {isAvailable ? "Aracı aç" : "Geliştiriliyor"}
-                  </span>
-
-                  <span
-                    className={`text-xl transition ${
-                      isAvailable ? "group-hover:translate-x-1" : ""
-                    }`}
-                  >
-                    →
-                  </span>
-                </div>
-              </article>
-            );
-
-            if (!isAvailable) {
-              return <div key={tool.href}>{card}</div>;
-            }
-
-            return (
-              <Link key={tool.href} href={tool.href}>
-                {card}
-              </Link>
-            );
-          })}
-        </section>
-      </div>
-    </main>
+    <CategoryHub
+      eyebrow="PAFTA / Teknik ve Hesap"
+      title="Teknik kararlar ve mimari hesaplar"
+      description="İmar, ölçek, yapı fiziği, merdiven, rampa ve metraj hesaplarını konuya göre filtrele; ihtiyacın olan araca doğrudan ulaş."
+      items={allTools}
+      searchPlaceholder="Ölçek, emsal, merdiven, beton..."
+      footerTitle="Hesabı proje kararıyla birlikte değerlendir"
+      footerText="Araçlar hızlı ön hesap üretir. Uygulama ve ruhsat kararlarında proje koşulları, yürürlükteki mevzuat ve yetkili kurum verileri ayrıca kontrol edilmelidir."
+      faqs={[
+        { question: "Mimari hesap araçları ücretsiz mi?", answer: "Evet. PAFTA’daki mevcut hesap araçları tarayıcı üzerinden ücretsiz kullanılabilir." },
+        { question: "Sonuçlar uygulama projesinde doğrudan kullanılabilir mi?", answer: "Araçlar ön hesap ve kontrol içindir. Uygulama kararları yürürlükteki mevzuat, proje koşulları ve uzman hesaplarıyla doğrulanmalıdır." },
+        { question: "Ondalık sayıları virgülle yazabilir miyim?", answer: "Gelişmiş araçların çoğu Türkçe ondalık virgülünü kabul eder. Her giriş alanındaki örneği izleyebilirsin." },
+      ]}
+      related={[
+        { title: "Tasarım araçları", href: "/proje-araclari" },
+        { title: "Yapı malzemeleri", href: "/yapi-malzemeleri" },
+      ]}
+    />
   );
 }

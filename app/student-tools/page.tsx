@@ -1,105 +1,36 @@
-import Link from "next/link";
+import CategoryHub, { type CategoryHubItem } from "@/app/components/CategoryHub";
 
-const studentTools = [
-  {
-    title: "GNO Hesaplayıcı",
-    description:
-      "Ders kredileri ve harf notlarına göre genel not ortalamanı hesapla.",
-    href: "/student-tools/gno-calculator",
-    status: "Hazır",
-  },
-  {
-    title: "Ders Notu Hesaplayıcı",
-    description:
-      "Vize, final, ödev ve proje yüzdelerine göre dönem sonu notunu hesapla.",
-    href: "/student-tools/grade-calculator",
-    status: "Hazır",
-  },
-  {
-  title: "Öğrenci Takvimi",
-  description:
-    "Teslim, sınav ve jüri tarihlerini kaydet; etkinlik yaklaşmadan önce uyarı al.",
-  href: "/student-tools/calendar",
-  status: "Hazır",
-  },
-  {
-    title: "Teslim Kontrol Listesi",
-    description:
-      "Pafta, çizim, model, sunum ve teslim dosyalarını göndermeden önce kontrol et.",
-    href: "/student-tools/submission-checklist",
-    status: "Hazır",
-    icon: "✓",
-  },
-  {
-    title: "Dosya Adı Oluşturucu",
-    description:
-      "Ders, proje, teslim tarihi ve revizyon bilgileriyle düzenli dosya adları oluştur.",
-    href: "/student-tools/file-name-generator",
-    status: "Hazır",
-    icon: "Aa",
-  },
-  {
-    title: "Devamsızlık Hesaplayıcı",
-    description:
-      "Toplam ders saati ve katılım durumuna göre kalan devamsızlık hakkını gör.",
-    href: "/student-tools/attendance-calculator",
-    status: "Hazır",
-  },
+const studentAndAiTools: CategoryHubItem[] = [
+  { title: "GNO Hesaplayıcı", description: "Ders kredileri ve harf notlarından genel not ortalamanı hesapla.", href: "/student-tools/gno-calculator", icon: "G", group: "Not ve Ders", badge: "Popüler", featured: true },
+  { title: "Ders Notu Hesaplayıcı", description: "Vize, final, ödev ve proje yüzdelerinden dönem sonu notunu hesapla.", href: "/student-tools/grade-calculator", icon: "%", group: "Not ve Ders" },
+  { title: "Devamsızlık Hesaplayıcı", description: "Ders saati ve katılım durumuna göre kalan devamsızlık hakkını gör.", href: "/student-tools/attendance-calculator", icon: "D", group: "Not ve Ders" },
+  { title: "Öğrenci Takvimi", description: "Teslim, sınav ve jüri tarihlerini kaydet; yaklaşan işleri birlikte gör.", href: "/student-tools/calendar", icon: "31", group: "Planlama", featured: true },
+  { title: "Teslim Kontrol Listesi", description: "Pafta, model, sunum ve teslim dosyalarını göndermeden önce kontrol et.", href: "/student-tools/submission-checklist", icon: "✓", group: "Teslim" },
+  { title: "Dosya Adı Oluşturucu", description: "Ders, proje, tarih ve revizyon bilgileriyle düzenli dosya adları oluştur.", href: "/student-tools/file-name-generator", icon: "Aa", group: "Teslim" },
+  { title: "Mimarlık AI Araç Bulucu", description: "Yapmak istediğin işe ve proje aşamasına göre uygun yapay zekâ aracını bul.", href: "/mimarlik-yapay-zeka/arac-bulucu", icon: "AI", group: "Yapay Zekâ", badge: "AI", featured: true },
+  { title: "Mimari Prompt Oluşturucu", description: "Yapı, bağlam, malzeme, atmosfer ve kamera seçimlerinden ayrıntılı prompt üret.", href: "/mimarlik-yapay-zeka/prompt-olusturucu", icon: "✦", group: "Yapay Zekâ", badge: "AI" },
+  { title: "Mimarlık Yapay Zekâ Merkezi", description: "AI araçlarını, iş akışlarını, hata kontrollerini ve güvenli kullanım ilkelerini incele.", href: "/mimarlik-yapay-zeka", icon: "◇", group: "Yapay Zekâ", badge: "Rehber" },
 ];
 
 export default function StudentToolsPage() {
   return (
-    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
-      <div className="mx-auto max-w-7xl">
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
-            PAFTA Öğrenci
-          </p>
-
-          <h1 className="mt-3 text-4xl font-bold md:text-5xl">
-            Öğrenci Araçları
-          </h1>
-
-          <p className="mt-5 text-lg leading-8 text-slate-300">
-            Üniversite hayatını kolaylaştıran not, ortalama, devamsızlık ve
-            planlama araçları.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {studentTools.map((tool) => (
-            <article
-              key={tool.href}
-              className="flex flex-col rounded-3xl border border-slate-800 bg-slate-900 p-6"
-            >
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <span className="text-sm font-medium text-cyan-400">
-                  Öğrenci Aracı
-                </span>
-
-                <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-300">
-                  {tool.status}
-                </span>
-              </div>
-
-              <h2 className="text-xl font-semibold leading-8">
-                {tool.title}
-              </h2>
-
-              <p className="mt-3 flex-1 leading-7 text-slate-400">
-                {tool.description}
-              </p>
-
-              <Link
-                href={tool.href}
-                className="mt-6 inline-flex font-semibold text-cyan-400 transition hover:text-cyan-300"
-              >
-                Aracı aç →
-              </Link>
-            </article>
-          ))}
-        </div>
-      </div>
-    </main>
+    <CategoryHub
+      eyebrow="PAFTA / Öğrenci ve AI"
+      title="Okul, teslim ve yapay zekâ araçları"
+      description="Not hesabından teslim planına, dosya düzeninden mimarlık için doğru AI aracını seçmeye kadar günlük öğrenci işlerini tek merkezden yönet."
+      items={studentAndAiTools}
+      searchPlaceholder="GNO, takvim, teslim, AI..."
+      footerTitle="Yapay zekâyı kontrol ederek kullan"
+      footerText="AI çıktıları mimari doğruluk, ölçek, strüktür, yönetmelik, kaynak ve telif açısından kontrol edilmelidir. Üretilen görsel veya metin uzman kararı yerine geçmez."
+      faqs={[
+        { question: "Öğrenci araçları bilgileri kaydediyor mu?", answer: "Araçların büyük bölümü tarayıcıda çalışır. Kalıcı veya yerel kayıt kullanılan sayfalarda bu davranış ayrıca belirtilir." },
+        { question: "AI Araç Bulucu ne önerir?", answer: "Yapmak istediğin iş, proje aşaması ve çıktı türüne göre uygun yapay zekâ araçlarını ve iş akışını önerir." },
+        { question: "AI çıktısını projede doğrudan kullanabilir miyim?", answer: "Çıktı önce mimari doğruluk, kaynak, telif ve ders kuralları açısından kontrol edilmeli; gerekiyorsa kullanım açıkça belirtilmelidir." },
+      ]}
+      related={[
+        { title: "Pafta ve teslim", href: "/teslim-araclari" },
+        { title: "Mimarlık AI merkezi", href: "/mimarlik-yapay-zeka" },
+      ]}
+    />
   );
 }

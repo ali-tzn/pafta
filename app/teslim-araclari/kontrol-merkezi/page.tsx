@@ -65,8 +65,10 @@ export default function SubmissionInspectorPage() {
   const [isReading, setIsReading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const targetDimensions =
-    paper === "custom" ? [customWidth, customHeight] : papers[paper];
+  const targetDimensions = useMemo(
+    () => (paper === "custom" ? [customWidth, customHeight] : papers[paper]),
+    [customHeight, customWidth, paper]
+  );
 
   const checks = useMemo<Check[]>(() => {
     if (!inspection) return [];

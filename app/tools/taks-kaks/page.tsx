@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { trackToolEvent } from "@/lib/analytics";
 import RelatedTools from "@/app/components/RelatedTools";
+import ToolLearningGuide from "@/app/components/ToolLearningGuide";
 
 type CalculationResult = {
   parcelArea: number;
@@ -710,6 +711,39 @@ export default function TaksKaksPage() {
             </div>
           </aside>
         </div>
+        <ToolLearningGuide
+          title="TAKS, KAKS ve emsal hesabı nasıl okunur?"
+          description="Araç matematiksel yapılaşma kapasitesini hızlıca gösterir. Fakat gerçek ruhsat hakkı; imar durumu, plan notları, çekme mesafeleri, kot, nizam ve emsal dışı alan kararlarıyla birlikte değerlendirilmelidir."
+          steps={[
+            { title: "Parsel verilerini gir", text: "Tapu veya imar belgesindeki parsel alanını, TAKS ve KAKS/emsal değerlerini doğru ondalık biçimde yaz." },
+            { title: "Opsiyonel bilgileri ekle", text: "Terk sonrası kullanılabilir alan, kat sayısı ve ortalama kat yüksekliğiyle daha açıklayıcı bir ön sonuç oluştur." },
+            { title: "Sonucu imar belgesiyle karşılaştır", text: "Taban oturumu ve toplam emsal alanını incele; ardından çekme, yükseklik, nizam ve plan notlarını ayrıca doğrula." },
+          ]}
+          formulas={[
+            { title: "TAKS hesabı", text: "Maksimum yaklaşık taban alanı = hesapta kullanılan parsel alanı × TAKS." },
+            { title: "KAKS / emsal hesabı", text: "Toplam emsale esas alan = parsel alanı × KAKS. Hangi alanların emsale girdiği ilgili mevzuata göre değişebilir." },
+            { title: "Yaklaşık kat alanı", text: "Toplam emsal alanı ÷ kat adedi yalnızca eşit dağılım varsayımıdır; gerçek katlar aynı büyüklükte olmak zorunda değildir." },
+          ]}
+          example={{ title: "1.000 m² parsel, TAKS 0,30 ve KAKS 1,50", text: "Yaklaşık maksimum taban oturumu 1.000 × 0,30 = 300 m²; toplam emsale esas alan 1.000 × 1,50 = 1.500 m² olur. Beş kata eşit dağılım varsayılırsa kat başına yaklaşık 300 m² düşer." }}
+          mistakes={[
+            { title: "KAKS değerini yüzde olarak girmek", text: "Emsal 1,50 ise giriş 1,50 olmalıdır; yüzde 150 veya 150 biçiminde yazmak sonucu yüz kat büyütür." },
+            { title: "Net parsel alanını atlamak", text: "Yola veya donatıya terk varsa hesabın hangi alan üzerinden yapılacağı imar belgesi ve ilgili idareyle doğrulanmalıdır." },
+            { title: "TAKS alanını yapı konturu sanmak", text: "Çekme mesafeleri ve yapı yaklaşma sınırı, matematiksel TAKS alanından daha küçük bir yerleşim alanı oluşturabilir." },
+            { title: "Sonucu ruhsat hakkı kabul etmek", text: "Araç ön hesap yapar. Plan notları, emsal dışı alanlar, kotlandırma, yükseklik ve belediye yorumları kesin sonucu değiştirebilir." },
+          ]}
+          faqs={[
+            { question: "TAKS 0,30 ne demektir?", answer: "Hesaba esas parsel alanının yaklaşık yüzde 30’u kadar maksimum taban oturumu ifade eder. Çekme mesafeleri bu alanı ayrıca sınırlayabilir." },
+            { question: "KAKS 1,50 ne demektir?", answer: "Parsel alanının 1,50 katı kadar toplam emsale esas alan hesaplanabileceğini ifade eder. Emsale giren ve girmeyen alanlar mevzuata göre belirlenir." },
+            { question: "Emsal ile KAKS aynı şey mi?", answer: "Günlük kullanımda çoğunlukla aynı yapılaşma katsayısını anlatmak için kullanılır. Resmî belgedeki tanım ve plan notları esas alınmalıdır." },
+            { question: "Balkon ve otopark emsale dahil mi?", answer: "Tek bir evrensel cevap yoktur. Alanın niteliği, yürürlükteki yönetmelik, plan notları ve yerel uygulama belirleyicidir." },
+            { question: "Kat sayısını KAKS belirler mi?", answer: "KAKS toplam emsale esas alanı belirler; kat sayısı ayrıca yükseklik, yapı nizamı, plan kararı ve diğer sınırlara bağlıdır." },
+          ]}
+          relatedLinks={[
+            { href: "/proje-araclari/yonetmelik-kontrol", label: "Yönetmelik kontrol asistanı", description: "İmar ve proje girdilerini daha kapsamlı bir ön rapora dönüştür." },
+            { href: "/proje-araclari/vaziyet-simulatoru", label: "Vaziyet simülatörü", description: "Parsel geometrisi içinde yapı oturumunu görselleştir." },
+            { href: "/tools/parking-calculator", label: "Otopark hesaplama", description: "Proje programına göre yaklaşık otopark ihtiyacını incele." },
+          ]}
+        />
         <RelatedTools currentHref="/tools/taks-kaks" kind="calculation" />
       </div>
     </main>

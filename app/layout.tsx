@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ConsentManager from "./components/ConsentManager";
+import WorkspaceTracker from "./components/WorkspaceTracker";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -104,6 +105,7 @@ export default function RootLayout({
           }}
         />
         <Header />
+        <WorkspaceTracker />
         {children}
         <Footer />
         <ConsentManager />

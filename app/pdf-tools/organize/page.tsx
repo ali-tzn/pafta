@@ -687,9 +687,13 @@ export default function OrganizePdfPage() {
                       className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950"
                     >
                       <div className="relative flex h-64 items-center justify-center overflow-hidden bg-slate-900 p-4">
+                        {/* Blob URL is generated locally and cannot use next/image. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={page.previewUrl}
                           alt={`PDF sayfası ${page.pageNumber}`}
+                          loading="lazy"
+                          decoding="async"
                           className="max-h-full max-w-full object-contain transition"
                           style={{
                             transform: `rotate(${page.rotation}deg)`,

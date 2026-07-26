@@ -706,9 +706,13 @@ export default function PdfToPngClient({
                       className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950"
                     >
                       <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-800 p-3">
+                        {/* Blob URL is generated locally and cannot use next/image. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={page.previewUrl}
                           alt={`PDF sayfa ${page.pageNumber}`}
+                          loading="lazy"
+                          decoding="async"
                           className="max-h-full max-w-full object-contain"
                         />
                       </div>
@@ -932,6 +936,63 @@ export default function PdfToPngClient({
               Baskı alınacak dosyalarda PNG’yi göndermeden önce hedef kâğıt
               ölçüsü ve gerekli kaliteyi matbaayla doğrulamanı öneririz.
             </p>
+          </div>
+        </section>
+
+        <section className="mt-14">
+          <h2 className="text-3xl font-bold">
+            PNG, JPG ve çözünürlük seçimi
+          </h2>
+          <p className="mt-4 max-w-4xl leading-7 text-slate-300">
+            Doğru çıktı ayarı kullanım amacına bağlıdır. Çizgi, yazı ve
+            şeffaflık gereken paftalarda PNG; daha küçük dosya istenen fotoğraf
+            ağırlıklı sunumlarda JPG daha uygun olabilir.
+          </p>
+          <div className="mt-7 overflow-hidden rounded-3xl border border-slate-800">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[720px] text-left">
+                <thead className="bg-slate-900 text-sm text-slate-300">
+                  <tr>
+                    <th className="px-6 py-4">Kullanım</th>
+                    <th className="px-6 py-4">Öneri</th>
+                    <th className="px-6 py-4">Neden?</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-slate-950 text-sm text-slate-400">
+                  {[
+                    ["Hızlı ekran ön izlemesi", "PNG/JPG · 96 DPI", "Daha hızlı dönüşüm ve daha küçük çıktı"],
+                    ["Portfolyo ve dijital sunum", "PNG · 150 DPI", "Metin ve çizgiler için dengeli keskinlik"],
+                    ["Büyük pafta ve yakın inceleme", "PNG · 300 DPI", "İnce çizgi ve küçük yazılarda daha fazla piksel"],
+                    ["Fotoğraf ağırlıklı sayfa", "JPG · 150 DPI", "Ayarlanabilir kaliteyle daha küçük dosya"],
+                  ].map(([usage, suggestion, reason]) => (
+                    <tr key={usage} className="border-t border-slate-800">
+                      <td className="px-6 py-4 font-semibold text-white">{usage}</td>
+                      <td className="px-6 py-4 text-cyan-300">{suggestion}</td>
+                      <td className="px-6 py-4">{reason}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-14 rounded-3xl border border-amber-400/20 bg-amber-400/10 p-7">
+          <h2 className="text-2xl font-bold text-amber-200">
+            Dönüştürürken sık yapılan hatalar
+          </h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {[
+              ["Gereksiz yere 300 DPI seçmek", "Çok sayfalı ve büyük ebatlı PDF’lerde bellek kullanımı hızla artar. Ön izleme için 96 veya 150 DPI yeterlidir."],
+              ["JPG kalitesini fazla düşürmek", "Düşük kalite küçük yazıların ve ince çizgilerin çevresinde bozulma oluşturabilir. Mimari çizimde PNG daha güvenlidir."],
+              ["Piksel boyutunu kontrol etmemek", "DPI tek başına kalite garantisi değildir. İndirdiğin görselin piksel ölçülerini ve hedef kullanımını birlikte değerlendir."],
+              ["Orijinal PDF’yi silmek", "PNG ve JPG piksellidir; vektörel PDF kadar esnek değildir. Düzenleme ve baskı için kaynak PDF’yi sakla."],
+            ].map(([title, text]) => (
+              <article key={title} className="rounded-2xl bg-slate-950/70 p-5">
+                <h3 className="font-semibold text-white">{title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-400">{text}</p>
+              </article>
+            ))}
           </div>
         </section>
 

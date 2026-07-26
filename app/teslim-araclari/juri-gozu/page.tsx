@@ -510,19 +510,24 @@ export default function JuryEyePage() {
 
                 <div className="mt-5 flex min-h-96 items-center justify-center overflow-hidden rounded-xl bg-slate-950 p-3">
                   <div className="relative max-h-[75vh] max-w-full overflow-hidden bg-white shadow-2xl">
-                    {/* A standard img keeps the locally generated data URL in-browser. */}
+                    {/* Data URL is generated locally and cannot use next/image. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={previewUrl}
                       alt={`Jüri Gözü önizlemesi, sayfa ${selectedPage}`}
+                      decoding="async"
                       className="block max-h-[72vh] max-w-full object-contain transition duration-300"
                       style={{ filter: modeStyles[mode] }}
                     />
                     {showDensity && heatmapUrl && (
                       <>
+                        {/* Data URL is generated locally and cannot use next/image. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={heatmapUrl}
                           alt=""
                           aria-hidden="true"
+                          decoding="async"
                           className="pointer-events-none absolute inset-0 h-full w-full opacity-75 mix-blend-multiply"
                           style={{
                             imageRendering: "auto",

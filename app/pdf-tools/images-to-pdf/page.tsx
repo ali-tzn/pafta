@@ -618,9 +618,13 @@ export default function ImagesToPdfPage() {
                       <div className="flex flex-col gap-4 md:flex-row md:items-center">
                         <div className="flex h-24 w-full shrink-0 items-center justify-center overflow-hidden rounded-xl bg-slate-900 md:w-32">
                           {image.previewUrl ? (
+                            // Blob URL is generated locally and cannot be optimized by next/image.
+                            // eslint-disable-next-line @next/next/no-img-element
                             <img
                               src={image.previewUrl}
                               alt={image.file.name}
+                              loading="lazy"
+                              decoding="async"
                               className="h-full w-full object-contain"
                               style={{
                                 transform: `rotate(${image.rotation}deg)`,

@@ -11,6 +11,7 @@ import {
 import { PDFDocument } from "pdf-lib";
 import { trackToolEvent } from "@/lib/analytics";
 import RelatedTools from "@/app/components/RelatedTools";
+import ToolLearningGuide from "@/app/components/ToolLearningGuide";
 
 type PdfFileItem = {
   id: string;
@@ -746,6 +747,34 @@ export default function MergePdfPage() {
             </section>
           </aside>
         </div>
+        <ToolLearningGuide
+          title="PDF dosyaları güvenli biçimde nasıl birleştirilir?"
+          description="Birden fazla paftayı, raporu veya sunum dosyasını tek PDF hâline getirirken dosya sırası, sayfa aralığı ve çıktı kontrolü önemlidir. İşlem tarayıcıda yapıldığı için dosyaların cihazından ayrılmaz."
+          steps={[
+            { title: "PDF’leri ekle", text: "Dosyaları alana sürükle veya seçme düğmesini kullan. Araç sayfa sayılarını okuyarak bozuk ve şifreli dosyaları işaretler." },
+            { title: "Sırayı ve sayfaları düzenle", text: "Dosyaları sürükleyerek sırala. Her PDF için 1-3, 5, 8 gibi yalnızca alınacak sayfaları belirleyebilirsin." },
+            { title: "Tek PDF olarak indir", text: "Çıktı adını kontrol et, özet değerlerine bak ve birleştirme düğmesiyle dosyayı cihazına kaydet." },
+          ]}
+          example={{ title: "Mimari teslim dosyası hazırlama", text: "Kapak.pdf dosyasının 1. sayfasını, Paftalar.pdf dosyasının 1-6. sayfalarını ve Rapor.pdf dosyasının tamamını bu sırayla ekle. Sayfa aralıklarını düzenle, çıktı adını PROJE_TESLIM olarak yaz ve tek PDF indir." }}
+          mistakes={[
+            { title: "Dosya sırasını kontrol etmemek", text: "Birleştirme, ekrandaki sırayı izler. Kapak, pafta ve eklerin teslim düzeninde olduğundan emin ol." },
+            { title: "Hatalı sayfa aralığı girmek", text: "Virgülle sayfa, kısa çizgiyle aralık belirt: 1-4, 7, 10-12. Dosyada olmayan sayfalar seçilmemelidir." },
+            { title: "Şifreli PDF kullanmak", text: "Parola koruması veya özel güvenlik kısıtları dosyanın okunmasını engelleyebilir. Önce yetkili bir kopya oluştur." },
+            { title: "Çıktıyı açmadan teslim etmek", text: "İndirdiğin dosyayı yeniden aç; sayfa sırasını, yönlerini, çizim okunabilirliğini ve toplam sayfayı kontrol et." },
+          ]}
+          faqs={[
+            { question: "PDF birleştirme ücretsiz mi?", answer: "Evet. Araç ücretsizdir ve birden fazla PDF’yi tek dosyada birleştirebilir." },
+            { question: "Dosyalarım sunucuya yükleniyor mu?", answer: "Hayır. Birleştirme işlemi desteklenen tarayıcılarda cihazında yapılır; seçtiğin PDF’ler PAFTA sunucusuna gönderilmez." },
+            { question: "PDF’lerin yalnızca bazı sayfalarını alabilir miyim?", answer: "Evet. Her dosya için 1-3, 5, 8 gibi özel bir sayfa aralığı belirleyebilirsin." },
+            { question: "Birleştirme görüntü kalitesini düşürür mü?", answer: "Sayfalar yeni PDF’ye kopyalanır; normal koşullarda görseller yeniden sıkıştırılmaz. Ancak özel veya bozuk PDF yapılarında sonuç kontrol edilmelidir." },
+            { question: "Dosyaları nasıl yeniden sıralarım?", answer: "Dosya kartlarını sürükleyebilir veya yukarı-aşağı taşıma düğmelerini kullanabilirsin." },
+          ]}
+          relatedLinks={[
+            { href: "/pdf-tools/compress", label: "PDF sıkıştırma", description: "Birleştirdiğin teslim dosyasının boyutunu azalt." },
+            { href: "/pdf-tools/organize", label: "PDF sayfalarını düzenle", description: "Sayfaları döndür, yeniden sırala veya çıkar." },
+            { href: "/pdf-tools/page-numbers", label: "PDF sayfa numarası", description: "Son dosyaya düzenli sayfa numaraları ekle." },
+          ]}
+        />
         <RelatedTools currentHref="/pdf-tools/merge" kind="pdf" />
       </div>
     </main>

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import RelatedTools from "@/app/components/RelatedTools";
+import ToolLearningGuide from "@/app/components/ToolLearningGuide";
 import { trackToolEvent } from "@/lib/analytics";
 
 type StairOption = {
@@ -278,6 +279,38 @@ export default function StairCalculatorPage() {
             )}
           </section>
         </div>
+        <ToolLearningGuide
+          title="Rıht ve basamak ölçüsü nasıl belirlenir?"
+          description="Merdiven rahatlığı yalnızca kat yüksekliğini eşit rıhtlara bölmekle bitmez. Rıht yüksekliği, basamak genişliği, kol boyu, sahanlık ve yürürlükteki kurallar birlikte değerlendirilmelidir."
+          steps={[
+            { title: "Kat yüksekliğini ölç", text: "Bitmiş döşemeden bitmiş döşemeye düşey mesafeyi santimetre olarak gir. Kaba döşeme yüksekliğiyle karıştırma." },
+            { title: "Öneriyi incele", text: "Araç uygun rıht sayılarını tarar ve 2R + B yaklaşımına göre rahat çözümleri öne çıkarır." },
+            { title: "Plana yerleştir", text: "Toplam yatay uzunluğu, sahanlığı, merdiven genişliğini ve baş kurtarma yüksekliğini plan-kesit üzerinde kontrol et." },
+          ]}
+          formulas={[
+            { title: "Rıht yüksekliği", text: "Rıht yüksekliği = kat yüksekliği ÷ rıht sayısı. Tüm rıhtların eşit olması güvenli kullanım için önemlidir." },
+            { title: "Konfor bağıntısı", text: "Yaygın ön tasarım yaklaşımı 2R + B ≈ 63 cm’dir. R rıht yüksekliği, B basamak genişliğidir." },
+            { title: "Yaklaşık kol uzunluğu", text: "Düz bir kolda yatay uzunluk yaklaşık olarak basamak genişliği × basamak sayısıdır. Sahanlık ayrıca eklenir." },
+          ]}
+          example={{ title: "300 cm kat yüksekliği örneği", text: "17 rıht seçildiğinde rıht yüksekliği yaklaşık 17,65 cm olur. 2R + B = 63 yaklaşımı basamağı yaklaşık 27,71 cm verir. Planda sahanlık ve taşıyıcı sistem için ayrıca yer ayrılmalıdır." }}
+          mistakes={[
+            { title: "Döşeme kalınlığını yanlış okumak", text: "Kat yüksekliği, bitmiş kotlar arasındaki değerdir. Kesitteki kaba beton kotunu doğrudan kullanmak son rıhtı bozabilir." },
+            { title: "Rıht ve basamak sayısını eşit sanmak", text: "İki kat arasındaki düzende basamak sayısı çoğu durumda rıht sayısından bir eksik değerlendirilir." },
+            { title: "Sahanlığı hesaba katmamak", text: "Araç düz yatay uzunluğu verir. U, L veya çift kollu çözümde sahanlık geometrisi ayrıca yerleştirilmelidir." },
+            { title: "Yalnızca konfor formülüne güvenmek", text: "Yangın kaçışı, erişilebilirlik, merdiven genişliği, korkuluk ve baş mesafesi ilgili mevzuata göre kontrol edilmelidir." },
+          ]}
+          faqs={[
+            { question: "300 cm kat yüksekliğinde kaç rıht olur?", answer: "Seçilen hedef rıht yüksekliğine göre genellikle 17 veya 18 rıht değerlendirilebilir. Kesin seçim plan geometrisi ve yönetmelik koşullarıyla doğrulanmalıdır." },
+            { question: "Rıht yüksekliği kaç santimetre olmalı?", answer: "Yapı kullanımına ve mevzuata göre değişir. Araç ön tasarımda 15–19 cm aralığını tarar ve 16–18 cm aralığını daha rahat seçenek olarak öne çıkarır." },
+            { question: "Basamak genişliği nasıl hesaplanır?", answer: "Ön tasarımda B = 63 − 2R bağıntısı kullanılabilir. Ancak kullanım türüne ilişkin minimum ölçüler ayrıca kontrol edilmelidir." },
+            { question: "Döner merdiven hesaplanabilir mi?", answer: "Bu araç düz koşu için ön boyut verir. Döner ve dengelenmiş basamaklarda yürüyüş hattı, iç-dış basamak ölçüleri ve özel kurallar ayrıca çözülmelidir." },
+          ]}
+          relatedLinks={[
+            { href: "/tools/ramp-calculator", label: "Rampa hesaplama", description: "Kot farkına göre eğim ve rampa uzunluğunu hesapla." },
+            { href: "/proje-araclari/mekan-olculeri", label: "Mekân ölçüleri", description: "Dolaşım ve yapı elemanları için başlangıç ölçülerini incele." },
+            { href: "/proje-araclari/yonetmelik-kontrol", label: "Yönetmelik kontrolü", description: "Proje girdilerini daha kapsamlı bir ön kontrolden geçir." },
+          ]}
+        />
         <RelatedTools currentHref="/tools/stair-calculator" kind="calculation" />
       </div>
     </main>

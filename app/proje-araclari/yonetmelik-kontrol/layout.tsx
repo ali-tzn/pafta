@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Yönetmelik Kontrol Asistanı" description="Parsel ve proje verileriyle temel imar ve yerleşim kontrolleri oluşturun." path="/proje-araclari/yonetmelik-kontrol" category="DesignApplication" features={["TAKS ve emsal", "Çekme zarfı", "Hmax kontrolü", "Belge listesi"]}>{children}</ToolSeo>; }

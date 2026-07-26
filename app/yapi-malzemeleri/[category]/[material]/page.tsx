@@ -9,6 +9,7 @@ import {
   materials,
   ratingLabels,
 } from "../../materials";
+import { ArticleSeo, createSeoMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ category: string; material: string }>;
@@ -25,14 +26,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category, material: slug } = await params;
   const material = getMaterial(category, slug);
   if (!material) return {};
-  return {
+  return createSeoMetadata({
     title: `${material.name} Nedir? Özellikleri, Kullanımı ve Avantajları`,
     description: material.summary,
+    path: `/yapi-malzemeleri/${category}/${material.slug}`,
     keywords: material.keywords,
-    alternates: {
-      canonical: `/yapi-malzemeleri/${category}/${material.slug}`,
-    },
-  };
+  });
 }
 
 export default async function MaterialDetailPage({ params }: Props) {
@@ -44,25 +43,9 @@ export default async function MaterialDetailPage({ params }: Props) {
     (item) => item.slug !== material.slug
   );
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: `${material.name} Nedir? Özellikleri ve Kullanım Alanları`,
-    description: material.summary,
-    inLanguage: "tr-TR",
-    mainEntityOfPage: `https://paftaedu.com/yapi-malzemeleri/${category.slug}/${material.slug}`,
-    author: { "@type": "Organization", name: "PAFTA" },
-    publisher: { "@type": "Organization", name: "PAFTA" },
-  };
-
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
-        }}
-      />
+      <ArticleSeo title={`${material.name} Nedir?`} description={material.summary} path={`/yapi-malzemeleri/${category.slug}/${material.slug}`} section={`${category.name} Malzemeleri`} sectionPath={`/yapi-malzemeleri/${category.slug}`} keywords={material.keywords} />
       <article className="mx-auto max-w-4xl">
         <nav className="mb-8 text-sm text-slate-400">
           <Link href="/">Ana Sayfa</Link>

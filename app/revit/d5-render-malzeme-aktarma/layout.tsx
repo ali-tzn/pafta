@@ -1,0 +1,2 @@
+import { ArticleSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <><ArticleSeo title="Revit'ten D5 Render'a Malzeme Aktarma" description="Revit malzemelerini D5 Render'a doğru aktarma ve malzeme eşleşmesi sorunlarını çözme rehberi." path="/revit/d5-render-malzeme-aktarma" section="Revit Merkezi" sectionPath="/revit" keywords={["Revit","D5 Render","malzeme aktarma"]}/>{children}</>; }

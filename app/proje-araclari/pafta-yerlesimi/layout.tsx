@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Mimari Pafta Yerleşim Oluşturucu" description="Kâğıt boyutu ve içeriklere göre düzenlenebilir mimari pafta gridleri oluşturun." path="/proje-araclari/pafta-yerlesimi" category="DesignApplication" features={["A0–A4 pafta", "Otomatik grid", "Düzenlenebilir bloklar", "Pafta şeması"]}>{children}</ToolSeo>; }

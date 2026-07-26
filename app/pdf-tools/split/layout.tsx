@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "PDF Ayırma – PDF Sayfalarını Böl ve Çıkar", description: "PDF dosyasını sayfa aralıklarına göre böl, seçilen sayfaları ayrı PDF olarak çıkar ve ücretsiz indir.", path: "/pdf-tools/split", keywords: ["pdf ayırma", "pdf bölme", "pdf sayfa çıkarma", "pdf split"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="PDF Ayırma Aracı" description="PDF sayfalarını aralıklara göre ayırın ve çıkarın." path="/pdf-tools/split" category="UtilitiesApplication" features={["Sayfa aralığı", "Tek tek sayfa çıkarma", "PDF bölme", "Tarayıcıda işlem"]}>{children}</ToolSeo>; }

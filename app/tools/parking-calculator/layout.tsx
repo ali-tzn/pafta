@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Otopark Alanı ve Araç Kapasitesi Hesaplama", description: "Mevcut alana sığabilecek yaklaşık araç sayısını veya hedef kapasite için gerekli otopark alanını hesapla.", path: "/tools/parking-calculator", keywords: ["otopark hesaplama", "araç kapasitesi", "otopark alanı", "otopark yerleşimi"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Otopark Hesaplayıcı" description="Alan ve araç sayısına göre otopark kapasitesini hesaplayın." path="/tools/parking-calculator" category="DesignApplication" features={["Araç kapasitesi", "Gerekli alan", "Yerleşim verimliliği"]}>{children}</ToolSeo>; }

@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Öğrenci Takvimi – Teslim, Jüri ve Sınav Planlayıcı", description: "Teslim, jüri, sınav ve ödev tarihlerini tek takvimde planla; yaklaşan işleri ve kalan günleri takip et.", path: "/student-tools/calendar", keywords: ["öğrenci takvimi", "teslim takvimi", "jüri planlama", "sınav takvimi"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Öğrenci Takvimi" description="Teslim, jüri ve sınav tarihlerinizi planlayın." path="/student-tools/calendar" category="EducationalApplication" features={["Teslim tarihleri", "Sınav planı", "Kalan gün", "Yerel kayıt"]}>{children}</ToolSeo>; }

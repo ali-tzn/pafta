@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "GNO Hesaplama – Üniversite Not Ortalaması", description: "Ders kredileri ve harf notlarından dönem veya genel not ortalamanı 4'lük sistemde ücretsiz hesapla.", path: "/student-tools/gno-calculator", keywords: ["gno hesaplama", "üniversite ortalama hesaplama", "4lük sistem", "harf notu ortalama"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="GNO Hesaplayıcı" description="Kredi ve harf notlarından genel not ortalamanızı hesaplayın." path="/student-tools/gno-calculator" category="EducationalApplication" features={["4'lük sistem", "Kredi ağırlığı", "Harf notları", "Ders ekleme"]}>{children}</ToolSeo>; }

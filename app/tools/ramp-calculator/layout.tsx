@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Rampa Hesaplayıcı – Eğim ve Rampa Uzunluğu", description: "Kot farkı ve eğim yüzdesinden gerekli rampa uzunluğunu; mevcut rampanın eğimini ve açısını ücretsiz hesapla.", path: "/tools/ramp-calculator", keywords: ["rampa hesaplama", "rampa eğimi", "engelli rampası", "kot farkı", "rampa uzunluğu"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Rampa Hesaplayıcı" description="Kot farkı, uzunluk ve eğim arasında hesaplama yapın." path="/tools/ramp-calculator" category="DesignApplication" features={["Rampa uzunluğu", "Yüzde eğim", "Kot farkı", "Eğim açısı"]}>{children}</ToolSeo>; }

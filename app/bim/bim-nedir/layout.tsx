@@ -1,0 +1,3 @@
+import { createSeoMetadata, ArticleSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "BIM Nedir? Yapı Bilgi Modellemesi Rehberi", description: "BIM'in ne olduğunu, CAD'den farkını, proje paydaşlarına sağladığı yararları ve temel çalışma mantığını öğrenin.", path: "/bim/bim-nedir", keywords: ["BIM nedir", "yapı bilgi modellemesi", "BIM mimarlık", "BIM CAD farkı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <><ArticleSeo title="BIM Nedir?" description="Yapı Bilgi Modellemesinin temel kavramları ve proje sürecindeki rolü." path="/bim/bim-nedir" section="BIM Merkezi" sectionPath="/bim" keywords={["BIM","yapı bilgi modellemesi"]}/>{children}</>; }

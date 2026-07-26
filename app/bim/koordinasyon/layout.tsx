@@ -1,0 +1,3 @@
+import { createSeoMetadata, ArticleSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "BIM Koordinasyonu Nedir? Çakışma ve Model Yönetimi", description: "Mimari, statik ve MEP modellerinin BIM koordinasyonunu, çakışma kontrollerini ve ortak çalışma sürecini inceleyin.", path: "/bim/koordinasyon", keywords: ["BIM koordinasyonu", "clash detection", "model koordinasyonu", "MEP çakışma"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <><ArticleSeo title="BIM Koordinasyonu" description="Disiplin modelleri arasındaki koordinasyon ve çakışma kontrolü." path="/bim/koordinasyon" section="BIM Merkezi" sectionPath="/bim" keywords={["BIM koordinasyonu","çakışma kontrolü"]}/>{children}</>; }

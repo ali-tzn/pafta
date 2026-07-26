@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Tuğla Hesaplayıcı – Duvar İçin Tuğla Adedi", description: "Duvar alanı, tuğla ölçüsü, derz ve fire payına göre gerekli tuğla ve paket sayısını ücretsiz hesapla.", path: "/tools/brick-calculator", keywords: ["tuğla hesaplama", "duvar tuğla adedi", "tuğla metrajı", "duvar metrajı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Tuğla Hesaplayıcı" description="Duvar için gerekli tuğla miktarını hesaplayın." path="/tools/brick-calculator" category="DesignApplication" features={["Tuğla adedi", "Derz payı", "Fire payı", "Paket hesabı"]}>{children}</ToolSeo>; }

@@ -73,10 +73,10 @@ export default function PrivacyPage() {
         <p className="mt-8 leading-7 text-slate-400">
           Gizlilikle ilgili soruların için{" "}
           <a
-            href="mailto:iletisim@paftaedu.com"
+            href="mailto:alitzngvn@gmail.com"
             className="text-cyan-400 hover:text-cyan-300"
           >
-            iletisim@paftaedu.com
+            alitzngvn@gmail.com
           </a>{" "}
           adresine ulaşabilirsin.
         </p>

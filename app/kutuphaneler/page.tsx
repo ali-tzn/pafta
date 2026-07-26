@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Mimarlık Bilgi Kütüphaneleri | PAFTA",
+  title: "Mimarlık Bilgi Kütüphaneleri",
   description: "Mimari detaylar, yapı malzemeleri, mimarlık kültürü, proje rehberleri, BIM ve Revit başvuru içerikleri.",
   alternates: { canonical: "/kutuphaneler" },
 };

@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Mekân Ölçüleri Kütüphanesi" description="Mimari mekânların minimum ve önerilen ölçülerini, alanlarını ve tasarım notlarını inceleyin." path="/proje-araclari/mekan-olculeri" category="EducationalApplication" features={["Mekân ölçüleri", "Minimum alanlar", "Yerleşim notları", "Tipoloji filtresi"]}>{children}</ToolSeo>; }

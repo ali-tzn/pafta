@@ -1,10 +1,6 @@
-import type { Metadata } from "next";
+import { createSeoMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Revit Rehberleri",
-  description:
-    "Mimarlık öğrencileri için Revit modelleme, duvar, malzeme, family ve uygulama sorunlarına yönelik Türkçe rehberler.",
-};
+export const metadata = createSeoMetadata({ title: "Revit Rehberleri – Modelleme ve Sorun Çözümleri", description: "Mimarlık öğrencileri için Revit modelleme, duvar, malzeme, family ve uygulama sorunlarına yönelik Türkçe rehberler.", path: "/revit", keywords: ["Revit rehberi", "Revit modelleme", "Revit family", "Revit sorunları", "BIM"] });
 
 export default function RevitLayout({
   children,

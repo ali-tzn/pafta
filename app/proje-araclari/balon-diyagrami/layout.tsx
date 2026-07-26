@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Mimari İlişki ve Balon Diyagramı" description="Mekân ilişkilerini ve zonları sürüklenebilir balon diyagramında düzenleyin." path="/proje-araclari/balon-diyagrami" category="DesignApplication" features={["Mekân balonları", "Yakınlık ilişkileri", "Zonlama", "SVG ve PDF çıktısı"]}>{children}</ToolSeo>; }

@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Vaziyet Yerleşimi ve Yapı Oturumu Simülatörü" description="Serbest parsel çizerek yapı kütlelerini ve çekme mesafelerini sınayın." path="/proje-araclari/vaziyet-simulatoru" category="DesignApplication" features={["Çokgen parsel çizimi", "Sürüklenebilir yapı kütleleri", "Çekme kontrolü", "Oturum oranı"]}>{children}</ToolSeo>; }

@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Pafta Boyutu ve Ölçek Dönüştürücü", description: "A0, A1, A2, A3 ve A4 pafta boyutları arasında geçerken çizim ölçeğinin nasıl değişeceğini hesapla.", path: "/tools/sheet-scale-converter", keywords: ["pafta ölçeği", "a1 a3 ölçek", "kağıt boyutu ölçek", "pafta küçültme oranı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Pafta Boyutu ve Ölçek Dönüştürücü" description="Kâğıt boyutu değişiminde yeni çizim ölçeğini hesaplayın." path="/tools/sheet-scale-converter" category="DesignApplication" features={["ISO kâğıt boyutları", "Ölçek koruma", "Büyütme ve küçültme oranı"]}>{children}</ToolSeo>; }

@@ -259,21 +259,27 @@ export default function SubmissionChecklistPage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const savedItems = localStorage.getItem(storageKey);
+    const frame = window.requestAnimationFrame(() => {
+      const savedItems = localStorage.getItem(storageKey);
 
-    if (savedItems) {
-      try {
-        const parsedItems = JSON.parse(savedItems) as ChecklistItem[];
+      if (savedItems) {
+        try {
+          const parsedItems = JSON.parse(
+            savedItems
+          ) as ChecklistItem[];
 
-        if (Array.isArray(parsedItems)) {
-          setItems(parsedItems);
+          if (Array.isArray(parsedItems)) {
+            setItems(parsedItems);
+          }
+        } catch {
+          setItems(defaultItems);
         }
-      } catch {
-        setItems(defaultItems);
       }
-    }
 
-    setIsLoaded(true);
+      setIsLoaded(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

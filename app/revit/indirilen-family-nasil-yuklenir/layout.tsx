@@ -1,0 +1,2 @@
+import { ArticleSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <><ArticleSeo title="İndirilen Revit Family Nasıl Yüklenir?" description="RFA family dosyalarını Revit projesine yükleme, yerleştirme ve sürüm sorunlarını çözme rehberi." path="/revit/indirilen-family-nasil-yuklenir" section="Revit Merkezi" sectionPath="/revit" keywords={["Revit family","RFA","family yükleme"]}/>{children}</>; }

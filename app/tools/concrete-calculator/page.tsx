@@ -45,9 +45,6 @@ export default function ConcreteCalculatorPage() {
   const [truckCapacity, setTruckCapacity] = useState("8");
 
   const result = useMemo(() => {
-    let netVolume = 0;
-    let validElementCount = 0;
-
     const calculatedElements = elements.map((element) => {
       const length = Number(element.length);
       const width = Number(element.width);
@@ -68,17 +65,28 @@ export default function ConcreteCalculatorPage() {
         ? length * width * height * quantity
         : 0;
 
-      if (isValid) {
-        netVolume += volume;
-        validElementCount += 1;
-      }
-
       return {
         ...element,
         volume,
         isValid,
       };
     });
+
+    const { netVolume, validElementCount } =
+      calculatedElements.reduce(
+        (totals, element) => ({
+          netVolume:
+            totals.netVolume +
+            (element.isValid ? element.volume : 0),
+          validElementCount:
+            totals.validElementCount +
+            (element.isValid ? 1 : 0),
+        }),
+        {
+          netVolume: 0,
+          validElementCount: 0,
+        }
+      );
 
     const waste = Number(wastePercent);
     const capacity = Number(truckCapacity);

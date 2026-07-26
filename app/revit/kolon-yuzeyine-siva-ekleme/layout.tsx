@@ -1,0 +1,3 @@
+import { createSeoMetadata, ArticleSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Revit'te Kolon Yüzeyine Sıva Ekleme", description: "Duvar içinde açıkta kalan kolon yüzeylerine Revit'te doğru malzeme ve sıva katmanı ekleme yöntemlerini inceleyin.", path: "/revit/kolon-yuzeyine-siva-ekleme", keywords: ["revit kolon sıva", "kolon yüzey kaplama", "revit plaster", "revit duvar katmanı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <><ArticleSeo title="Revit'te Kolon Yüzeyine Sıva Ekleme" description="Açıkta kalan kolon yüzeylerinde sıva modelleme yöntemleri." path="/revit/kolon-yuzeyine-siva-ekleme" section="Revit Merkezi" sectionPath="/revit" keywords={["Revit","kolon sıva"]}/>{children}</>; }

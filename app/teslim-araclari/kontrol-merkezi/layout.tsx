@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ToolSeo } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Mimari Teslim Kontrol Merkezi | Pafta ve Portfolyo Denetimi",
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 export default function SubmissionInspectorLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return children;
+  return <ToolSeo title="Mimari Teslim Kontrol Merkezi" description="Pafta ve portfolyo dosyalarının ölçü, yön, DPI ve dosya bilgilerini denetleyin." path="/teslim-araclari/kontrol-merkezi" category="DesignApplication" features={["PDF ve görsel analizi", "Kâğıt ölçüsü", "DPI kontrolü", "Dosya adı denetimi"]}>{children}</ToolSeo>;
 }

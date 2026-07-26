@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import BubbleDiagram from "./BubbleDiagram";
 
 export const metadata: Metadata = {
-  title: "Mimari Balon Diyagramı ve İlişki Şeması Oluşturucu | PAFTA",
+  title: "Mimari Balon Diyagramı ve İlişki Şeması Oluşturucu",
   description: "Mekânları alanlarına göre boyutlandır, yakınlık ilişkilerini tanımla, otomatik balon diyagramı oluştur ve PNG veya SVG indir.",
   alternates: { canonical: "/proje-araclari/balon-diyagrami" },
 };

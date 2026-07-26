@@ -37,6 +37,7 @@ const categories: EventCategory[] = [
 export default function StudentCalendarPage() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const [title, setTitle] = useState("");
   const [category, setCategory] =
@@ -46,18 +47,27 @@ export default function StudentCalendarPage() {
   const [reminderMinutes, setReminderMinutes] = useState(1440);
 
   useEffect(() => {
-    const savedEvents = localStorage.getItem("pafta-calendar-events");
+    const frame = window.requestAnimationFrame(() => {
+      const savedEvents = localStorage.getItem(
+        "pafta-calendar-events"
+      );
 
-    if (savedEvents) {
-      try {
-        const parsedEvents = JSON.parse(savedEvents) as CalendarEvent[];
-        setEvents(parsedEvents);
-      } catch {
-        localStorage.removeItem("pafta-calendar-events");
+      if (savedEvents) {
+        try {
+          const parsedEvents = JSON.parse(
+            savedEvents
+          ) as CalendarEvent[];
+          setEvents(parsedEvents);
+        } catch {
+          localStorage.removeItem("pafta-calendar-events");
+        }
       }
-    }
 
-    setLoaded(true);
+      setCurrentTime(Date.now());
+      setLoaded(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -74,6 +84,7 @@ export default function StudentCalendarPage() {
   useEffect(() => {
     const interval = window.setInterval(() => {
       const now = Date.now();
+      setCurrentTime(now);
 
       setEvents((currentEvents) =>
         currentEvents.map((event) => {
@@ -117,11 +128,11 @@ export default function StudentCalendarPage() {
   }, [events]);
 
   const upcomingEvents = sortedEvents.filter(
-    (event) => getEventTimestamp(event) >= Date.now()
+    (event) => getEventTimestamp(event) >= currentTime
   );
 
   const pastEvents = sortedEvents.filter(
-    (event) => getEventTimestamp(event) < Date.now()
+    (event) => getEventTimestamp(event) < currentTime
   );
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {

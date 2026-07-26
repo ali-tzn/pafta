@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Eğim Hesaplayıcı – Yüzde, Oran ve Açı", description: "Kot farkı ile yatay mesafeden yüzde eğimi, 1:n eğim oranını ve eğim açısını ücretsiz hesapla.", path: "/tools/slope-calculator", keywords: ["eğim hesaplama", "yüzde eğim", "eğim oranı", "kot farkı", "eğim açısı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Eğim Hesaplayıcı" description="Kot farkı ve mesafeden eğim değerlerini hesaplayın." path="/tools/slope-calculator" category="DesignApplication" features={["Yüzde eğim", "Eğim oranı", "Eğim açısı", "Kot farkı"]}>{children}</ToolSeo>; }

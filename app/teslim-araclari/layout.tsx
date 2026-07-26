@@ -1,13 +1,6 @@
-import type { Metadata } from "next";
+import { createSeoMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Teslim Araçları | Pafta, Portfolyo ve Jüri Hazırlığı",
-  description:
-    "Mimari pafta, portfolyo ve jüri teslimlerini teknik şartlara göre kontrol et; dosya boyutu, ölçü, çözünürlük ve adlandırma sorunlarını düzelt.",
-  alternates: {
-    canonical: "/teslim-araclari",
-  },
-};
+export const metadata = createSeoMetadata({ title: "Teslim Araçları – Pafta, Portfolyo ve Jüri Hazırlığı", description: "Mimari pafta, portfolyo ve jüri teslimlerini teknik şartlara göre kontrol et; ölçü, çözünürlük ve okunabilirlik sorunlarını düzelt.", path: "/teslim-araclari", keywords: ["mimari teslim", "pafta kontrolü", "jüri hazırlığı", "portfolyo kontrolü"] });
 
 export default function DeliveryToolsLayout({
   children,

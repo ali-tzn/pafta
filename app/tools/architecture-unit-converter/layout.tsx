@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ToolSeo } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Mimarlık Birim Dönüştürücü | Uzunluk, Alan, Hacim ve Ölçek",
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 export default function ArchitectureUnitConverterLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return children;
+  return <ToolSeo title="Mimarlık Birim Dönüştürücü" description="Uzunluk, alan, hacim ve mimari ölçek birimlerini dönüştürün." path="/tools/architecture-unit-converter" category="DesignApplication" features={["Uzunluk dönüşümü", "Alan dönüşümü", "Hacim dönüşümü", "Mimari ölçek"]}>{children}</ToolSeo>;
 }

@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Duvar, Çatı ve Döşeme U-Değeri Tasarımcısı" description="Yapı katmanlarını düzenleyerek ısıl direnç ve U-değerini hesaplayın." path="/proje-araclari/u-degeri-tasarimcisi" category="DesignApplication" features={["Katman sürükleme", "Malzeme kütüphanesi", "U-değeri", "Teknik kesit"]}>{children}</ToolSeo>; }

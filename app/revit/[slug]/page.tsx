@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { revitGuides } from "../guides";
+import { ArticleSeo, createSeoMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() { return revitGuides.map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params; const guide = revitGuides.find((item) => item.slug === slug);
   if (!guide) return {};
-  return { title: guide.title, description: guide.description, alternates: { canonical: `/revit/${guide.slug}` } };
+  return createSeoMetadata({ title: guide.title, description: guide.description, path: `/revit/${guide.slug}`, keywords: [guide.category, ...guide.keyPoints] });
 }
 export default async function RevitGuidePage({ params }: Props) {
   const { slug } = await params; const guide = revitGuides.find((item) => item.slug === slug); if (!guide) notFound();
-  const data = { "@context":"https://schema.org","@type":"Article",headline:guide.title,description:guide.description,inLanguage:"tr-TR",author:{"@type":"Organization",name:"PAFTA"},mainEntityOfPage:`https://paftaedu.com/revit/${guide.slug}` };
-  return <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(data).replace(/</g,"\\u003c")}}/><article className="mx-auto max-w-4xl">
+  return <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16"><ArticleSeo title={guide.title} description={guide.description} path={`/revit/${guide.slug}`} section="Revit Merkezi" sectionPath="/revit" keywords={[guide.category, ...guide.keyPoints]}/><article className="mx-auto max-w-4xl">
     <nav className="mb-8 text-sm text-slate-400"><Link href="/">Ana Sayfa</Link><span className="mx-2">/</span><Link href="/revit">Revit</Link><span className="mx-2">/</span><span>{guide.title}</span></nav>
     <header className="border-b border-slate-800 pb-10"><p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">{guide.category}</p><h1 className="mt-4 text-4xl font-bold leading-tight md:text-5xl">{guide.title}</h1><p className="mt-6 text-lg leading-8 text-slate-300">{guide.description}</p></header>
     <Block title="Konuyu anlamak için temel noktalar" items={guide.keyPoints}/>

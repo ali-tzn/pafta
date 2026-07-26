@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ProjectStarter from "./ProjectStarter";
 
 export const metadata: Metadata = {
-  title: "Mimari İhtiyaç Programı Oluşturucu | PAFTA",
+  title: "Mimari İhtiyaç Programı Oluşturucu",
   description: "Kütüphane, müze, okul, ofis, otel ve kültür merkezi için alan programı, komşuluk ilişkileri ve kat dağılımı oluştur.",
   alternates: { canonical: "/proje-araclari/proje-baslangic" },
 };

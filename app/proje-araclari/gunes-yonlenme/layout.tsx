@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Güneş, Yönlenme ve Cephe Karar Asistanı" description="Konum, tarih, cephe ve gölgeleme geometrisine göre güneş etkisini analiz edin." path="/proje-araclari/gunes-yonlenme" category="DesignApplication" features={["81 il ve özel koordinat", "Güneş azimutu ve yüksekliği", "Saatlik analiz", "Saçak ve kırıcı kontrolü"]}>{children}</ToolSeo>; }

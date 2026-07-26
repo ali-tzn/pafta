@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Mimari Ölçek Hesaplama – 1/50, 1/100, 1/200", description: "Gerçek uzunluğu 1/20, 1/50, 1/100, 1/200 ve diğer mimari ölçeklerde çizim ölçüsüne dönüştür.", path: "/tools/scale-calculator", keywords: ["ölçek hesaplama", "1 50 ölçek", "1 100 ölçek", "mimari ölçek", "çizim ölçüsü"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Mimari Ölçek Hesaplayıcı" description="Gerçek ölçü ve çizim ölçeği arasında dönüşüm yapın." path="/tools/scale-calculator" category="DesignApplication" features={["Gerçek ölçüden çizime", "Çizimden gerçek ölçüye", "Mimari ölçekler"]}>{children}</ToolSeo>; }

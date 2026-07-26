@@ -1,0 +1,3 @@
+import { createSeoMetadata, ArticleSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Ücretsiz CAD Blok Kaynakları – Mimari DWG Arşivleri", description: "Mimari plan, kesit ve görünüşler için ücretsiz CAD ve DWG blok kaynaklarını seçerken lisans, ölçek ve dosya temizliğini kontrol edin.", path: "/resources/cad-blok-kaynaklari", keywords: ["cad blok", "dwg blok indir", "mimari cad blokları", "ücretsiz dwg"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <><ArticleSeo title="CAD Blok Kaynakları" description="Mimari çizimler için CAD blok arşivleri ve seçim ölçütleri." path="/resources/cad-blok-kaynaklari" section="Mimarlık Kaynakları" sectionPath="/resources" keywords={["CAD blok","DWG"]}/>{children}</>; }

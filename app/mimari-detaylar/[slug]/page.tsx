@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { architecturalDetails } from "../details";
 import DetailDiagram from "../DetailDiagram";
+import { ArticleSeo, createSeoMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return architecturalDetails.map((detail) => ({ slug: detail.slug }));
@@ -12,11 +13,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const detail = architecturalDetails.find((item) => item.slug === slug);
   if (!detail) return {};
-  return {
-    title: `${detail.title} | Mimari Detay | PAFTA`,
+  return createSeoMetadata({
+    title: `${detail.title} – Mimari Detay`,
     description: detail.summary,
-    alternates: { canonical: `/mimari-detaylar/${detail.slug}` },
-  };
+    path: `/mimari-detaylar/${detail.slug}`,
+    keywords: [...detail.tags, detail.category, "mimari detay", "yapı detayı"],
+  });
 }
 
 export default async function DetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,6 +28,7 @@ export default async function DetailPage({ params }: { params: Promise<{ slug: s
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6">
+      <ArticleSeo title={detail.title} description={detail.summary} path={`/mimari-detaylar/${detail.slug}`} section="Mimari Detay Kütüphanesi" sectionPath="/mimari-detaylar" keywords={detail.tags} />
       <article className="mx-auto max-w-5xl">
         <Link href="/mimari-detaylar" className="text-sm font-semibold text-cyan-400">← Detay kütüphanesi</Link>
         <p className="mt-8 font-mono text-xs uppercase tracking-[.2em] text-cyan-400">{detail.category} · Önerilen çizim {detail.scale}</p>

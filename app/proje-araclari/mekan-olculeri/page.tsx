@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import SpaceLibrary from "./SpaceLibrary";
 
 export const metadata: Metadata = {
-  title: "Mimari Mekân Ölçüleri Kütüphanesi | PAFTA",
+  title: "Mimari Mekân Ölçüleri Kütüphanesi",
   description: "Derslik, ofis, kütüphane, restoran, otel odası, WC, otopark, koridor ve merdiven için minimum ve önerilen mimari ölçüler.",
   alternates: { canonical: "/proje-araclari/mekan-olculeri" },
 };

@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "PDF Sayfalarını Düzenle – Sırala, Döndür ve Sil", description: "PDF sayfalarını küçük ön izlemelerle sırala, döndür, gereksiz sayfaları sil ve düzenlenmiş PDF'yi ücretsiz indir.", path: "/pdf-tools/organize", keywords: ["pdf sayfa düzenleme", "pdf sayfa sıralama", "pdf sayfa döndürme", "pdf sayfa silme"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="PDF Sayfa Düzenleyici" description="PDF sayfalarını sıralayın, döndürün ve silin." path="/pdf-tools/organize" category="UtilitiesApplication" features={["Sürükle bırak sıralama", "Sayfa döndürme", "Sayfa silme", "Ön izleme"]}>{children}</ToolSeo>; }

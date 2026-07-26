@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "PDF Bilgilerini Görüntüle – Sayfa ve Dosya Analizi", description: "PDF dosyasının sayfa sayısını, sayfa ölçülerini, yönünü, dosya boyutunu ve temel belge bilgilerini ücretsiz incele.", path: "/pdf-tools/info", keywords: ["pdf bilgileri", "pdf sayfa boyutu", "pdf ölçüsü öğrenme", "pdf sayfa sayısı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="PDF Bilgileri" description="PDF dosyanızın teknik özelliklerini görüntüleyin." path="/pdf-tools/info" category="UtilitiesApplication" features={["Sayfa sayısı", "Sayfa ölçüsü", "Dosya boyutu", "Belge bilgileri"]}>{children}</ToolSeo>; }

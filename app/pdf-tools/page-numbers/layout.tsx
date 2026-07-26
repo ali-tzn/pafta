@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "PDF'ye Sayfa Numarası Ekle – Ücretsiz", description: "PDF sayfalarına başlangıç numarası, konum ve görünüm seçenekleriyle ücretsiz sayfa numarası ekle.", path: "/pdf-tools/page-numbers", keywords: ["pdf sayfa numarası", "pdf numaralandırma", "pdfye sayfa numarası ekleme"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="PDF Sayfa Numaralandırma" description="PDF dosyanıza özelleştirilebilir sayfa numaraları ekleyin." path="/pdf-tools/page-numbers" category="UtilitiesApplication" features={["Başlangıç numarası", "Numara konumu", "Yazı boyutu", "Sayfa aralığı"]}>{children}</ToolSeo>; }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ThermalDesigner from "./ThermalDesigner";
 
 export const metadata: Metadata = {
-  title: "Duvar, Çatı ve Döşeme U-Değeri Hesaplama | PAFTA",
+  title: "Duvar, Çatı ve Döşeme U-Değeri Hesaplama",
   description: "Yapı katmanlarını oluştur, malzeme kalınlığı ve ısıl iletkenlik değerleriyle duvar, çatı ve döşeme U-değerini hesapla.",
   alternates: { canonical: "/proje-araclari/u-degeri-tasarimcisi" },
 };

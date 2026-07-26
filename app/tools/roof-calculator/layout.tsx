@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Çatı Hesaplayıcı – Eğim, Mahya ve Kaplama Alanı", description: "Çatı açıklığı ve eğiminden mahya yüksekliği, mertek uzunluğu ve yaklaşık çatı kaplama alanını hesapla.", path: "/tools/roof-calculator", keywords: ["çatı hesaplama", "çatı eğimi", "mahya yüksekliği", "mertek uzunluğu", "çatı alanı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Çatı Hesaplayıcı" description="Çatı geometrisi ve kaplama alanını hesaplayın." path="/tools/roof-calculator" category="DesignApplication" features={["Mahya yüksekliği", "Mertek uzunluğu", "Çatı alanı", "Eğim hesabı"]}>{children}</ToolSeo>; }

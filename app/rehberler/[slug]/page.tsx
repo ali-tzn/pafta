@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getGuideCollection, guideCollections } from "../guides";
+import { ArticleSeo, createSeoMetadata } from "@/lib/seo";
 
 type Props={params:Promise<{slug:string}>};
 export function generateStaticParams(){return guideCollections.map(({slug})=>({slug}));}
-export async function generateMetadata({params}:Props):Promise<Metadata>{const{slug}=await params;const guide=getGuideCollection(slug);if(!guide)return{};return{title:guide.name,description:guide.description,keywords:guide.keywords,alternates:{canonical:`/rehberler/${guide.slug}`}};}
-export default async function GuidePage({params}:Props){const{slug}=await params;const guide=getGuideCollection(slug);if(!guide)notFound();const data={"@context":"https://schema.org","@type":"Article",headline:guide.name,description:guide.description,inLanguage:"tr-TR",author:{"@type":"Organization",name:"PAFTA"},mainEntityOfPage:`https://paftaedu.com/rehberler/${guide.slug}`};return <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(data).replace(/</g,"\\u003c")}}/><article className="mx-auto max-w-5xl">
+export async function generateMetadata({params}:Props):Promise<Metadata>{const{slug}=await params;const guide=getGuideCollection(slug);if(!guide)return{};return createSeoMetadata({title:guide.name,description:guide.description,path:`/rehberler/${guide.slug}`,keywords:guide.keywords});}
+export default async function GuidePage({params}:Props){const{slug}=await params;const guide=getGuideCollection(slug);if(!guide)notFound();return <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16"><ArticleSeo title={guide.name} description={guide.description} path={`/rehberler/${guide.slug}`} section="Proje Rehberleri" sectionPath="/rehberler" keywords={guide.keywords}/><article className="mx-auto max-w-5xl">
   <nav className="mb-8 text-sm text-slate-400"><Link href="/">Ana Sayfa</Link><span className="mx-2">/</span><Link href="/rehberler">Rehberler</Link><span className="mx-2">/</span><span>{guide.shortName}</span></nav>
   <header className="border-b border-slate-800 pb-10"><p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">PAFTA Rehberleri</p><h1 className="mt-4 text-4xl font-bold md:text-5xl">{guide.name}</h1><p className="mt-6 text-lg leading-8 text-slate-300">{guide.intro}</p></header>
   <aside className="mt-10 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-6"><h2 className="text-xl font-semibold text-cyan-300">Temel yaklaşım</h2><ul className="mt-4 space-y-3 text-slate-300">{guide.principles.map(item=><li key={item}>• {item}</li>)}</ul></aside>

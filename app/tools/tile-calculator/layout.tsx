@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Seramik ve Karo Hesaplama – Adet ve Kutu Metrajı", description: "Kaplanacak alan, karo ölçüsü, derz ve fire payından gerekli seramik adedini ve yaklaşık kutu sayısını hesapla.", path: "/tools/tile-calculator", keywords: ["seramik hesaplama", "karo adedi", "fayans metrajı", "seramik kutu hesabı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Seramik ve Karo Hesaplayıcı" description="Alan ve karo ölçüsünden seramik metrajı hesaplayın." path="/tools/tile-calculator" category="DesignApplication" features={["Karo adedi", "Derz payı", "Fire hesabı", "Kutu tahmini"]}>{children}</ToolSeo>; }

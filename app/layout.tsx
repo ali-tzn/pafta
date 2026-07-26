@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ConsentManager from "./components/ConsentManager";
 import { siteConfig } from "@/lib/site";
-const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -53,8 +53,12 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.webmanifest",
 };
@@ -66,25 +70,36 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-       <head>
-    {adsenseClient && (
-      <meta
-        name="google-adsense-account"
-        content={adsenseClient}
-      />
-    )}
-  </head>
       <body className="bg-slate-950 text-white antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: siteConfig.name,
-              url: siteConfig.url,
-              description: siteConfig.description,
-              inLanguage: "tr-TR",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": `${siteConfig.url}/#organization`,
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                  logo: {
+                    "@type": "ImageObject",
+                    url: `${siteConfig.url}/icon.png`,
+                    width: 512,
+                    height: 512,
+                  },
+                  email: "iletisim@paftaedu.com",
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${siteConfig.url}/#website`,
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                  description: siteConfig.description,
+                  inLanguage: "tr-TR",
+                  publisher: { "@id": `${siteConfig.url}/#organization` },
+                },
+              ],
             }).replace(/</g, "\\u003c"),
           }}
         />

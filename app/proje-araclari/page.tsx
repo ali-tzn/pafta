@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Mimari Tasarım Araçları | PAFTA",
+  title: "Mimari Tasarım Araçları",
   description: "İhtiyaç programı, mekânsal ilişkiler, güneş ve yönlenme, vaziyet yerleşimi ve emsal analizi için ücretsiz mimari tasarım araçları.",
   alternates: { canonical: "/proje-araclari" },
 };

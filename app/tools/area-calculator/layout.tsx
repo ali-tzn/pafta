@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "Alan Hesaplayıcı – Metrekare Hesaplama", description: "Dikdörtgen ve kare alanların metre, santimetre veya milimetre ölçülerinden m² hesabını ücretsiz yap.", path: "/tools/area-calculator", keywords: ["alan hesaplama", "metrekare hesaplama", "m2 hesaplama", "mimari alan hesabı"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Alan Hesaplayıcı" description="Ölçülerden hızlı metrekare hesabı yapın." path="/tools/area-calculator" category="DesignApplication" features={["Dikdörtgen alanı", "Kare alanı", "Birim dönüşümü"]}>{children}</ToolSeo>; }

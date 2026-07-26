@@ -1,0 +1,3 @@
+import { createSeoMetadata, ToolSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "PDF'ye Filigran Ekle – Yazı ve Görsel Filigran", description: "PDF dosyana metin veya görsel filigran ekle; konum, boyut, saydamlık ve sayfa aralığını ücretsiz ayarla.", path: "/pdf-tools/watermark", keywords: ["pdf filigran", "pdf watermark", "pdfye yazı ekleme", "pdf logo ekleme"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="PDF Filigran Aracı" description="PDF sayfalarına metin veya görsel filigran ekleyin." path="/pdf-tools/watermark" category="UtilitiesApplication" features={["Metin filigranı", "Görsel filigranı", "Saydamlık", "Sayfa aralığı"]}>{children}</ToolSeo>; }

@@ -1,0 +1,3 @@
+import { createSeoMetadata, ArticleSeo } from "@/lib/seo";
+export const metadata = createSeoMetadata({ title: "BIM LOD Seviyeleri – LOD 100, 200, 300, 350 ve 400", description: "BIM modellerindeki LOD seviyelerini, her seviyede beklenen geometrik ve bilgi kapsamını örneklerle inceleyin.", path: "/bim/lod-seviyeleri", keywords: ["LOD seviyeleri", "LOD 100", "LOD 300", "BIM model seviyesi", "level of development"] });
+export default function Layout({ children }: { children: React.ReactNode }) { return <><ArticleSeo title="BIM LOD Seviyeleri" description="LOD 100–400 arasındaki model gelişim ve bilgi seviyeleri." path="/bim/lod-seviyeleri" section="BIM Merkezi" sectionPath="/bim" keywords={["LOD","BIM"]}/>{children}</>; }

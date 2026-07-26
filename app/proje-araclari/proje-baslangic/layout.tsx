@@ -1,0 +1,2 @@
+import { ToolSeo } from "@/lib/seo";
+export default function Layout({ children }: { children: React.ReactNode }) { return <ToolSeo title="Mimari Proje Başlangıç Merkezi" description="Yapı türüne göre ihtiyaç programı, alan dağılımı ve kat önerisi oluşturun." path="/proje-araclari/proje-baslangic" category="DesignApplication" features={["İhtiyaç programı", "Alan dağılımı", "Kat önerisi", "Balon diyagramına aktarım"]}>{children}</ToolSeo>; }

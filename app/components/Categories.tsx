@@ -3,8 +3,8 @@ import Link from "next/link";
 const spaces = [
   {
     code: "A-01",
-    title: "Hesap Araçları",
-    description: "TAKS–KAKS, ölçek, merdiven, beton, rampa ve uygulama hesapları.",
+    title: "Teknik Proje ve Hesap",
+    description: "İmar, yapı fiziği, merdiven, rampa, çatı, otopark ve metraj hesapları.",
     href: "/tools",
     detail: "12 araç",
     className: "md:col-span-2",
@@ -51,9 +51,9 @@ const spaces = [
   },
   {
     code: "C-02",
-    title: "Proje Rehberleri",
-    description: "Çizimden jüriye, proje sürecinin temel başlıkları.",
-    href: "/rehberler",
+    title: "Bilgi Kütüphaneleri",
+    description: "Mimari detaylar, proje rehberleri, örnekler ve teknik başvuru içerikleri.",
+    href: "/kutuphaneler",
     detail: "70 başlık",
     className: "md:col-span-2",
   },
@@ -67,8 +67,16 @@ const spaces = [
   },
   {
     code: "D-01",
-    title: "Teslim Araçları",
-    description: "Pafta ve portfolyonu kontrol et, teknik sorunları teslimden önce düzelt.",
+    title: "Tasarım Araçları",
+    description: "Program, ilişki, güneş-yönlenme, vaziyet yerleşimi, mekân ölçüleri ve emsal analizi.",
+    href: "/proje-araclari",
+    detail: "Tasarım kararları",
+    className: "md:col-span-2",
+  },
+  {
+    code: "D-02",
+    title: "Pafta ve Teslim",
+    description: "Pafta yerleşimi, okunabilirlik, dosya denetimi ve teslim hazırlığı.",
     href: "/teslim-araclari",
     detail: "Kontrol + düzeltme",
     className: "md:col-span-2",

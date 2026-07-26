@@ -9,6 +9,8 @@ import { architectureCategories } from "@/app/mimarlik/categories";
 import { revitGuides } from "@/app/revit/guides";
 import { bimGuides } from "@/app/bim/guides";
 import { guideCollections } from "@/app/rehberler/guides";
+import { caseStudies, spaceStandards } from "@/app/proje-araclari/data";
+import { architecturalDetails } from "@/app/mimari-detaylar/details";
 
 const materialRoutes = [
   "/yapi-malzemeleri",
@@ -52,6 +54,21 @@ const routes = [
   ...materialRoutes,
   ...expandedContentRoutes,
   "/tools",
+  "/kutuphaneler",
+  "/mimari-detaylar",
+  ...architecturalDetails.map((detail) => `/mimari-detaylar/${detail.slug}`),
+  "/proje-araclari",
+  "/proje-araclari/proje-baslangic",
+  "/proje-araclari/balon-diyagrami",
+  "/proje-araclari/gunes-yonlenme",
+  "/proje-araclari/vaziyet-simulatoru",
+  "/proje-araclari/u-degeri-tasarimcisi",
+  "/proje-araclari/mekan-olculeri",
+  ...spaceStandards.map((space) => `/proje-araclari/mekan-olculeri/${space.slug}`),
+  "/proje-araclari/pafta-yerlesimi",
+  "/proje-araclari/emsal-atlasi",
+  ...caseStudies.map((item) => `/proje-araclari/emsal-atlasi/${item.slug}`),
+  "/proje-araclari/yonetmelik-kontrol",
   "/tools/architecture-unit-converter",
   "/tools/area-calculator",
   "/tools/brick-calculator",

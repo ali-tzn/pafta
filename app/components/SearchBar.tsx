@@ -8,6 +8,7 @@ import { bimGuides } from "@/app/bim/guides";
 import { architectureArticles } from "@/app/mimarlik/articles";
 import { guideCollections } from "@/app/rehberler/guides";
 import { tools as calculationTools } from "@/lib/tools";
+import { architecturalDetails } from "@/app/mimari-detaylar/details";
 
 type SearchItem = {
   title: string;
@@ -22,6 +23,19 @@ const tools: SearchItem[] = [
     keywords: [tool.category, tool.description],
   })),
   ...[
+    ["Tasarım Araçları", "/proje-araclari"],
+    ["Mimari Proje Başlangıç Merkezi", "/proje-araclari/proje-baslangic"],
+    ["Mimari İhtiyaç Programı Oluşturucu", "/proje-araclari/proje-baslangic"],
+    ["Mimari İlişki ve Balon Diyagramı", "/proje-araclari/balon-diyagrami"],
+    ["Bubble Diagram Generator", "/proje-araclari/balon-diyagrami"],
+    ["Güneş, Yönlenme ve Cephe Karar Asistanı", "/proje-araclari/gunes-yonlenme"],
+    ["Vaziyet Yerleşimi ve Yapı Oturumu Simülatörü", "/proje-araclari/vaziyet-simulatoru"],
+    ["Duvar, Çatı ve Döşeme U-Değeri Hesaplama", "/proje-araclari/u-degeri-tasarimcisi"],
+    ["Katman ve U-Değeri Tasarımcısı", "/proje-araclari/u-degeri-tasarimcisi"],
+    ["Mekân Ölçüleri Kütüphanesi", "/proje-araclari/mekan-olculeri"],
+    ["Pafta Yerleşim Oluşturucu", "/proje-araclari/pafta-yerlesimi"],
+    ["Mimari Emsal Proje Atlası", "/proje-araclari/emsal-atlasi"],
+    ["Yönetmelik Kontrol Asistanı", "/proje-araclari/yonetmelik-kontrol"],
     ["Teslim Araçları", "/teslim-araclari"],
     ["Mimari Teslim Kontrol Merkezi", "/teslim-araclari/kontrol-merkezi"],
     ["Jüri Gözü – Pafta Okunabilirlik Simülatörü", "/teslim-araclari/juri-gozu"],
@@ -56,6 +70,21 @@ const tools: SearchItem[] = [
     href: `/rehberler/${guide.slug}`,
     keywords: guide.keywords,
   })),
+  ...architecturalDetails.map((detail) => ({
+    title: detail.title,
+    href: `/mimari-detaylar/${detail.slug}`,
+    keywords: [detail.category, ...detail.tags],
+  })),
+  {
+    title: "Mimarlık Bilgi Kütüphaneleri",
+    href: "/kutuphaneler",
+    keywords: ["detay", "malzeme", "rehber", "revit", "bim"],
+  },
+  {
+    title: "Mimari Detay Kütüphanesi",
+    href: "/mimari-detaylar",
+    keywords: ["yapı detayı", "cephe", "çatı", "temel", "doğrama"],
+  },
   {
     title: "Mimarlık Yapay Zekâ Merkezi",
     href: "/mimarlik-yapay-zeka",

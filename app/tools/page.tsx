@@ -1,27 +1,46 @@
 import Link from "next/link";
 import { tools } from "../../lib/tools";
 
+const technicalDesignTools = [
+  {
+    title: "Katman ve U-Değeri Tasarımcısı",
+    description: "Duvar, çatı ve döşeme katmanlarını kur; ısıl direnci ve U-değerini hesapla.",
+    href: "/proje-araclari/u-degeri-tasarimcisi",
+    icon: "▤",
+    category: "Yapı Fiziği",
+    status: "Hazır" as const,
+  },
+  {
+    title: "Yönetmelik Kontrol Asistanı",
+    description: "Parsel ve proje verilerine göre temel imar, çekme, oturum ve belge kontrollerini oluştur.",
+    href: "/proje-araclari/yonetmelik-kontrol",
+    icon: "§",
+    category: "İmar ve Mevzuat",
+    status: "Hazır" as const,
+  },
+];
+
 export default function ToolsPage() {
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
       <div className="mx-auto max-w-7xl">
         <section className="mb-12">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
-            PAFTA Araçları
+            PAFTA / Teknik Proje ve Hesap
           </p>
 
           <h1 className="max-w-3xl text-4xl font-bold leading-tight md:text-6xl">
-            Mimarlık öğrencileri için hızlı ve pratik hesap araçları
+            Teknik kararlar ve mimari hesaplar
           </h1>
 
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-            Ölçek, merdiven, alan, beton hacmi ve daha birçok hesabı tek bir
-            yerde yap.
+            İmar ve yapı fiziğinden merdiven, rampa, çatı ve metraja kadar
+            sayısal proje kontrollerini tek yerde yap.
           </p>
         </section>
 
         <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {tools.map((tool) => {
+          {[...technicalDesignTools, ...tools].map((tool) => {
             const isAvailable = tool.status === "Hazır";
 
             const card = (

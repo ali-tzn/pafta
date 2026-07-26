@@ -2,6 +2,14 @@ import Link from "next/link";
 
 const deliveryTools = [
   {
+    title: "Pafta Yerleşim Oluşturucu",
+    description:
+      "Kâğıt boyutu ve içerik listesine göre dengeli bir grid oluştur; pafta bloklarını düzenle.",
+    href: "/proje-araclari/pafta-yerlesimi",
+    icon: "▦",
+    label: "Yerleşim aracı",
+  },
+  {
     title: "Jüri Gözü",
     description:
       "Paftanı jüri mesafesinden gör; küçük metinleri, kenar risklerini ve aşırı yoğun bölgeleri baskıdan önce tespit et.",
@@ -65,10 +73,10 @@ export default function DeliveryToolsPage() {
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
-            PAFTA Teslim
+            PAFTA / Pafta ve Teslim
           </p>
           <h1 className="mt-3 text-4xl font-bold md:text-5xl">
-            Teslim Araçları
+            Pafta ve Teslim Araçları
           </h1>
           <p className="mt-5 text-lg leading-8 text-slate-300">
             Pafta ve portfolyonu teknik şartlara göre denetle, sorunları bul

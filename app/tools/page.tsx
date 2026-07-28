@@ -50,8 +50,8 @@ function normalizeGroup(category: string) {
 export default function ToolsPage() {
   return (
     <CategoryHub
-      eyebrow="PAFTA / Teknik ve Hesap"
-      title="Teknik kararlar ve mimari hesaplar"
+      eyebrow="PAFTA / Hesap Araçları"
+      title="Mimari hesap araçları"
       description="İmar, ölçek, yapı fiziği, merdiven, rampa ve metraj hesaplarını konuya göre filtrele; ihtiyacın olan araca doğrudan ulaş."
       items={allTools}
       searchPlaceholder="Ölçek, emsal, merdiven, beton..."

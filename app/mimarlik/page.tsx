@@ -4,7 +4,7 @@ import { architectureArticles } from "./articles";
 import { architectureCategories } from "./categories";
 
 export const metadata: Metadata = {
-  title: "Mimarlık Rehberi: Akımlar, Kavramlar, Mimarlar ve Yapılar",
+  title: "Mimarlık Kültürü Rehberi: Akımlar, Kavramlar ve Mimarlar",
   description:
     "Modernizm, Bauhaus, Brutalizm, Postmodernizm ve Dekonstrüktivizm başta olmak üzere mimarlık tarihi, akımlar, kavramlar ve yapılar için öğrenci rehberi.",
   alternates: {
@@ -23,7 +23,7 @@ export default function ArchitectureGuidePage() {
   const collectionData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "PAFTA Mimarlık Rehberi",
+    name: "PAFTA Mimarlık Kültürü Rehberi",
     url: "https://paftaedu.com/mimarlik",
     description:
       "Mimarlık akımları, kavramları, önemli mimarlar ve yapılar hakkında öğrenci odaklı rehberler.",
@@ -49,7 +49,7 @@ export default function ArchitectureGuidePage() {
             Ana Sayfa
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-slate-200">Mimarlık Rehberi</span>
+          <span className="text-slate-200">Mimarlık Kültürü Rehberi</span>
         </nav>
 
         <header className="max-w-4xl">
@@ -57,7 +57,7 @@ export default function ArchitectureGuidePage() {
             Mimarlık kültürü ve kuramı
           </p>
           <h1 className="mt-4 text-4xl font-bold leading-tight md:text-6xl">
-            Mimarlık Rehberi
+            Mimarlık Kültürü Rehberi
           </h1>
           <p className="mt-6 text-lg leading-8 text-slate-300">
             Mimarlık akımlarını yalnızca biçimleriyle değil; ortaya çıktıkları

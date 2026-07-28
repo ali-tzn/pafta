@@ -331,15 +331,16 @@ const searchableItems = [
   },
 ];
 
-const uniqueSearchItems: SearchableItem[] = searchableItems.filter(
+export const uniqueSearchItems: SearchableItem[] = searchableItems.filter(
   (item, index, items) =>
     items.findIndex((candidate) => candidate.href === item.href) === index
 );
 
-const navigationGroups = [
+export const navigationGroups = [
   {
-    title: "Tasarım ve Proje",
-    description: "Fikirden yerleşime tasarım kararları",
+    title: "Proje Araçları",
+    shortTitle: "Proje",
+    description: "Program, yerleşim ve tasarım kararları",
     icon: "◇",
     href: "/proje-araclari",
     items: [
@@ -356,7 +357,8 @@ const navigationGroups = [
     ],
   },
   {
-    title: "Teknik ve Hesap",
+    title: "Hesap Araçları",
+    shortTitle: "Hesap",
     description: "Ölçek, imar, metraj ve yapı hesapları",
     icon: "∑",
     href: "/tools",
@@ -379,7 +381,8 @@ const navigationGroups = [
     ],
   },
   {
-    title: "PDF ve Dosya",
+    title: "PDF Araçları",
+    shortTitle: "PDF",
     description: "Pafta ve belgeleri tarayıcıda düzenle",
     icon: "▤",
     href: "/pdf-tools",
@@ -399,6 +402,7 @@ const navigationGroups = [
   },
   {
     title: "Pafta ve Teslim",
+    shortTitle: "Teslim",
     description: "Sunum, jüri ve teslim öncesi kontroller",
     icon: "▦",
     href: "/teslim-araclari",
@@ -412,24 +416,106 @@ const navigationGroups = [
     ],
   },
   {
-    title: "Bilgi Kütüphanesi",
-    description: "Detay, malzeme ve mimarlık kaynakları",
+    title: "Mimari Detaylar",
+    shortTitle: "Detaylar",
+    description: "Duvar, çatı, döşeme ve birleşim detayları",
     icon: "▥",
-    href: "/kutuphaneler",
+    href: "/mimari-detaylar",
     items: [
-      ["Tüm Kütüphaneler", "/kutuphaneler"],
-      ["Mimari Detaylar", "/mimari-detaylar"],
-      ["Yapı Malzemeleri", "/yapi-malzemeleri"],
-      ["Mimarlık Rehberi", "/mimarlik"],
-      ["Tasarım ve Proje Rehberleri", "/rehberler"],
-      ["Revit Merkezi", "/revit"],
-      ["BIM Merkezi", "/bim"],
-      ["CAD ve Family Kaynakları", "/resources"],
+      ["Tüm Mimari Detaylar", "/mimari-detaylar"],
+      ["Dış Duvar ve Cephe", "/mimari-detaylar/dis-duvar-mantolama-subasman"],
+      ["Havalandırmalı Cephe", "/mimari-detaylar/havalandirmali-cephe-duvar-birlesimi"],
+      ["Pencere ve Denizlik", "/mimari-detaylar/pencere-denizlik-damlalik"],
+      ["Çatı Detayları", "/mimari-detaylar"],
+      ["Temel ve Su Yalıtımı", "/mimari-detaylar"],
     ],
   },
   {
-    title: "Öğrenci ve AI",
-    description: "Okul hayatı ve yapay zekâ yardımcıları",
+    title: "Yapı Malzemeleri",
+    shortTitle: "Malzemeler",
+    description: "Teknik değer, kalınlık ve malzeme seçimi",
+    icon: "▦",
+    href: "/yapi-malzemeleri",
+    items: [
+      ["Tüm Yapı Malzemeleri", "/yapi-malzemeleri"],
+      ["Duvar Malzemeleri", "/yapi-malzemeleri/duvar"],
+      ["Yalıtım Malzemeleri", "/yapi-malzemeleri/yalitim"],
+      ["Cam Türleri", "/yapi-malzemeleri/cam"],
+      ["Ahşap ve Levhalar", "/yapi-malzemeleri/ahsap"],
+      ["Sıva Malzemeleri", "/yapi-malzemeleri/siva"],
+      ["Beton Türleri", "/yapi-malzemeleri/beton"],
+      ["Zemin Kaplamaları", "/yapi-malzemeleri/zemin-kaplama"],
+      ["Malzeme Karşılaştır", "/yapi-malzemeleri/karsilastir"],
+    ],
+  },
+  {
+    title: "Revit",
+    shortTitle: "Revit",
+    description: "Modelleme, görünürlük ve hata çözümleri",
+    icon: "R",
+    href: "/revit",
+    items: [
+      ["Revit Merkezi", "/revit"],
+      ["Duvar Katmanları", "/revit/duvar-katmanlari"],
+      ["Toposolid ve Arazi", "/revit/toposolid"],
+      ["Toposolid Excavate", "/revit/toposolid-excavate"],
+      ["Pafta ve Viewport", "/revit/pafta-yerlestirme"],
+      ["Material ve Appearance", "/revit/malzeme-appearance"],
+      ["Family Yükleme", "/revit/indirilen-family-nasil-yuklenir"],
+      ["D5 Render Aktarımı", "/revit/d5-render-malzeme-aktarma"],
+    ],
+  },
+  {
+    title: "BIM",
+    shortTitle: "BIM",
+    description: "Bilgi yönetimi, LOD ve koordinasyon",
+    icon: "B",
+    href: "/bim",
+    items: [
+      ["BIM Merkezi", "/bim"],
+      ["BIM Nedir?", "/bim/bim-nedir"],
+      ["LOD Seviyeleri", "/bim/lod-seviyeleri"],
+      ["BIM Koordinasyonu", "/bim/koordinasyon"],
+      ["IFC Nedir?", "/bim/ifc-nedir"],
+      ["Clash Detection", "/bim/clash-detection"],
+      ["BEP Nedir?", "/bim/bep-nedir"],
+      ["ISO 19650 Temelleri", "/bim/iso-19650-temelleri"],
+    ],
+  },
+  {
+    title: "Mimarlık Rehberi",
+    shortTitle: "Mimarlık",
+    description: "Akımlar, kavramlar, mimarlar ve yapılar",
+    icon: "⌂",
+    href: "/mimarlik",
+    items: [
+      ["Mimarlık Rehberi", "/mimarlik"],
+      ["Mimarlık Akımları", "/mimarlik/kategori/akimlar"],
+      ["Mimari Kavramlar", "/mimarlik/kategori/kavramlar"],
+      ["Önemli Mimarlar", "/mimarlik/kategori/mimarlar"],
+      ["İkonik Yapılar", "/mimarlik/kategori/yapilar"],
+      ["Tasarım Rehberleri", "/rehberler"],
+    ],
+  },
+  {
+    title: "Kaynaklar",
+    shortTitle: "Kaynaklar",
+    description: "CAD, Revit family ve bilgi kütüphaneleri",
+    icon: "▤",
+    href: "/resources",
+    items: [
+      ["Tüm Kaynaklar", "/resources"],
+      ["CAD Blok Kaynakları", "/resources/cad-blok-kaynaklari"],
+      ["Revit Family Kaynakları", "/resources/revit-family-kaynaklari"],
+      ["Tüm Kütüphaneler", "/kutuphaneler"],
+      ["Mekân Ölçüleri", "/proje-araclari/mekan-olculeri"],
+      ["Emsal Proje Atlası", "/proje-araclari/emsal-atlasi"],
+    ],
+  },
+  {
+    title: "Öğrenci Araçları",
+    shortTitle: "Öğrenci",
+    description: "Okul, not ve teslim yardımcıları",
     icon: "✦",
     href: "/student-tools",
     items: [
@@ -438,6 +524,17 @@ const navigationGroups = [
       ["Ders Notu Hesaplama", "/student-tools/grade-calculator"],
       ["Devamsızlık Hesaplama", "/student-tools/attendance-calculator"],
       ["Öğrenci Takvimi", "/student-tools/calendar"],
+      ["Teslim Kontrol Listesi", "/student-tools/submission-checklist"],
+      ["Dosya Adı Oluşturucu", "/student-tools/file-name-generator"],
+    ],
+  },
+  {
+    title: "Mimarlık AI",
+    shortTitle: "Yapay Zekâ",
+    description: "AI araç seçimi ve prompt yardımcıları",
+    icon: "✦",
+    href: "/mimarlik-yapay-zeka",
+    items: [
       ["Mimarlık AI Merkezi", "/mimarlik-yapay-zeka"],
       ["AI Araç Bulucu", "/mimarlik-yapay-zeka/arac-bulucu"],
       ["Prompt Oluşturucu", "/mimarlik-yapay-zeka/prompt-olusturucu"],
@@ -450,9 +547,11 @@ export default function Header() {
   const [query, setQuery] = useState("");
   const [selectedResultIndex, setSelectedResultIndex] = useState(0);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const desktopSearchRef = useRef<HTMLDivElement>(null);
   const mobileSearchRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
@@ -481,6 +580,31 @@ export default function Header() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
+  useEffect(() => {
+    function handleScroll() {
+      const currentScrollY = Math.max(window.scrollY, 0);
+      const movement = currentScrollY - lastScrollY.current;
+
+      if (currentScrollY < 72) {
+        setIsHeaderHidden(false);
+      } else if (
+        movement > 8 &&
+        activeCategory === null &&
+        query.trim() === ""
+      ) {
+        setIsHeaderHidden(true);
+      } else if (movement < -6) {
+        setIsHeaderHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    }
+
+    lastScrollY.current = window.scrollY;
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeCategory, query]);
 
   const normalizedQuery = query.trim();
   const results = useMemo(
@@ -552,21 +676,32 @@ export default function Header() {
   }
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 border-b border-slate-800/90 bg-slate-950/95 text-white shadow-lg shadow-black/10 backdrop-blur-xl">
+    <header
+      ref={headerRef}
+      onMouseLeave={() => setActiveCategory(null)}
+      className={`sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/95 text-white shadow-md shadow-black/10 backdrop-blur-xl transition-transform duration-300 ease-out ${
+        isHeaderHidden ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex h-20 items-center gap-4 lg:h-24 lg:gap-8">
-          <Link href="/" aria-label="PAFTA ana sayfa" className="shrink-0" onClick={closeMenu}>
+        <div className="flex h-[4.5rem] items-center gap-4 lg:gap-8">
+          <Link
+            href="/"
+            aria-label="PAFTA ana sayfa"
+            className="relative block h-14 w-44 shrink-0 overflow-hidden"
+            onClick={closeMenu}
+          >
             <Image
               src="/pafta-logo-white.png"
               alt="PAFTA"
-              width={700}
-              height={240}
+              width={2000}
+              height={2000}
               priority
-              className="h-16 w-44 object-cover object-center lg:h-20 lg:w-56"
+              className="absolute left-1/2 top-1/2 h-96 w-96 max-w-none -translate-x-1/2 -translate-y-1/2 object-contain"
             />
           </Link>
 
-          <div ref={desktopSearchRef} className="relative ml-auto hidden w-full max-w-lg md:block">
+          <div ref={desktopSearchRef} className="relative ml-auto hidden w-full max-w-md md:block">
             <form onSubmit={handleSubmit} className="relative">
               <label htmlFor="header-search" className="sr-only">PAFTA içinde ara</label>
               <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" aria-hidden="true">⌕</span>
@@ -588,7 +723,7 @@ export default function Header() {
                     ? `desktop-search-result-${selectedResultIndex}`
                     : undefined
                 }
-                className="w-full rounded-xl border border-slate-700 bg-slate-900 py-2.5 pl-10 pr-14 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
+                className="w-full rounded-xl border border-slate-800 bg-slate-900/80 py-2.5 pl-10 pr-14 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400/70 focus:ring-4 focus:ring-cyan-400/10"
               />
               <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded border border-slate-700 px-1.5 py-0.5 text-[10px] text-slate-500">ARA</kbd>
             </form>
@@ -646,38 +781,61 @@ export default function Header() {
 
         <nav
           aria-label="Ana kategoriler"
-          className="-mx-4 flex snap-x snap-mandatory overflow-x-auto border-t border-slate-800 px-4 sm:-mx-6 sm:px-6"
+          className="-mx-4 flex snap-x snap-mandatory gap-1 overflow-x-auto border-t border-slate-800 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-6 lg:gap-1.5 lg:overflow-visible lg:border-t-0 lg:px-0 lg:pb-2.5"
         >
           {navigationGroups.map((group) => {
             const isActive = activeCategory === group.title;
             return (
-              <button
+              <div
                 key={group.title}
-                type="button"
-                aria-expanded={isActive}
-                aria-controls="category-tools-panel"
-                onClick={() => {
+                onMouseEnter={() => {
                   setQuery("");
-                  setActiveCategory((current) =>
-                    current === group.title ? null : group.title
-                  );
+                  setActiveCategory(group.title);
                 }}
-                className={`min-h-12 shrink-0 snap-start border-b-2 px-4 py-3.5 text-sm font-semibold transition lg:flex-1 lg:px-3 ${
+                className={`flex min-h-10 shrink-0 snap-start items-stretch overflow-hidden rounded-lg border text-sm font-semibold transition lg:min-w-0 lg:text-xs xl:text-[13px] ${
                   isActive
-                    ? "border-cyan-400 bg-cyan-400/5 text-cyan-300"
-                    : "border-transparent text-slate-300 hover:border-slate-600 hover:bg-slate-900 hover:text-white"
+                    ? "border-cyan-400/40 bg-cyan-400/10 text-cyan-200"
+                    : "border-transparent bg-slate-900/45 text-slate-400 hover:border-slate-700 hover:bg-slate-900 hover:text-white"
                 }`}
               >
-                {group.title}
-                <span
-                  className={`ml-2 inline-block text-xs transition ${
-                    isActive ? "rotate-180" : ""
-                  }`}
-                  aria-hidden="true"
+                <Link
+                  href={group.href}
+                  onClick={closeMenu}
+                  onFocus={() => {
+                    setQuery("");
+                    setActiveCategory(group.title);
+                  }}
+                  className="flex min-w-0 flex-1 items-center justify-center px-3 py-2.5 lg:px-2 lg:py-2"
                 >
-                  ▾
-                </span>
-              </button>
+                  <span className="lg:hidden xl:inline">{group.title}</span>
+                  <span className="hidden lg:inline xl:hidden">{group.shortTitle}</span>
+                </Link>
+                <button
+                  type="button"
+                  aria-label={`${group.title} alt menüsünü ${
+                    isActive ? "kapat" : "aç"
+                  }`}
+                  aria-expanded={isActive}
+                  aria-controls="category-tools-panel"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setQuery("");
+                    setActiveCategory((current) =>
+                      current === group.title ? null : group.title
+                    );
+                  }}
+                  className="flex w-8 shrink-0 items-center justify-center border-l border-white/5 text-[10px] text-slate-500 transition hover:bg-white/5 hover:text-cyan-300"
+                >
+                  <span
+                    className={`inline-block transition ${
+                      isActive ? "rotate-180" : ""
+                    }`}
+                    aria-hidden="true"
+                  >
+                    ▾
+                  </span>
+                </button>
+              </div>
             );
           })}
         </nav>

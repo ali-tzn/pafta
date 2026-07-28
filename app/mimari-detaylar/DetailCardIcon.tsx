@@ -120,10 +120,25 @@ export default function DetailCardIcon({ slug, title }: Props) {
   }
 
   return (
-    <svg viewBox="0 0 320 120" className="h-28 w-full" role="img" aria-label={`${title} şematik ön izlemesi`}>
-      <rect width="320" height="120" rx="12" fill="#f8fafc" />
-      <path d="M20 105H300" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4 4" />
-      {drawing}
+    <svg viewBox="0 0 320 150" className="h-32 w-full" role="img" aria-label={`${title} şematik ön izlemesi`}>
+      <defs>
+        <pattern id={`preview-grid-${slug}`} width="16" height="16" patternUnits="userSpaceOnUse">
+          <path d="M16 0H0V16" fill="none" stroke="#dbe2e8" strokeWidth=".55" />
+        </pattern>
+      </defs>
+      <rect width="320" height="150" rx="12" fill="#eef1f3" />
+      <rect width="320" height="150" rx="12" fill={`url(#preview-grid-${slug})`} />
+      <path d="M16 23H304" stroke="#aeb9c2" />
+      <text x="16" y="16" fontSize="7.5" fontWeight="800" letterSpacing="1.2" fill="#475569">
+        PAFTA / ŞEMATİK DETAY
+      </text>
+      <text x="304" y="16" textAnchor="end" fontSize="7.5" fill="#64748b">KESİT</text>
+      <g transform="translate(0 20)">{drawing}</g>
+      <path d="M16 132H304" stroke="#aeb9c2" />
+      <circle cx="25" cy="141" r="5.5" fill="#0284c7" />
+      <text x="25" y="143.5" textAnchor="middle" fontSize="6.5" fontWeight="900" fill="white">1</text>
+      <text x="36" y="144" fontSize="7.5" fontWeight="700" fill="#475569">KRİTİK BİRLEŞİM</text>
+      <text x="304" y="144" textAnchor="end" fontSize="7" fill="#64748b">ÖLÇEKSİZ ÖN İZLEME</text>
     </svg>
   );
 }

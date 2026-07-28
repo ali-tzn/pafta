@@ -14,6 +14,7 @@ type Task =
 type Input = "text" | "sketch" | "image" | "model" | "none";
 type Priority = "control" | "speed" | "quality" | "easy";
 type Budget = "free" | "freemium" | "paid";
+type Stage = "idea" | "schematic" | "development" | "presentation";
 
 type AiTool = {
   name: string;
@@ -25,6 +26,8 @@ type AiTool = {
   budgets: Budget[];
   strengths: string[];
   caution: string;
+  stages?: Stage[];
+  learning?: "Kolay" | "Orta" | "İleri";
 };
 
 const taskOptions: { value: Task; label: string }[] = [
@@ -58,6 +61,13 @@ const budgetOptions: { value: Budget; label: string }[] = [
   { value: "paid", label: "Ücretli araçlar da olabilir" },
 ];
 
+const stageOptions: { value: Stage; label: string }[] = [
+  { value: "idea", label: "Fikir ve araştırma aşaması" },
+  { value: "schematic", label: "Konsept / şematik tasarım" },
+  { value: "development", label: "Tasarım geliştirme / modelleme" },
+  { value: "presentation", label: "Pafta, render ve teslim" },
+];
+
 const tools: AiTool[] = [
   {
     name: "Chaos Veras",
@@ -70,6 +80,8 @@ const tools: AiTool[] = [
     budgets: ["freemium", "paid"],
     strengths: ["Mevcut geometriyle çalışır", "Mimarlık odaklıdır", "Hızlı varyasyon üretir"],
     caution: "Üretilen cephe, açıklık ve birleşimlerin modele sadakatini kontrol et.",
+    stages: ["schematic", "development", "presentation"],
+    learning: "Kolay",
   },
   {
     name: "LookX AI",
@@ -82,6 +94,8 @@ const tools: AiTool[] = [
     budgets: ["freemium", "paid"],
     strengths: ["Mimari görsel dili", "Eskizden görsel", "Konsept çeşitliliği"],
     caution: "Sonucu uygulanabilir bir proje çözümü değil, tasarım alternatifi olarak değerlendir.",
+    stages: ["idea", "schematic", "presentation"],
+    learning: "Orta",
   },
   {
     name: "Autodesk Forma",
@@ -94,6 +108,8 @@ const tools: AiTool[] = [
     budgets: ["paid"],
     strengths: ["Erken aşama analizi", "Kütle ve yerleşim", "Autodesk iş akışı"],
     caution: "İmar, iklim ve performans sonuçlarını yerel mevzuat ve uzman hesaplarıyla doğrula.",
+    stages: ["idea", "schematic", "development"],
+    learning: "Orta",
   },
   {
     name: "Adobe Firefly",
@@ -106,6 +122,8 @@ const tools: AiTool[] = [
     budgets: ["free", "freemium", "paid"],
     strengths: ["Seçili alanı düzenleme", "Photoshop iş akışı", "Sunum görseli üretme"],
     caution: "Mimari detayların ve yapı elemanlarının teknik doğruluğunu ayrıca denetle.",
+    stages: ["idea", "presentation"],
+    learning: "Kolay",
   },
   {
     name: "Midjourney",
@@ -118,6 +136,8 @@ const tools: AiTool[] = [
     budgets: ["paid"],
     strengths: ["Güçlü atmosfer", "Malzeme ve stil arayışı", "Yüksek görsel kalite"],
     caution: "Plan, ölçü ve mevcut model geometrisini birebir koruması beklenmemelidir.",
+    stages: ["idea", "schematic", "presentation"],
+    learning: "Orta",
   },
   {
     name: "Canva Magic Studio",
@@ -130,6 +150,8 @@ const tools: AiTool[] = [
     budgets: ["free", "freemium", "paid"],
     strengths: ["Kolay kullanım", "Hazır yerleşimler", "Hızlı sunum çıktısı"],
     caution: "Hazır şablonun proje hiyerarşisini belirlemesine izin verme; pafta kararları sana ait olmalı.",
+    stages: ["presentation"],
+    learning: "Kolay",
   },
   {
     name: "ChatGPT",
@@ -142,6 +164,8 @@ const tools: AiTool[] = [
     budgets: ["free", "freemium", "paid"],
     strengths: ["Türkçe iletişim", "Görsel ve metin analizi", "Adım adım teknik yardım"],
     caution: "Komut, kaynak, ölçü ve mevzuat bilgilerini özgün belgeler üzerinden doğrula.",
+    stages: ["idea", "schematic", "development", "presentation"],
+    learning: "Kolay",
   },
   {
     name: "Perplexity",
@@ -154,6 +178,64 @@ const tools: AiTool[] = [
     budgets: ["free", "freemium", "paid"],
     strengths: ["Kaynaklı yanıt", "Hızlı literatür başlangıcı", "Güncel web taraması"],
     caution: "Her alıntıyı açıp asıl kaynağı, yazarı, tarihi ve bağlamı kontrol et.",
+    stages: ["idea", "schematic"],
+    learning: "Kolay",
+  },
+  {
+    name: "Finch",
+    url: "https://www.finch3d.com/",
+    description:
+      "Erken tasarımda kütle, plan ve performans kararlarını parametrik olarak geliştirmeye yardımcı olur.",
+    tasks: ["planning", "concept"],
+    inputs: ["none", "text", "model"],
+    priorities: ["control", "quality"],
+    budgets: ["paid"],
+    strengths: ["Parametrik kontrol", "Tasarım geri bildirimi", "Erken aşama seçenekleri"],
+    caution: "Üretilen plan seçeneklerini ihtiyaç programı, dolaşım ve yerel mevzuatla doğrula.",
+    stages: ["schematic", "development"],
+    learning: "İleri",
+  },
+  {
+    name: "TestFit",
+    url: "https://www.testfit.io/",
+    description:
+      "Arsa ve yapı programı üzerinden hızlı yerleşim, fizibilite ve alternatif geliştirme iş akışları sunar.",
+    tasks: ["planning"],
+    inputs: ["none", "text"],
+    priorities: ["speed", "control"],
+    budgets: ["paid"],
+    strengths: ["Hızlı fizibilite", "Yerleşim alternatifleri", "Veri odaklı karşılaştırma"],
+    caution: "Sonuçları kesin imar veya ruhsat çözümü kabul etme; parsel verilerini resmî kaynaktan kontrol et.",
+    stages: ["idea", "schematic"],
+    learning: "Orta",
+  },
+  {
+    name: "Krea",
+    url: "https://www.krea.ai/",
+    description:
+      "Gerçek zamanlı görsel üretim, referansla stil kontrolü ve hızlı iyileştirme için yaratıcı bir çalışma alanıdır.",
+    tasks: ["concept", "render", "edit"],
+    inputs: ["text", "sketch", "image"],
+    priorities: ["speed", "easy", "quality"],
+    budgets: ["free", "freemium", "paid"],
+    strengths: ["Gerçek zamanlı üretim", "Referansla yönlendirme", "Hızlı varyasyon"],
+    caution: "Mekânsal karar ve detayların referans görsele rağmen değişebileceğini kontrol et.",
+    stages: ["idea", "schematic", "presentation"],
+    learning: "Kolay",
+  },
+  {
+    name: "Maket",
+    url: "https://www.maket.ai/",
+    description:
+      "Konut programı ve erken plan alternatifleri üretmeye odaklanan generatif tasarım aracıdır.",
+    tasks: ["planning", "concept"],
+    inputs: ["text", "none"],
+    priorities: ["speed", "easy"],
+    budgets: ["freemium", "paid"],
+    strengths: ["Plan alternatifi", "Konut odaklı akış", "Hızlı başlangıç"],
+    caution: "Ölçü, erişilebilirlik, strüktür ve mevzuat uygunluğunu bağımsız olarak denetle.",
+    stages: ["idea", "schematic"],
+    learning: "Kolay",
   },
 ];
 
@@ -162,12 +244,14 @@ function scoreTool(
   task: Task,
   input: Input,
   priority: Priority,
-  budget: Budget
+  budget: Budget,
+  stage: Stage
 ) {
   let score = 0;
   if (tool.tasks.includes(task)) score += 8;
   if (tool.inputs.includes(input)) score += 4;
   if (tool.priorities.includes(priority)) score += 3;
+  if (tool.stages?.includes(stage)) score += 3;
 
   if (budget === "free") {
     score += tool.budgets.includes("free") ? 5 : -20;
@@ -182,11 +266,25 @@ function scoreTool(
   return score;
 }
 
+function workflowFor(task: Task) {
+  const workflows: Record<Task, string[]> = {
+    concept: ["Kısıtları yaz", "3 kontrollü alternatif üret", "Mimari ölçütlerle ele"],
+    render: ["Geometriyi temizle", "Referans ve prompt ekle", "Modelle karşılaştır"],
+    edit: ["Değişecek alanı sınırla", "Tek değişkenle düzenle", "Detay hatalarını kontrol et"],
+    planning: ["Parsel verisini doğrula", "Alternatifleri aynı ölçütle üret", "İmar ve dolaşımı denetle"],
+    presentation: ["Ana mesajı belirle", "Metin ve görseli sadeleştir", "Pafta hiyerarşisini test et"],
+    research: ["Soruyu daralt", "Birincil kaynakları iste", "Her kaynağı açıp doğrula"],
+    revit: ["Hata bağlamını topla", "Kopya dosyada çözümü dene", "Model standardını kontrol et"],
+  };
+  return workflows[task];
+}
+
 export default function AiToolFinder() {
   const [task, setTask] = useState<Task>("render");
   const [input, setInput] = useState<Input>("model");
   const [priority, setPriority] = useState<Priority>("control");
   const [budget, setBudget] = useState<Budget>("freemium");
+  const [stage, setStage] = useState<Stage>("schematic");
   const [showResult, setShowResult] = useState(false);
 
   const recommendations = useMemo(
@@ -194,12 +292,12 @@ export default function AiToolFinder() {
       tools
         .map((tool) => ({
           tool,
-          score: scoreTool(tool, task, input, priority, budget),
+          score: scoreTool(tool, task, input, priority, budget, stage),
         }))
         .filter(({ tool }) => tool.tasks.includes(task))
         .sort((a, b) => b.score - a.score)
         .slice(0, 3),
-    [task, input, priority, budget]
+    [task, input, priority, budget, stage]
   );
 
   const primary = recommendations[0]?.tool;
@@ -229,7 +327,7 @@ export default function AiToolFinder() {
         </p>
 
         <section className="mt-10 rounded-3xl border border-slate-800 bg-slate-900 p-5 sm:p-8">
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2">
             <SelectField
               label="1. Ne yapmak istiyorsun?"
               value={task}
@@ -266,6 +364,15 @@ export default function AiToolFinder() {
                 setShowResult(false);
               }}
             />
+            <SelectField
+              label="5. Projenin hangi aşamasındasın?"
+              value={stage}
+              options={stageOptions}
+              onChange={(value) => {
+                setStage(value as Stage);
+                setShowResult(false);
+              }}
+            />
           </div>
           <button
             type="button"
@@ -292,8 +399,8 @@ export default function AiToolFinder() {
                     {primary.description}
                   </p>
                   <p className="mt-4 text-sm leading-6 text-cyan-100">
-                    Bu seçim; yapmak istediğin iş, elindeki girdi, önceliğin ve
-                    bütçe tercihin birlikte değerlendirilerek oluşturuldu.
+                    Bu seçim; yapmak istediğin iş, proje aşaması, elindeki
+                    girdi, önceliğin ve bütçen birlikte değerlendirilerek oluşturuldu.
                   </p>
                 </div>
                 <a
@@ -322,6 +429,31 @@ export default function AiToolFinder() {
                   </div>
                 ))}
               </div>
+              <div className="mt-6 grid gap-4 rounded-2xl border border-slate-700 bg-slate-950/55 p-5 lg:grid-cols-[1fr_1.4fr]">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-cyan-300">
+                    Neden bu araç?
+                  </p>
+                  <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-300">
+                    <li>• {taskOptions.find((item) => item.value === task)?.label}</li>
+                    <li>• Girdi: {inputOptions.find((item) => item.value === input)?.label}</li>
+                    <li>• Öğrenme düzeyi: {primary.learning ?? "Orta"}</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-cyan-300">
+                    Önerilen kısa iş akışı
+                  </p>
+                  <ol className="mt-3 grid gap-2 text-sm text-slate-300 sm:grid-cols-3">
+                    {workflowFor(task).map((step, index) => (
+                      <li key={step} className="rounded-lg border border-slate-700 bg-slate-900 p-3">
+                        <span className="mr-2 font-bold text-cyan-300">{index + 1}</span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
               <p className="mt-6 rounded-xl border border-amber-400/20 bg-amber-400/10 p-4 text-sm leading-6 text-amber-100">
                 <strong>Dikkat:</strong> {primary.caution}
               </p>
@@ -331,7 +463,7 @@ export default function AiToolFinder() {
               <div className="mt-7">
                 <h2 className="text-2xl font-bold">Güçlü alternatifler</h2>
                 <div className="mt-4 grid gap-5 md:grid-cols-2">
-                  {recommendations.slice(1).map(({ tool }, index) => (
+                  {recommendations.slice(1).map(({ tool, score }, index) => (
                     <article
                       key={tool.name}
                       className="rounded-3xl border border-slate-800 bg-slate-900 p-6"
@@ -340,6 +472,9 @@ export default function AiToolFinder() {
                         {index + 2}. öneri
                       </p>
                       <h3 className="mt-2 text-xl font-bold">{tool.name}</h3>
+                      <p className="mt-2 text-xs font-semibold text-cyan-400">
+                        Eşleşme puanı: {Math.max(0, Math.min(100, Math.round((score / 23) * 100)))} / 100
+                      </p>
                       <p className="mt-3 leading-7 text-slate-300">
                         {tool.description}
                       </p>

@@ -2,29 +2,28 @@ import type { Metadata } from "next";
 import CategoryHub, { type CategoryHubItem } from "@/app/components/CategoryHub";
 
 export const metadata: Metadata = {
-  title: "Mimarlık Bilgi Kütüphaneleri",
-  description: "Mimari detaylar, yapı malzemeleri, mimarlık kültürü, proje rehberleri, BIM, Revit ve kaynak içerikleri.",
+  title: "Mimari Detay ve Yapı Malzemeleri",
+  description: "Mimari detay çizimleri, yapı malzemeleri, teknik değerler, katmanlar ve malzeme karşılaştırmaları.",
   alternates: { canonical: "/kutuphaneler" },
 };
 
 const libraries: CategoryHubItem[] = [
   { title: "Mimari Detay Kütüphanesi", description: "Cephe, çatı, temel, ıslak hacim ve doğrama birleşimlerini şematik katmanlarla incele.", href: "/mimari-detaylar", icon: "D", group: "Teknik", badge: "12 detay", featured: true },
   { title: "Yapı Malzemeleri", description: "Malzemelerin özelliklerini, kullanım yerlerini, avantajlarını ve alternatiflerini karşılaştır.", href: "/yapi-malzemeleri", icon: "M", group: "Teknik", badge: "27 malzeme", featured: true },
-  { title: "Mimarlık Rehberi", description: "Mimari akımlar, kavramlar, önemli mimarlar ve ikonik yapılar hakkında bilgi edin.", href: "/mimarlik", icon: "A", group: "Kültür", badge: "Kültür", featured: true },
-  { title: "Tasarım ve Proje Rehberleri", description: "Çizim anlatımı, ihtiyaç programı, detay çözümü, portfolyo ve jüri hazırlığını öğren.", href: "/rehberler", icon: "R", group: "Tasarım", badge: "70 başlık" },
-  { title: "Revit Merkezi", description: "Modelleme, görünüm, family, pafta, çıktı ve koordinasyon sorunlarına çözüm bul.", href: "/revit", icon: "R", group: "Yazılım", badge: "26 rehber" },
-  { title: "BIM Merkezi", description: "LOD, IFC, koordinasyon, bilgi yönetimi ve teslim süreçlerini kavra.", href: "/bim", icon: "B", group: "Yazılım", badge: "26 rehber" },
-  { title: "CAD ve Revit Kaynakları", description: "CAD blok ve Revit family kaynaklarını seçerken kalite ve güvenlik ölçütlerini incele.", href: "/resources", icon: "+", group: "Kaynak" },
+  { title: "Malzeme Karşılaştırma", description: "Aynı kategorideki malzemelerin teknik ve pratik özelliklerini yan yana karşılaştır.", href: "/yapi-malzemeleri/karsilastir", icon: "↔", group: "Malzeme", badge: "Karşılaştır", featured: true },
+  { title: "Yalıtım Malzemeleri", description: "Isı ve su yalıtımı seçeneklerini kullanım alanı, kalınlık ve teknik değerleriyle incele.", href: "/yapi-malzemeleri/yalitim", icon: "Y", group: "Malzeme", badge: "Teknik" },
+  { title: "Duvar Malzemeleri", description: "Tuğla, gazbeton ve bims gibi duvar seçeneklerini proje ihtiyacına göre değerlendir.", href: "/yapi-malzemeleri/duvar", icon: "D", group: "Malzeme", badge: "Teknik" },
+  { title: "Katman ve U-Değeri Tasarımcısı", description: "Duvar, çatı ve döşeme katmanlarını kurarak ısıl performansı karşılaştır.", href: "/proje-araclari/u-degeri-tasarimcisi", icon: "U", group: "Katman", badge: "Araç" },
 ];
 
 export default function LibrariesPage() {
   return (
     <CategoryHub
-      eyebrow="PAFTA / Bilgi Kütüphaneleri"
-      title="Mimarlık bilgisini düzenli biçimde keşfet"
-      description="Araştırma ve teknik başvuru içeriklerini konuya göre filtrele; detaydan malzemeye, kültürden BIM ve Revit’e doğrudan ilerle."
+      eyebrow="PAFTA / Mimari Detay ve Malzemeler"
+      title="Detayı ve malzemeyi birlikte çöz"
+      description="Mimari detayları, yapı malzemelerini, teknik değerleri ve katman kararlarını tek merkezden incele."
       items={libraries}
-      searchPlaceholder="Detay, malzeme, Revit, modernizm..."
+      searchPlaceholder="Detay, yalıtım, duvar, U-değeri..."
       footerTitle="Okumayı proje üretimine bağla"
       footerText="Bir malzemeyi seçmeden önce özelliklerini, bir detayı çizmeden önce katmanlarını, bir yazılım adımını uygulamadan önce proje üzerindeki etkisini birlikte değerlendir."
       faqs={[
@@ -33,8 +32,8 @@ export default function LibrariesPage() {
         { question: "Malzemeleri karşılaştırabilir miyim?", answer: "Yapı Malzemeleri bölümündeki karşılaştırma aracıyla aynı kategorideki seçenekleri ortak özellikler üzerinden inceleyebilirsin." },
       ]}
       related={[
-        { title: "Tasarım araçları", href: "/proje-araclari" },
-        { title: "Mimarlık AI", href: "/mimarlik-yapay-zeka" },
+        { title: "Proje geliştirme", href: "/proje-araclari" },
+        { title: "Uygulama rehberi", href: "/rehberler" },
       ]}
     />
   );

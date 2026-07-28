@@ -17,7 +17,7 @@ const pdfTools: CategoryHubItem[] = [
 export default function PdfToolsPage() {
   return (
     <CategoryHub
-      eyebrow="PAFTA / PDF ve Dosya"
+      eyebrow="PAFTA / PDF Araçları"
       title="PDF araçları"
       description="Pafta ve belgelerini birleştir, dönüştür, düzenle ve teslim için hazırla. İşlemlerin çoğu doğrudan tarayıcında gerçekleşir."
       items={pdfTools}

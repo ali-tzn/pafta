@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import Header from "./components/Header";
+import PaftaHeader from "./components/PaftaHeader";
 import Footer from "./components/Footer";
 import ConsentManager from "./components/ConsentManager";
 import WorkspaceTracker from "./components/WorkspaceTracker";
+import RouteTransition from "./components/RouteTransition";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -104,7 +105,8 @@ export default function RootLayout({
             }).replace(/</g, "\\u003c"),
           }}
         />
-        <Header />
+        <RouteTransition />
+        <PaftaHeader />
         <WorkspaceTracker />
         {children}
         <Footer />

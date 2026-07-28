@@ -63,7 +63,7 @@ export default function CategoryHub({
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-14">
+    <main className="min-h-screen bg-slate-950 px-4 py-6 text-white sm:px-6 sm:py-8">
       {faqs.length > 0 && (
         <script
           type="application/ld+json"
@@ -73,23 +73,23 @@ export default function CategoryHub({
         />
       )}
       <div className="mx-auto max-w-7xl">
-        <header className="grid gap-8 border-b border-slate-800 pb-10 lg:grid-cols-[1fr_380px] lg:items-end">
+        <header className="grid gap-4 border-b border-slate-800 pb-6 lg:grid-cols-[1fr_340px] lg:items-end">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-400">
               {eyebrow}
             </p>
-            <h1 className="mt-4 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-2 max-w-4xl text-3xl font-black tracking-tight sm:text-4xl">
               {title}
             </h1>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300 sm:text-base">
               {description}
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <label htmlFor={`category-search-${title}`} className="text-sm font-semibold text-slate-200">
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-3">
+            <label htmlFor={`category-search-${title}`} className="text-xs font-semibold text-slate-300">
               Bu bölümde ara
             </label>
-            <div className="relative mt-3">
+            <div className="relative mt-2">
               <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">⌕</span>
               <input
                 id={`category-search-${title}`}
@@ -97,22 +97,22 @@ export default function CategoryHub({
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder={searchPlaceholder}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 py-3 pl-10 pr-4 text-sm outline-none placeholder:text-slate-500 focus:border-cyan-400"
+                className="w-full rounded-lg border border-slate-700 bg-slate-950 py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-slate-500 focus:border-cyan-400"
               />
             </div>
           </div>
         </header>
 
         {featured.length > 0 && !query && activeGroup === "Tümü" && (
-          <section className="mt-8 rounded-2xl border border-slate-800 bg-slate-900/40 p-4 sm:p-5">
+          <section className="mt-5 rounded-xl border border-slate-800 bg-slate-900/40 p-3.5">
             <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-400">Hızlı başlangıç</p>
-                <h2 className="mt-1 text-lg font-bold">En çok ihtiyaç duyulanlar</h2>
+                <h2 className="mt-0.5 text-base font-bold">En çok ihtiyaç duyulanlar</h2>
               </div>
               <span className="text-sm text-slate-500">{items.length} içerik</span>
             </div>
-            <div className="mt-4 grid gap-3 lg:grid-cols-3">
+            <div className="mt-3 grid gap-2.5 lg:grid-cols-3">
               {featured.map((item) => (
                 <ToolCard key={item.href} item={item} featured />
               ))}
@@ -120,14 +120,14 @@ export default function CategoryHub({
           </section>
         )}
 
-        <section className="mt-11">
+        <section className="mt-7">
           <div className="flex gap-2 overflow-x-auto pb-2">
             {groups.map((group) => (
               <button
                 key={group}
                 type="button"
                 onClick={() => setActiveGroup(group)}
-                className={`shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
                   activeGroup === group
                     ? "border-cyan-400 bg-cyan-400 text-slate-950"
                     : "border-slate-700 bg-slate-900 text-slate-300 hover:border-cyan-400/60"
@@ -138,15 +138,15 @@ export default function CategoryHub({
             ))}
           </div>
 
-          <div className="mt-5 flex items-center justify-between gap-4">
-            <h2 className="text-2xl font-bold">
+          <div className="mt-3 flex items-center justify-between gap-4">
+            <h2 className="text-xl font-bold">
               {activeGroup === "Tümü" ? "Tüm içerikler" : activeGroup}
             </h2>
             <span className="text-sm text-slate-500">{filteredItems.length} sonuç</span>
           </div>
 
           {filteredItems.length > 0 ? (
-            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {filteredItems.map((item) => (
                 <ToolCard key={item.href} item={item} />
               ))}
@@ -225,13 +225,13 @@ function ToolCard({
       href={item.href}
       className={`group flex h-full flex-col border transition hover:-translate-y-0.5 hover:border-cyan-400/60 ${
         featured
-          ? "rounded-2xl border-cyan-400/20 bg-slate-950/70 p-4"
+          ? "rounded-xl border-cyan-400/20 bg-slate-950/70 p-3"
           : "rounded-3xl border-slate-800 bg-slate-900 p-6"
       }`}
     >
       <div className="flex items-start justify-between gap-4">
         <span className={`flex items-center justify-center border border-slate-700 bg-slate-950 font-bold text-cyan-300 ${
-          featured ? "h-9 w-9 rounded-xl text-sm" : "h-12 w-12 rounded-2xl text-xl"
+          featured ? "h-8 w-8 rounded-lg text-xs" : "h-12 w-12 rounded-2xl text-xl"
         }`}>
           {item.icon}
         </span>
@@ -239,13 +239,13 @@ function ToolCard({
           {item.badge ?? item.group}
         </span>
       </div>
-      <h3 className={`${featured ? "mt-4 text-base" : "mt-6 text-xl"} font-bold transition group-hover:text-cyan-300`}>
+      <h3 className={`${featured ? "mt-2.5 text-sm" : "mt-6 text-xl"} font-bold transition group-hover:text-cyan-300`}>
         {item.title}
       </h3>
-      <p className={`mt-2 flex-1 text-slate-400 ${featured ? "line-clamp-2 text-xs leading-5" : "text-sm leading-7"}`}>
+      <p className={`mt-1.5 flex-1 text-slate-400 ${featured ? "line-clamp-2 text-[11px] leading-4" : "text-sm leading-7"}`}>
         {item.description}
       </p>
-      <span className={`${featured ? "mt-3 pt-3 text-xs" : "mt-6 pt-4 text-sm"} border-t border-slate-800 font-semibold text-cyan-300`}>
+      <span className={`${featured ? "mt-2 pt-2 text-[11px]" : "mt-6 pt-4 text-sm"} border-t border-slate-800 font-semibold text-cyan-300`}>
         Aç ve kullan →
       </span>
     </Link>

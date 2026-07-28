@@ -95,7 +95,7 @@ export default async function ArchitectureArticlePage({ params }: PageProps) {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Mimarlık Rehberi",
+        name: "Mimarlık Kültürü Rehberi",
         item: "https://paftaedu.com/mimarlik",
       },
       {
@@ -126,7 +126,7 @@ export default async function ArchitectureArticlePage({ params }: PageProps) {
           </Link>
           <span className="mx-2">/</span>
           <Link href="/mimarlik" className="transition hover:text-cyan-400">
-            Mimarlık Rehberi
+            Mimarlık Kültürü Rehberi
           </Link>
           <span className="mx-2">/</span>
           <span className="text-slate-200">{article.shortTitle}</span>

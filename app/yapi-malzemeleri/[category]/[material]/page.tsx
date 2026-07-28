@@ -9,6 +9,7 @@ import {
   ratingLabels,
 } from "../../materials";
 import { ArticleSeo, createSeoMetadata } from "@/lib/seo";
+import { getMaterialTechnicalData } from "../../technical-data";
 
 type Props = {
   params: Promise<{ category: string; material: string }>;
@@ -41,6 +42,7 @@ export default async function MaterialDetailPage({ params }: Props) {
   const related = getMaterialsByCategory(category.slug).filter(
     (item) => item.slug !== material.slug
   );
+  const technical = getMaterialTechnicalData(material.slug, category.slug);
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-white sm:px-6 sm:py-16">
@@ -96,6 +98,81 @@ export default async function MaterialDetailPage({ params }: Props) {
             ))}
           </div>
         </section>
+
+        {technical && (
+          <>
+            <section className="mt-12">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
+                    Ön tasarım verisi
+                  </p>
+                  <h2 className="mt-2 text-2xl font-bold">
+                    Teknik değerler ve ne anlama geldikleri
+                  </h2>
+                </div>
+                <span className="text-sm text-slate-500">Tipik aralıklar</span>
+              </div>
+              <div className="mt-6 overflow-hidden rounded-2xl border border-slate-800">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[680px] text-left text-sm">
+                    <thead className="bg-slate-900 text-slate-300">
+                      <tr>
+                        <th className="px-5 py-4 font-semibold">Özellik</th>
+                        <th className="px-5 py-4 font-semibold">Tipik değer</th>
+                        <th className="px-5 py-4 font-semibold">Tasarım notu</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800 bg-slate-950/60">
+                      {technical.values.map((row) => (
+                        <tr key={row.label}>
+                          <th className="px-5 py-4 font-medium text-white">{row.label}</th>
+                          <td className="px-5 py-4 font-semibold text-cyan-300">{row.value}</td>
+                          <td className="px-5 py-4 leading-6 text-slate-400">{row.note}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <p className="mt-4 text-sm leading-6 text-slate-500">
+                Bu aralıklar ürün seçimine başlangıç içindir. Şartname, enerji,
+                statik, yangın veya akustik hesabında güncel üretici teknik föyü,
+                performans beyanı ve ilgili proje standardı esas alınmalıdır.
+              </p>
+            </section>
+
+            <section className="mt-12">
+              <h2 className="text-2xl font-bold">Kalınlık nasıl seçilir?</h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-400">
+                Tek bir “doğru kalınlık” yoktur. Kullanım yeri, açıklık veya yük,
+                yangın ve ses hedefi, enerji hesabı, nem koşulu ve komşu
+                katmanlar birlikte değerlendirilir.
+              </p>
+              <div className="mt-6 grid gap-4 lg:grid-cols-3">
+                {technical.thicknesses.map((choice) => (
+                  <article key={choice.use} className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+                    <h3 className="font-semibold text-white">{choice.use}</h3>
+                    <p className="mt-3 text-lg font-bold text-cyan-300">{choice.typical}</p>
+                    <p className="mt-3 text-sm leading-6 text-slate-400">{choice.decision}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="mt-12 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+              <h2 className="text-2xl font-bold">Projeye eklemeden önce kontrol et</h2>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {technical.designChecks.map((item) => (
+                  <div key={item} className="flex gap-3 rounded-xl bg-slate-950/70 p-4 text-slate-300">
+                    <span aria-hidden className="text-cyan-300">✓</span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        )}
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           <InfoBlock title="Kullanım alanları" items={material.uses} />

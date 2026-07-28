@@ -22,8 +22,8 @@ const projectTools: CategoryHubItem[] = [
 export default function ProjectToolsPage() {
   return (
     <CategoryHub
-      eyebrow="PAFTA / Tasarım ve Proje"
-      title="Tasarım kararlarını görünür hâle getir"
+      eyebrow="PAFTA / Proje Geliştirme"
+      title="Mimari projeni adım adım geliştir"
       description="Programdan yerleşime, çevresel kararlardan teknik kontrole kadar proje sürecinin farklı aşamalarını konuya göre filtrele."
       items={projectTools}
       searchPlaceholder="Vaziyet, güneş, balon, U-değeri..."

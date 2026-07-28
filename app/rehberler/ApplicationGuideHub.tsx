@@ -1,0 +1,192 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { guideCollections } from "./guides";
+import { revitGuides } from "@/app/revit/guides";
+import { bimGuides } from "@/app/bim/guides";
+
+type GuideItem = {
+  title: string;
+  description: string;
+  href: string;
+  group: "Proje ve Çizim" | "Revit" | "BIM";
+  meta: string;
+  keywords: string[];
+};
+
+const items: GuideItem[] = [
+  ...guideCollections.map((guide) => ({
+    title: guide.shortName,
+    description: guide.description,
+    href: `/rehberler/${guide.slug}`,
+    group: "Proje ve Çizim" as const,
+    meta: `${guide.sections.length} ayrıntılı konu`,
+    keywords: guide.keywords,
+  })),
+  ...revitGuides.map((guide) => ({
+    title: guide.title,
+    description: guide.description,
+    href: `/revit/${guide.slug}`,
+    group: "Revit" as const,
+    meta: guide.category,
+    keywords: [guide.category, ...guide.keyPoints],
+  })),
+  ...bimGuides.map((guide) => ({
+    title: guide.title,
+    description: guide.description,
+    href: `/bim/${guide.slug}`,
+    group: "BIM" as const,
+    meta: guide.category,
+    keywords: [guide.category, ...guide.keyPoints],
+  })),
+];
+
+const workflows = [
+  {
+    title: "Projeye başlıyorum",
+    steps: ["İhtiyaç programı", "Mekânsal ilişkiler", "Çizim ve anlatım"],
+    href: "/rehberler/yapi-turleri-ihtiyac-programlari",
+  },
+  {
+    title: "Revit modeli kuruyorum",
+    steps: ["Level ve Grid", "CAD bağlantısı", "Duvar ve katmanlar"],
+    href: "/revit/level-kot-olusturma",
+  },
+  {
+    title: "BIM teslimine hazırlanıyorum",
+    steps: ["BEP", "LOD / LOI", "IFC ve koordinasyon"],
+    href: "/bim/bep-nedir",
+  },
+] as const;
+
+export default function ApplicationGuideHub() {
+  const [query, setQuery] = useState("");
+  const [group, setGroup] = useState("Tümü");
+
+  const visibleItems = useMemo(() => {
+    const normalized = query.trim().toLocaleLowerCase("tr-TR");
+    return items.filter((item) => {
+      const matchesGroup = group === "Tümü" || item.group === group;
+      const haystack = `${item.title} ${item.description} ${item.meta} ${item.keywords.join(" ")}`
+        .toLocaleLowerCase("tr-TR");
+      return matchesGroup && (!normalized || haystack.includes(normalized));
+    });
+  }, [group, query]);
+
+  return (
+    <main className="min-h-screen bg-slate-950 px-4 py-7 text-white sm:px-6">
+      <div className="mx-auto max-w-7xl">
+        <header className="grid gap-5 border-b border-slate-800 pb-7 lg:grid-cols-[1fr_360px] lg:items-end">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.23em] text-cyan-400">
+              PAFTA / Mimari Uygulama Rehberi
+            </p>
+            <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
+              Çizimden BIM teslimine uygulama bilgisi
+            </h1>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
+              Proje anlatımı, teknik karar, Revit modelleme ve BIM süreçlerini
+              aynı merkezde ara. Soruna göre rehberi seç ve kontrol adımlarıyla ilerle.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-3">
+            <label htmlFor="application-guide-search" className="text-xs font-semibold text-slate-300">
+              {items.length} rehber içinde ara
+            </label>
+            <input
+              id="application-guide-search"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Duvar, IFC, pafta, toposolid…"
+              className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm outline-none focus:border-cyan-400"
+            />
+          </div>
+        </header>
+
+        {!query && group === "Tümü" && (
+          <section className="mt-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-bold">İş akışına göre başla</h2>
+              <span className="text-xs text-slate-500">3 başlangıç rotası</span>
+            </div>
+            <div className="mt-3 grid gap-3 lg:grid-cols-3">
+              {workflows.map((workflow, index) => (
+                <Link
+                  key={workflow.title}
+                  href={workflow.href}
+                  className="group rounded-2xl border border-slate-800 bg-slate-900 p-4 transition hover:border-cyan-400/45"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs text-cyan-400">0{index + 1}</span>
+                    <span className="text-cyan-300">→</span>
+                  </div>
+                  <h3 className="mt-3 font-bold group-hover:text-cyan-300">{workflow.title}</h3>
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
+                    {workflow.steps.map((step, stepIndex) => (
+                      <span key={step} className="flex items-center gap-1.5">
+                        {stepIndex > 0 && <span>›</span>}
+                        <span>{step}</span>
+                      </span>
+                    ))}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="mt-7">
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            {["Tümü", "Proje ve Çizim", "Revit", "BIM"].map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => setGroup(option)}
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                  group === option
+                    ? "border-cyan-400 bg-cyan-400 text-slate-950"
+                    : "border-slate-700 bg-slate-900 text-slate-300"
+                }`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-3 flex items-center justify-between">
+            <h2 className="text-xl font-bold">
+              {group === "Tümü" ? "Tüm uygulama rehberleri" : group}
+            </h2>
+            <span className="text-xs text-slate-500">{visibleItems.length} sonuç</span>
+          </div>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {visibleItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group flex min-h-44 flex-col rounded-2xl border border-slate-800 bg-slate-900 p-5 transition hover:-translate-y-0.5 hover:border-cyan-400/45"
+              >
+                <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
+                  <span className="text-cyan-400">{item.group}</span>
+                  <span className="text-slate-600">{item.meta}</span>
+                </div>
+                <h3 className="mt-3 text-lg font-bold group-hover:text-cyan-300">
+                  {item.title}
+                </h3>
+                <p className="mt-2 line-clamp-3 flex-1 text-sm leading-6 text-slate-400">
+                  {item.description}
+                </p>
+                <span className="mt-4 border-t border-slate-800 pt-3 text-xs font-semibold text-cyan-300">
+                  Rehberi aç →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}

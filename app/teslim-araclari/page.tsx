@@ -15,8 +15,8 @@ const deliveryTools: CategoryHubItem[] = [
 export default function DeliveryToolsPage() {
   return (
     <CategoryHub
-      eyebrow="PAFTA / Pafta ve Teslim"
-      title="Teslimden önce gör, kontrol et, düzelt"
+      eyebrow="PAFTA / Jüri ve Teslim Araçları"
+      title="Jüri ve teslimden önce kontrol et"
       description="Pafta ve portfolyonu teknik şartlara göre hazırla; sorunları baskıdan veya yüklemeden önce doğru araçla tespit et."
       items={deliveryTools}
       searchPlaceholder="Jüri, DPI, kontrol, sıkıştır..."

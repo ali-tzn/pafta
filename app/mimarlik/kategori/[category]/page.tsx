@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   );
 
   return {
-    title: `${category.name} – Mimarlık Rehberi`,
+    title: `${category.name} – Mimarlık Kültürü Rehberi`,
     description: category.description,
     alternates: {
       canonical: `/mimarlik/kategori/${category.slug}`,
@@ -54,7 +54,7 @@ export default async function ArchitectureCategoryPage({ params }: Props) {
           </Link>
           <span className="mx-2">/</span>
           <Link href="/mimarlik" className="hover:text-cyan-400">
-            Mimarlık Rehberi
+            Mimarlık Kültürü Rehberi
           </Link>
           <span className="mx-2">/</span>
           <span className="text-slate-200">{category.name}</span>
@@ -62,7 +62,7 @@ export default async function ArchitectureCategoryPage({ params }: Props) {
 
         <header className="max-w-4xl">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
-            Mimarlık Rehberi
+            Mimarlık Kültürü Rehberi
           </p>
           <h1 className="mt-4 text-4xl font-bold md:text-6xl">
             {category.name}

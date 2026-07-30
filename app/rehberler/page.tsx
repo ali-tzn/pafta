@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ApplicationGuideHub from "./ApplicationGuideHub";
 
 export const metadata: Metadata = {
-  title: "Mimari Uygulama Rehberi: Revit, BIM ve Proje Bilgisi",
+  title: "Mimari Uygulama Rehberi: Revit, AutoCAD, SketchUp, Rhino ve BIM",
   description:
-    "Mimari çizim, uygulama, Revit, BIM, yapı programı, detay, yönetmelik ve proje üretimi için aranabilir kapsamlı rehber merkezi.",
+    "Mimari çizim, Revit, AutoCAD, SketchUp, Rhino, Grasshopper, BIM, detay ve proje üretimi için aranabilir kapsamlı rehber merkezi.",
   alternates: { canonical: "/rehberler" },
 };
 

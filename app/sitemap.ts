@@ -11,6 +11,7 @@ import { bimGuides } from "@/app/bim/guides";
 import { guideCollections } from "@/app/rehberler/guides";
 import { caseStudies, spaceStandards } from "@/app/proje-araclari/data";
 import { architecturalDetails } from "@/app/mimari-detaylar/details";
+import { softwareCatalogs } from "@/app/software-guide-data";
 
 const materialRoutes = [
   "/yapi-malzemeleri",
@@ -31,6 +32,10 @@ const expandedContentRoutes = [
   ),
   ...revitGuides.map((guide) => `/revit/${guide.slug}`),
   ...bimGuides.map((guide) => `/bim/${guide.slug}`),
+  ...softwareCatalogs.flatMap((catalog) => [
+    `/${catalog.slug}`,
+    ...catalog.guides.map((guide) => `/${catalog.slug}/${guide.slug}`),
+  ]),
   "/mimarlik-yapay-zeka",
   "/mimarlik-yapay-zeka/prompt-olusturucu",
   "/mimarlik-yapay-zeka/arac-bulucu",

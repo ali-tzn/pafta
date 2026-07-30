@@ -27,7 +27,7 @@ const quickActions = [
   },
   {
     title: "Mimari bilgi arıyorum",
-    detail: "Detay, malzeme, Revit ve BIM",
+    detail: "Detay, malzeme ve yazılım rehberleri",
     href: "/kutuphaneler",
     icon: "◫",
   },

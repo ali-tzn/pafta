@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     absolute: "PAFTA – Mimarlık Öğrencileri İçin Araçlar ve Rehberler",
   },
   description:
-    "Ücretsiz PDF araçları, mimari hesaplamalar, Revit ve BIM rehberleri, yapı malzemeleri ve proje kaynaklarıyla mimarlık öğrencilerinin dijital kampüsü.",
+    "Ücretsiz PDF araçları, mimari hesaplamalar, Revit, AutoCAD, SketchUp, Rhino ve BIM rehberleriyle mimarlık öğrencilerinin dijital kampüsü.",
   alternates: {
     canonical: "/",
   },

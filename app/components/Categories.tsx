@@ -33,7 +33,7 @@ const sections = [
   },
   {
     title: "Mimari Uygulama Rehberi",
-    detail: "Revit, BIM ve uygulama çözümleri",
+    detail: "Revit, AutoCAD, SketchUp, Rhino ve BIM",
     href: "/rehberler",
     icon: "R",
   },

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { materialSearchItems } from "@/app/yapi-malzemeleri/materials";
 import { revitGuides } from "@/app/revit/guides";
 import { bimGuides } from "@/app/bim/guides";
+import { softwareCatalogs } from "@/app/software-guide-data";
 import { architectureArticles } from "@/app/mimarlik/articles";
 import { guideCollections } from "@/app/rehberler/guides";
 import { architecturalDetails } from "@/app/mimari-detaylar/details";
@@ -36,6 +37,14 @@ const searchableItems = [
     href: `/bim/${guide.slug}`,
     keywords: [guide.category, ...guide.keyPoints],
   })),
+  ...softwareCatalogs.flatMap((catalog) =>
+    catalog.guides.map((guide) => ({
+      title: guide.title,
+      description: guide.description,
+      href: `/${catalog.slug}/${guide.slug}`,
+      keywords: [catalog.name, guide.category, ...guide.keyPoints],
+    }))
+  ),
   ...architectureArticles.map((article) => ({
     title: article.shortTitle,
     href: `/mimarlik/${article.slug}`,

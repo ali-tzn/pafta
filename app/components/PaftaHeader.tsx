@@ -98,18 +98,18 @@ const navigationGroups = [
   },
   {
     title: "Uygulama Rehberi",
-    description: "Revit, BIM ve mimari uygulama rehberleri",
+    description: "Revit, AutoCAD, SketchUp, Rhino ve BIM rehberleri",
     icon: "UR",
     href: "/rehberler",
-    matchPaths: ["/rehberler", "/revit", "/bim"],
+    matchPaths: ["/rehberler", "/revit", "/autocad", "/sketchup", "/rhino", "/bim"],
     items: [
       ["Mimari Uygulama Rehberleri", "/rehberler"],
       ["Revit Merkezi", "/revit"],
+      ["AutoCAD Rehberleri", "/autocad"],
+      ["SketchUp Rehberleri", "/sketchup"],
+      ["Rhino Rehberleri", "/rhino"],
       ["BIM Merkezi", "/bim"],
       ["Revit Duvar Katmanları", "/revit/duvar-katmanlari"],
-      ["Toposolid ve Arazi", "/revit/toposolid"],
-      ["LOD Seviyeleri", "/bim/lod-seviyeleri"],
-      ["BIM Koordinasyonu", "/bim/koordinasyon"],
     ],
   },
   {

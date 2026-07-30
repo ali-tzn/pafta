@@ -104,6 +104,9 @@ export function getSearchCategory(href: string) {
   if (href.startsWith("/yapi-malzemeleri")) return "Malzeme";
   if (href.startsWith("/mimari-detaylar")) return "Detay";
   if (href.startsWith("/revit")) return "Revit";
+  if (href.startsWith("/autocad")) return "AutoCAD";
+  if (href.startsWith("/sketchup")) return "SketchUp";
+  if (href.startsWith("/rhino")) return "Rhino";
   if (href.startsWith("/bim")) return "BIM";
   if (href.startsWith("/mimarlik")) return "Mimarlık";
   if (href.startsWith("/rehberler")) return "Rehber";

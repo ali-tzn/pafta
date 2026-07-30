@@ -5,12 +5,13 @@ import { useMemo, useState } from "react";
 import { guideCollections } from "./guides";
 import { revitGuides } from "@/app/revit/guides";
 import { bimGuides } from "@/app/bim/guides";
+import { softwareCatalogs } from "@/app/software-guide-data";
 
 type GuideItem = {
   title: string;
   description: string;
   href: string;
-  group: "Proje ve Çizim" | "Revit" | "BIM";
+  group: "Proje ve Çizim" | "Revit" | "AutoCAD" | "SketchUp" | "Rhino" | "BIM";
   meta: string;
   keywords: string[];
 };
@@ -40,6 +41,16 @@ const items: GuideItem[] = [
     meta: guide.category,
     keywords: [guide.category, ...guide.keyPoints],
   })),
+  ...softwareCatalogs.flatMap((catalog) =>
+    catalog.guides.map((guide) => ({
+      title: guide.title,
+      description: guide.description,
+      href: `/${catalog.slug}/${guide.slug}`,
+      group: catalog.name as "AutoCAD" | "SketchUp" | "Rhino",
+      meta: guide.category,
+      keywords: [catalog.name, guide.category, ...guide.keyPoints],
+    }))
+  ),
 ];
 
 const workflows = [
@@ -57,6 +68,11 @@ const workflows = [
     title: "BIM teslimine hazırlanıyorum",
     steps: ["BEP", "LOD / LOI", "IFC ve koordinasyon"],
     href: "/bim/bep-nedir",
+  },
+  {
+    title: "CAD ve 3B model sorununu çözüyorum",
+    steps: ["AutoCAD çizim", "SketchUp model", "Rhino yüzey"],
+    href: "/autocad",
   },
 ] as const;
 
@@ -109,7 +125,7 @@ export default function ApplicationGuideHub() {
           <section className="mt-6">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold">İş akışına göre başla</h2>
-              <span className="text-xs text-slate-500">3 başlangıç rotası</span>
+              <span className="text-xs text-slate-500">{workflows.length} başlangıç rotası</span>
             </div>
             <div className="mt-3 grid gap-3 lg:grid-cols-3">
               {workflows.map((workflow, index) => (
@@ -139,7 +155,7 @@ export default function ApplicationGuideHub() {
 
         <section className="mt-7">
           <div className="flex gap-2 overflow-x-auto pb-2">
-            {["Tümü", "Proje ve Çizim", "Revit", "BIM"].map((option) => (
+            {["Tümü", "Proje ve Çizim", "Revit", "AutoCAD", "SketchUp", "Rhino", "BIM"].map((option) => (
               <button
                 key={option}
                 type="button"

@@ -31,7 +31,7 @@ const tools: SearchItem[] = [
     ["Güneş, Yönlenme ve Cephe Karar Asistanı", "/proje-araclari/gunes-yonlenme"],
     ["Vaziyet Yerleşimi ve Yapı Oturumu Simülatörü", "/proje-araclari/vaziyet-simulatoru"],
     ["Duvar, Çatı ve Döşeme U-Değeri Hesaplama", "/proje-araclari/u-degeri-tasarimcisi"],
-    ["Katman ve U-Değeri Tasarımcısı", "/proje-araclari/u-degeri-tasarimcisi"],
+    ["Detay Kesit ve U-Değeri Tasarımcısı", "/proje-araclari/u-degeri-tasarimcisi"],
     ["Mekân Ölçüleri Kütüphanesi", "/proje-araclari/mekan-olculeri"],
     ["Pafta Yerleşim Oluşturucu", "/proje-araclari/pafta-yerlesimi"],
     ["Mimari Emsal Proje Atlası", "/proje-araclari/emsal-atlasi"],

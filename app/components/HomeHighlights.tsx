@@ -9,7 +9,7 @@ const stages = [
 ];
 
 const newContent = [
-  { title: "Katman ve U-Değeri Tasarımcısı", href: "/proje-araclari/u-degeri-tasarimcisi", label: "Teknik araç" },
+  { title: "Detay Kesit ve U-Değeri Tasarımcısı", href: "/proje-araclari/u-degeri-tasarimcisi", label: "Teknik araç" },
   { title: "Vaziyet Yerleşimi Simülatörü", href: "/proje-araclari/vaziyet-simulatoru", label: "Tasarım aracı" },
   { title: "Mimari Detay Kütüphanesi", href: "/mimari-detaylar", label: "Kütüphane" },
   { title: "Mimarlık AI Araç Bulucu", href: "/mimarlik-yapay-zeka/arac-bulucu", label: "Yapay zekâ" },

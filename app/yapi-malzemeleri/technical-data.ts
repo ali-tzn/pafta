@@ -188,6 +188,20 @@ const categoryFallback: Record<string, MaterialTechnicalData> = {
     ],
     designChecks: ["Alt zemin nemi ve düzgünlüğü", "Hareket derzlerinin devamı", "Kayma ve aşınma sınıfı", "Eşik ve bitiş kotları"],
   },
+  "cephe-kaplama": {
+    values: [
+      { label: "Panel kalınlığı", value: "ürün ve açıklığa göre", note: "Rüzgâr emmesi, panel boyutu ve mesnet aralığı birlikte hesaplanır." },
+      { label: "Sistem ağırlığı", value: "yaklaşık 8–80 kg/m²", note: "İnce metalden doğal taşa geniş aralık vardır; ankraj yükü ürün bazında alınır." },
+      { label: "Yangın davranışı", value: "ürün + boşluk + yalıtım sistemi", note: "Yalnız kaplamanın sınıfı cephe yangın güvenliğini açıklamaz." },
+      { label: "Havalandırma boşluğu", value: "çoğunlukla 30–80 mm", note: "Sistem üreticisi, drenaj ve yangın bariyeri kararları önceliklidir." },
+    ],
+    thicknesses: [
+      { use: "İnce levha/panel", typical: "yaklaşık 3–12 mm", decision: "Panel rijitliği, kenar mesafesi ve bağlantı türünü birlikte doğrula." },
+      { use: "Mineral/seramik panel", typical: "yaklaşık 8–30 mm", decision: "Kırılma, ankraj bölgesi ve rüzgâr hesabı ürün sistemine göre yapılır." },
+      { use: "Doğal taş panel", typical: "çoğunlukla 20–40 mm ve üzeri", decision: "Taş türü, panel boyutu ve ankraj testleri olmadan tipik değeri proje kararı sayma." },
+    ],
+    designChecks: ["Rüzgâr ve deprem yükü", "Yangın bariyeri ve boşluk sürekliliği", "Sabit-kayar bağlantı ve genleşme", "Pencere, parapet ve alt bitişte su tahliyesi", "Korozyon ve farklı metal teması"],
+  },
 };
 
 export function getMaterialTechnicalData(slug: string, category: string) {

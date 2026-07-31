@@ -77,6 +77,23 @@ export default function DetailDiagram({ detail }: { detail: ArchitecturalDetail 
   );
 }
 
+export function DetailDiagramPreview({ detail }: { detail: ArchitecturalDetail }) {
+  return (
+    <svg
+      viewBox="0 55 700 455"
+      className="block aspect-[16/10] w-full"
+      role="img"
+      aria-label={`${detail.title} teknik detay önizlemesi`}
+    >
+      <TechnicalDefs slug={detail.slug} />
+      <rect x="0" y="0" width="700" height="540" fill="#eef1f3" />
+      <g transform="translate(12 18)">
+        <DetailGeometry detail={detail} />
+      </g>
+    </svg>
+  );
+}
+
 function TechnicalDefs({ slug }: { slug: string }) {
   return (
     <defs>

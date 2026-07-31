@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { architecturalDetails, detailCategories } from "./details";
-import DetailCardIcon from "./DetailCardIcon";
+import { DetailDiagramPreview } from "./DetailDiagram";
 
 export default function DetailLibrary() {
   const [query, setQuery] = useState("");
@@ -27,7 +27,7 @@ export default function DetailLibrary() {
           {visible.map((detail, index) => <Link key={detail.slug} href={`/mimari-detaylar/${detail.slug}`} className="group rounded-3xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-cyan-400/50">
             <div className="flex justify-between text-xs"><span className="font-mono text-cyan-400">DT-{String(index + 1).padStart(2, "0")}</span><span className="text-slate-500">{detail.scale}</span></div>
             <div className="mt-5 overflow-hidden rounded-xl border border-slate-700 bg-[#eef1f3]">
-              <DetailCardIcon slug={detail.slug} title={detail.title} />
+              <DetailDiagramPreview detail={detail} />
             </div>
             <p className="mt-7 text-xs font-bold uppercase tracking-wider text-slate-500">{detail.category}</p>
             <h2 className="mt-2 text-xl font-bold group-hover:text-cyan-300">{detail.title}</h2>

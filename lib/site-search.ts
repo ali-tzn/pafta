@@ -107,6 +107,11 @@ export function getSearchCategory(href: string) {
   if (href.startsWith("/autocad")) return "AutoCAD";
   if (href.startsWith("/sketchup")) return "SketchUp";
   if (href.startsWith("/rhino")) return "Rhino";
+  if (href.startsWith("/grasshopper")) return "Grasshopper";
+  if (href.startsWith("/photoshop")) return "Photoshop";
+  if (href.startsWith("/d5-render")) return "D5 Render";
+  if (href.startsWith("/dialux-evo")) return "DIALux evo";
+  if (href.startsWith("/blender")) return "Blender";
   if (href.startsWith("/bim")) return "BIM";
   if (href.startsWith("/mimarlik")) return "Mimarlık";
   if (href.startsWith("/rehberler")) return "Rehber";

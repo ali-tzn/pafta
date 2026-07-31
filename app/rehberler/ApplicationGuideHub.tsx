@@ -11,7 +11,7 @@ type GuideItem = {
   title: string;
   description: string;
   href: string;
-  group: "Proje ve Çizim" | "Revit" | "AutoCAD" | "SketchUp" | "Rhino" | "BIM";
+  group: string;
   meta: string;
   keywords: string[];
 };
@@ -46,7 +46,7 @@ const items: GuideItem[] = [
       title: guide.title,
       description: guide.description,
       href: `/${catalog.slug}/${guide.slug}`,
-      group: catalog.name as "AutoCAD" | "SketchUp" | "Rhino",
+      group: catalog.name,
       meta: guide.category,
       keywords: [catalog.name, guide.category, ...guide.keyPoints],
     }))
@@ -75,6 +75,30 @@ const workflows = [
     href: "/autocad",
   },
 ] as const;
+
+const applicationGroups = [
+  {
+    name: "Revit",
+    href: "/revit",
+    description: "BIM modelleme, family, görünürlük, pafta ve hata çözümleri",
+    count: revitGuides.length,
+    accent: "R",
+  },
+  {
+    name: "BIM",
+    href: "/bim",
+    description: "IFC, LOD/LOI, BEP, koordinasyon ve bilgi yönetimi",
+    count: bimGuides.length,
+    accent: "B",
+  },
+  ...softwareCatalogs.map((catalog) => ({
+    name: catalog.name,
+    href: `/${catalog.slug}`,
+    description: catalog.label,
+    count: catalog.guides.length,
+    accent: catalog.name.slice(0, 2).toLocaleUpperCase("tr-TR"),
+  })),
+];
 
 export default function ApplicationGuideHub() {
   const [query, setQuery] = useState("");
@@ -122,7 +146,43 @@ export default function ApplicationGuideHub() {
         </header>
 
         {!query && group === "Tümü" && (
+          <>
           <section className="mt-6">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400">
+                  Uygulama Merkezi
+                </p>
+                <h2 className="mt-1 text-xl font-bold">Önce uygulamayı seç</h2>
+              </div>
+              <span className="text-xs text-slate-500">{applicationGroups.length} uygulama</span>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              {applicationGroups.map((application) => (
+                <Link
+                  key={application.href}
+                  href={application.href}
+                  className="group flex min-h-40 flex-col rounded-2xl border border-slate-800 bg-slate-900 p-4 transition hover:-translate-y-0.5 hover:border-cyan-400/50"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-9 min-w-9 items-center justify-center rounded-lg bg-cyan-400/10 px-2 font-mono text-xs font-black text-cyan-300">
+                      {application.accent}
+                    </span>
+                    <span className="text-[10px] text-slate-500">{application.count} içerik</span>
+                  </div>
+                  <h3 className="mt-4 font-bold group-hover:text-cyan-300">{application.name}</h3>
+                  <p className="mt-1 line-clamp-2 flex-1 text-xs leading-5 text-slate-500">
+                    {application.description}
+                  </p>
+                  <span className="mt-3 text-xs font-semibold text-cyan-300">
+                    {application.name} merkezine git →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-8 border-t border-slate-800 pt-7">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold">İş akışına göre başla</h2>
               <span className="text-xs text-slate-500">{workflows.length} başlangıç rotası</span>
@@ -151,11 +211,12 @@ export default function ApplicationGuideHub() {
               ))}
             </div>
           </section>
+          </>
         )}
 
         <section className="mt-7">
           <div className="flex gap-2 overflow-x-auto pb-2">
-            {["Tümü", "Proje ve Çizim", "Revit", "AutoCAD", "SketchUp", "Rhino", "BIM"].map((option) => (
+            {["Tümü", "Proje ve Çizim", "Revit", "AutoCAD", "SketchUp", "Rhino", "Grasshopper", "Photoshop", "D5 Render", "DIALux evo", "Blender", "BIM"].map((option) => (
               <button
                 key={option}
                 type="button"

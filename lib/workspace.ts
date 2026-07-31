@@ -46,7 +46,7 @@ export const workspaceItems: WorkspaceItem[] = [
   { title: "Mekân Ölçüleri", href: "/proje-araclari/mekan-olculeri", category: "Tasarım", icon: "↔" },
   { title: "Emsal Proje Atlası", href: "/proje-araclari/emsal-atlasi", category: "Tasarım", icon: "◎" },
   { title: "Pafta Yerleşimi", href: "/proje-araclari/pafta-yerlesimi", category: "Tasarım", icon: "▦" },
-  { title: "U-Değeri Tasarımcısı", href: "/proje-araclari/u-degeri-tasarimcisi", category: "Teknik", icon: "U" },
+  { title: "Detay Kesit ve U-Değeri Tasarımcısı", href: "/proje-araclari/u-degeri-tasarimcisi", category: "Teknik", icon: "U" },
   { title: "Yönetmelik Kontrolü", href: "/proje-araclari/yonetmelik-kontrol", category: "Teknik", icon: "§" },
   { title: "Jüri Gözü", href: "/teslim-araclari/juri-gozu", category: "Teslim", icon: "◉" },
   { title: "Teslim Kontrol Merkezi", href: "/teslim-araclari/kontrol-merkezi", category: "Teslim", icon: "✓" },

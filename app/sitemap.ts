@@ -126,7 +126,7 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return Array.from(new Set(routes)).map((route) => ({
     url: `${siteConfig.url}${route}`,
-    lastModified: "2026-07-26",
+    lastModified: "2026-07-31",
     changeFrequency: route === "" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route.split("/").length === 2 ? 0.9 : 0.8,
   }));

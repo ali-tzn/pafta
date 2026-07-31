@@ -3,7 +3,7 @@ import { tools } from "@/lib/tools";
 
 const extraTools: CategoryHubItem[] = [
   {
-    title: "Katman ve U-Değeri Tasarımcısı",
+    title: "Detay Kesit ve U-Değeri Tasarımcısı",
     description: "Duvar, çatı ve döşeme katmanlarını kur; ısıl direnci ve U-değerini hesapla.",
     href: "/proje-araclari/u-degeri-tasarimcisi",
     icon: "▤",

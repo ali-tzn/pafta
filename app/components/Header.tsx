@@ -96,7 +96,7 @@ const searchableItems = [
     keywords: ["vaziyet planı", "parsel", "çekme mesafesi", "yapı oturumu", "yerleşim"],
   },
   {
-    title: "Duvar, Çatı ve Döşeme U-Değeri Tasarımcısı",
+    title: "Detay Kesit ve U-Değeri Tasarımcısı",
     href: "/proje-araclari/u-degeri-tasarimcisi",
     keywords: ["u değeri", "ısı yalıtımı", "duvar katmanları", "çatı katmanları", "ısıl direnç", "lambda"],
   },
@@ -361,7 +361,7 @@ export const navigationGroups = [
       ["Emsal Proje Atlası", "/proje-araclari/emsal-atlasi"],
       ["Mekân Ölçüleri", "/proje-araclari/mekan-olculeri"],
       ["Pafta Yerleşimi", "/proje-araclari/pafta-yerlesimi"],
-      ["U-Değeri Tasarımcısı", "/proje-araclari/u-degeri-tasarimcisi"],
+      ["Detay Kesit ve U-Değeri", "/proje-araclari/u-degeri-tasarimcisi"],
       ["Yönetmelik Asistanı", "/proje-araclari/yonetmelik-kontrol"],
     ],
   },

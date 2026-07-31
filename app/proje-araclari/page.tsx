@@ -15,7 +15,7 @@ const projectTools: CategoryHubItem[] = [
   { title: "Mekân Ölçüleri Kütüphanesi", description: "Farklı yapı türleri için başlangıç ve önerilen mekân ölçülerini incele.", href: "/proje-araclari/mekan-olculeri", icon: "05", group: "Program" },
   { title: "Emsal Proje Atlası", description: "Önemli yapıları program, dolaşım, strüktür ve mekânsal kararlarla karşılaştır.", href: "/proje-araclari/emsal-atlasi", icon: "06", group: "Referans" },
   { title: "Pafta Yerleşim Oluşturucu", description: "Pafta ölçüsü ve içeriklerine göre grid kur; blokları sürükleyerek yerleştir.", href: "/proje-araclari/pafta-yerlesimi", icon: "07", group: "Sunum" },
-  { title: "Katman ve U-Değeri Tasarımcısı", description: "Duvar, çatı ve döşeme kesitlerini katmanlarla oluştur ve U-değerini hesapla.", href: "/proje-araclari/u-degeri-tasarimcisi", icon: "08", group: "Teknik" },
+  { title: "Detay Kesit ve U-Değeri Tasarımcısı", description: "Duvar, çatı ve döşeme detay kesitlerini katmanlarla oluştur; U-değeri ve yoğuşma riskini incele.", href: "/proje-araclari/u-degeri-tasarimcisi", icon: "08", group: "Teknik" },
   { title: "Yönetmelik Kontrol Asistanı", description: "Parsel ve proje girdilerinden açıklamalı bir imar ve mevzuat ön raporu üret.", href: "/proje-araclari/yonetmelik-kontrol", icon: "09", group: "Teknik" },
 ];
 

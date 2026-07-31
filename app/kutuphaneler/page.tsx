@@ -13,7 +13,7 @@ const libraries: CategoryHubItem[] = [
   { title: "Malzeme Karşılaştırma", description: "Aynı kategorideki malzemelerin teknik ve pratik özelliklerini yan yana karşılaştır.", href: "/yapi-malzemeleri/karsilastir", icon: "↔", group: "Malzeme", badge: "Karşılaştır", featured: true },
   { title: "Yalıtım Malzemeleri", description: "Isı ve su yalıtımı seçeneklerini kullanım alanı, kalınlık ve teknik değerleriyle incele.", href: "/yapi-malzemeleri/yalitim", icon: "Y", group: "Malzeme", badge: "Teknik" },
   { title: "Duvar Malzemeleri", description: "Tuğla, gazbeton ve bims gibi duvar seçeneklerini proje ihtiyacına göre değerlendir.", href: "/yapi-malzemeleri/duvar", icon: "D", group: "Malzeme", badge: "Teknik" },
-  { title: "Katman ve U-Değeri Tasarımcısı", description: "Duvar, çatı ve döşeme katmanlarını kurarak ısıl performansı karşılaştır.", href: "/proje-araclari/u-degeri-tasarimcisi", icon: "U", group: "Katman", badge: "Araç" },
+  { title: "Detay Kesit ve U-Değeri Tasarımcısı", description: "Duvar, çatı ve döşeme katmanlarını kurarak kesiti ve ısıl performansı karşılaştır.", href: "/proje-araclari/u-degeri-tasarimcisi", icon: "U", group: "Katman", badge: "Araç" },
 ];
 
 export default function LibrariesPage() {

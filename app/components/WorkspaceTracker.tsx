@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { trackToolEvent } from "@/lib/analytics";
 import {
@@ -26,7 +26,12 @@ function notifyWorkspaceUpdate() {
 
 export default function WorkspaceTracker() {
   const pathname = usePathname();
-  const currentItem = workspaceItemMap.get(pathname);
+  const currentItem = useMemo(() => workspaceItemMap.get(pathname) ?? (pathname === "/" || pathname.startsWith("/_") ? undefined : {
+    href: pathname,
+    title: pathname.split("/").filter(Boolean).at(-1)?.replaceAll("-", " ") || "PAFTA içeriği",
+    category: pathname.split("/").filter(Boolean)[0]?.replaceAll("-", " ") || "İçerik",
+    icon: "•",
+  }), [pathname]);
   const favoritesJson = useSyncExternalStore(
     (onStoreChange) => {
       window.addEventListener(WORKSPACE_EVENT, onStoreChange);
@@ -48,7 +53,7 @@ export default function WorkspaceTracker() {
     const recent = readJson<RecentWorkspaceItem[]>(RECENT_STORAGE_KEY, [])
       .filter((item) => item.href !== currentItem.href);
     const updated = [
-      { href: currentItem.href, visitedAt: Date.now() },
+      { href: currentItem.href, visitedAt: Date.now(), title: currentItem.title, category: currentItem.category },
       ...recent,
     ].slice(0, 6);
     window.localStorage.setItem(RECENT_STORAGE_KEY, JSON.stringify(updated));

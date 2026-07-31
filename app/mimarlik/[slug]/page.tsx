@@ -5,6 +5,7 @@ import {
   architectureArticles,
   getArchitectureArticle,
 } from "../articles";
+import { ContentMeta, RelatedContent } from "@/app/components/ContentNavigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -46,9 +47,10 @@ export default async function ArchitectureArticlePage({ params }: PageProps) {
   const article = getArchitectureArticle(slug);
   if (!article) notFound();
 
-  const relatedArticles = architectureArticles
-    .filter((item) => item.slug !== article.slug)
-    .slice(0, 3);
+  const candidates = architectureArticles.filter((item) => item.slug !== article.slug);
+  const relatedArticles = [...candidates.filter((item) => item.category === article.category), ...candidates.filter((item) => item.category !== article.category)].slice(0, 3);
+  const currentIndex = architectureArticles.findIndex((item) => item.slug === article.slug);
+  const nextArticle = architectureArticles[(currentIndex + 1) % architectureArticles.length];
 
   const articleData = {
     "@context": "https://schema.org",
@@ -148,6 +150,7 @@ export default async function ArchitectureArticlePage({ params }: PageProps) {
             {article.intro}
           </p>
         </header>
+        <ContentMeta items={article.sections.map((section, index) => ({ id: `bolum-${index + 1}`, label: section.title }))} sourceNote={`${article.sources.length} kurumsal ileri okuma bağlantısı`} />
 
         <aside className="mt-10 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-6">
           <h2 className="text-xl font-semibold text-cyan-300">Kısa özet</h2>
@@ -162,8 +165,8 @@ export default async function ArchitectureArticlePage({ params }: PageProps) {
         </aside>
 
         <div className="mt-12 space-y-12 leading-8 text-slate-300">
-          {article.sections.map((section) => (
-            <section key={section.title}>
+          {article.sections.map((section, index) => (
+            <section key={section.title} id={`bolum-${index + 1}`} className="scroll-mt-24">
               <h2 className="text-2xl font-semibold text-white md:text-3xl">
                 {section.title}
               </h2>
@@ -239,20 +242,7 @@ export default async function ArchitectureArticlePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold">İlgili mimarlık yazıları</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {relatedArticles.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/mimarlik/${item.slug}`}
-                className="rounded-2xl border border-slate-800 bg-slate-900 p-5 font-semibold transition hover:border-cyan-400/60 hover:text-cyan-300"
-              >
-                {item.shortTitle} →
-              </Link>
-            ))}
-          </div>
-        </section>
+        <RelatedContent items={relatedArticles.map((item) => ({ href: `/mimarlik/${item.slug}`, title: item.shortTitle, description: item.description, label: item.category }))} next={{ href: `/mimarlik/${nextArticle.slug}`, title: nextArticle.shortTitle }} title="Aynı konuyu farklı açılardan incele" />
       </article>
     </main>
   );

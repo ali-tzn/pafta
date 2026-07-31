@@ -10,6 +10,8 @@ import {
 } from "../../materials";
 import { ArticleSeo, createSeoMetadata } from "@/lib/seo";
 import { getMaterialTechnicalData } from "../../technical-data";
+import FacadeAssemblyDiagram from "../../FacadeAssemblyDiagram";
+import { ContentMeta } from "@/app/components/ContentNavigation";
 
 type Props = {
   params: Promise<{ category: string; material: string }>;
@@ -69,6 +71,7 @@ export default async function MaterialDetailPage({ params }: Props) {
             {material.description}
           </p>
         </header>
+        <ContentMeta items={[{ id: "teknik-degerler", label: "Teknik değerler" }, { id: "kalinlik-secimi", label: "Kalınlık seçimi" }, ...(category.slug === "cephe-kaplama" ? [{ id: "ornek-cephe-kesiti", label: "Örnek cephe kesiti" }] : []), { id: "kullanim-notlari", label: "Kullanım ve seçim notları" }]} sourceNote="Tipik ürün aralıkları ve üretici teknik föyü kontrolü" />
 
         <section className="mt-10">
           <h2 className="text-2xl font-bold">Genel performans görünümü</h2>
@@ -101,7 +104,7 @@ export default async function MaterialDetailPage({ params }: Props) {
 
         {technical && (
           <>
-            <section className="mt-12">
+            <section id="teknik-degerler" className="mt-12 scroll-mt-24">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
@@ -142,7 +145,7 @@ export default async function MaterialDetailPage({ params }: Props) {
               </p>
             </section>
 
-            <section className="mt-12">
+            <section id="kalinlik-secimi" className="mt-12 scroll-mt-24">
               <h2 className="text-2xl font-bold">Kalınlık nasıl seçilir?</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-400">
                 Tek bir “doğru kalınlık” yoktur. Kullanım yeri, açıklık veya yük,
@@ -174,7 +177,9 @@ export default async function MaterialDetailPage({ params }: Props) {
           </>
         )}
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        {category.slug === "cephe-kaplama" && <FacadeAssemblyDiagram materialName={material.name} />}
+
+        <div id="kullanim-notlari" className="mt-12 grid scroll-mt-24 gap-6 md:grid-cols-2">
           <InfoBlock title="Kullanım alanları" items={material.uses} />
           <InfoBlock title="Avantajları" items={material.advantages} />
           <InfoBlock

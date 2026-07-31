@@ -8,6 +8,8 @@ export type WorkspaceItem = {
 export type RecentWorkspaceItem = {
   href: string;
   visitedAt: number;
+  title?: string;
+  category?: string;
 };
 
 export const RECENT_STORAGE_KEY = "pafta_recent_tools_v1";

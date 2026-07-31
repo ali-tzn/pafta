@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { architectureArticles } from "./articles";
 import { architectureCategories } from "./categories";
+import ArchitectureExplorer from "./ArchitectureExplorer";
 
 export const metadata: Metadata = {
   title: "Mimarlık Kültürü Rehberi: Akımlar, Kavramlar ve Mimarlar",
@@ -94,48 +95,7 @@ export default function ArchitectureGuidePage() {
           )})}
         </section>
 
-        <section className="mt-16">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
-              Mimarlık akımları
-            </p>
-            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-              Temel akımları karşılaştırmalı öğren
-            </h2>
-            <p className="mt-4 leading-7 text-slate-400">
-              Her rehber; kısa özet, tarihsel arka plan, temel özellikler,
-              mimarlar, yapılar, eleştiriler, sık sorulan sorular ve güvenilir
-              kaynaklardan oluşur.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {architectureArticles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/mimarlik/${article.slug}`}
-                className="group flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-cyan-400/60"
-              >
-                <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-wider">
-                  <span className="text-cyan-400">{article.category}</span>
-                  <span className="text-slate-500">{article.readingTime}</span>
-                </div>
-                <h3 className="mt-5 text-2xl font-semibold transition group-hover:text-cyan-300">
-                  {article.shortTitle}
-                </h3>
-                <p className="mt-3 flex-1 leading-7 text-slate-400">
-                  {article.description}
-                </p>
-                <p className="mt-5 text-sm text-slate-500">
-                  Dönem: {article.period}
-                </p>
-                <span className="mt-5 font-semibold text-cyan-400">
-                  Rehberi oku →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
+        <ArchitectureExplorer articles={architectureArticles} />
 
         <section className="mt-16 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-7 md:p-10">
           <h2 className="text-2xl font-bold text-cyan-300">

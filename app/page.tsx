@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "./components/Hero";
 import Categories from "./components/Categories";
-import HomeHighlights from "./components/HomeHighlights";
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +18,6 @@ export default function Home() {
     <main className="min-h-screen bg-slate-950 text-white">
       <Hero />
       <Categories />
-      <HomeHighlights />
     </main>
   );
 }

@@ -1,4 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { ContentMeta } from "@/app/components/ContentNavigation";
+
+export const metadata: Metadata = {
+  title: "Güvenilir ve Ücretsiz CAD Blok Kaynakları",
+  description: "Mimari çizimler için CAD ve DWG kaynaklarını; birim, dosya temizliği, lisans ve proje performansı ölçütleriyle karşılaştırın.",
+  alternates: { canonical: "/resources/cad-blok-kaynaklari" },
+};
 
 const cadSources = [
   {
@@ -6,30 +14,35 @@ const cadSources = [
     description:
       "Plan, kesit, görünüş, detay ve çeşitli mimari çizimler için geniş bir DWG arşivi sunar.",
     note: "İçerik kalitesi dosyaya göre değişebilir",
+    href: "https://www.bibliocad.com/",
   },
   {
     name: "CADdetails",
     description:
       "Üretici ürünleri, teknik detaylar ve indirilebilir CAD çizimleri içerir.",
     note: "Ürün ve teknik detay arayanlar için",
+    href: "https://www.caddetails.com/",
   },
   {
     name: "Archweb",
     description:
       "Mimari plan, kesit, tefriş, detay ve kentsel tasarım blokları sunar.",
     note: "Mimarlık öğrencileri arasında yaygın",
+    href: "https://www.archweb.com/en/",
   },
   {
     name: "DWGFree",
     description:
       "Mobilya, insan, araç, bitki ve çeşitli mimari blok kategorileri içerir.",
     note: "Hızlı tefriş aramaları için",
+    href: "https://dwgfree.com/",
   },
   {
     name: "Üretici web siteleri",
     description:
       "Kapı, pencere, mutfak, banyo ve yapı ürünleri için teknik DWG dosyaları bulunabilir.",
     note: "Gerçek ürün ölçüleri için daha güvenilir",
+    href: "https://www.nbsinternational.com/",
   },
 ];
 
@@ -68,6 +81,7 @@ export default function CadBlokKaynaklariPage() {
             inceleyelim.
           </p>
         </header>
+        <ContentMeta sourceNote="Kaynak siteleri, dosya türü ve kullanım riski kontrolü" />
 
         <section className="mt-10 space-y-10 leading-8 text-slate-300">
           <div>
@@ -116,6 +130,7 @@ export default function CadBlokKaynaklariPage() {
                   <p className="mt-4 text-sm font-medium text-cyan-400">
                     {source.note}
                   </p>
+                  <a href={source.href} target="_blank" rel="noreferrer" className="mt-4 inline-flex text-sm font-semibold text-cyan-300 hover:text-cyan-200">Kaynağın resmî sitesini aç ↗</a>
                 </div>
               ))}
             </div>

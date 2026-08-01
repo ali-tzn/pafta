@@ -59,10 +59,11 @@ export default async function ArchitectureArticlePage({ params }: PageProps) {
     description: article.description,
     inLanguage: "tr-TR",
     mainEntityOfPage: `https://paftaedu.com/mimarlik/${article.slug}`,
+    dateModified: "2026-08-01",
     author: {
       "@type": "Organization",
-      name: "PAFTA",
-      url: "https://paftaedu.com",
+      name: "PAFTA Editoryal Ekibi",
+      url: "https://paftaedu.com/about",
     },
     publisher: {
       "@type": "Organization",

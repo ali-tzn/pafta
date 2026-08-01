@@ -8,6 +8,16 @@ export default function SoftwareGuideArticle({ catalog, guide }: { catalog: Soft
   const candidates = catalog.guides.filter((item) => item.slug !== guide.slug);
   const related = [...candidates.filter((item) => item.category === guide.category), ...candidates.filter((item) => item.category !== guide.category)].slice(0, 3);
   const next = catalog.guides[(index + 1) % catalog.guides.length];
+  const officialSources: Record<string, { label: string; href: string }[]> = {
+    autocad: [{ label: "Autodesk AutoCAD Help", href: "https://help.autodesk.com/view/ACD/2026/ENU/" }],
+    sketchup: [{ label: "SketchUp Help Center", href: "https://help.sketchup.com/en" }],
+    rhino: [{ label: "Rhino 8 Help", href: "https://docs.mcneel.com/rhino/8/help/en-us/" }],
+    grasshopper: [{ label: "McNeel Grasshopper Guides", href: "https://developer.rhino3d.com/guides/grasshopper/" }],
+    photoshop: [{ label: "Adobe Photoshop User Guide", href: "https://helpx.adobe.com/photoshop/user-guide.html" }],
+    "d5-render": [{ label: "D5 Render Documentation", href: "https://docs.d5render.com/" }],
+    "dialux-evo": [{ label: "DIALux evo", href: "https://www.dialux.com/en-GB/dialux" }],
+    blender: [{ label: "Blender Manual", href: "https://docs.blender.org/manual/en/latest/" }],
+  };
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-8 text-white sm:px-6 sm:py-12">
       <ArticleSeo title={guide.title} description={guide.description} path={`/${catalog.slug}/${guide.slug}`} section={`${catalog.name} Rehberleri`} sectionPath={`/${catalog.slug}`} keywords={[catalog.name, guide.category, ...guide.keyPoints]} />
@@ -18,7 +28,7 @@ export default function SoftwareGuideArticle({ catalog, guide }: { catalog: Soft
           <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{guide.title}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-300">{guide.description}</p>
         </header>
-        <ContentMeta sourceNote="Uygulama içi iş akışı kontrolü" />
+        <ContentMeta sourceNote="Uygulama içi iş akışı ve resmî dokümantasyon kontrolü" sources={officialSources[catalog.slug] ?? []} />
         <section className="mt-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
           <h2 className="text-2xl font-bold">Önce bunları kontrol et</h2>
           <ul className="mt-5 grid gap-3 text-slate-300 md:grid-cols-3">{guide.keyPoints.map((item,index)=><li key={item} className="rounded-xl bg-slate-950 p-4"><span className="text-xs font-bold text-cyan-300">0{index+1}</span><p className="mt-2 leading-6">{item}</p></li>)}</ul>

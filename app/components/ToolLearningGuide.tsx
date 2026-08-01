@@ -141,6 +141,12 @@ export default function ToolLearningGuide({
         </div>
       </section>
 
+      <aside className="mt-10 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 text-sm leading-6 text-slate-400">
+        <p><strong className="text-slate-200">Hazırlama yaklaşımı:</strong> Bu araç ve rehber, mimarlık eğitiminde karşılaşılan gerçek kullanım senaryoları ve örnek hesaplarla kontrol edilmiştir.</p>
+        <p className="mt-2 text-slate-500">Son kontrol: 1 Ağustos 2026 · Sonucu proje koşulları ve güncel teknik belgelerle doğrula.</p>
+        <div className="mt-3 flex gap-4"><Link href="/about" className="text-cyan-400">Editoryal yaklaşım</Link><Link href="/contact" className="text-cyan-400">Hata bildir</Link></div>
+      </aside>
+
       <section className="mt-12">
         <h3 className="text-2xl font-bold">Sonraki adımda kullanabileceğin araçlar</h3>
         <div className="mt-5 grid gap-4 md:grid-cols-3">

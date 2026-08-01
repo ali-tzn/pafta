@@ -27,9 +27,11 @@ const materialRoutes = [
 
 const expandedContentRoutes = [
   ...architectureArticles.map((article) => `/mimarlik/${article.slug}`),
-  ...architectureCategories.map(
-    (category) => `/mimarlik/kategori/${category.slug}`
-  ),
+  ...architectureCategories
+    .filter((category) =>
+      architectureArticles.some((article) => article.category === category.label)
+    )
+    .map((category) => `/mimarlik/kategori/${category.slug}`),
   ...revitGuides.map((guide) => `/revit/${guide.slug}`),
   ...bimGuides.map((guide) => `/bim/${guide.slug}`),
   ...softwareCatalogs.flatMap((catalog) => [
@@ -126,7 +128,7 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return Array.from(new Set(routes)).map((route) => ({
     url: `${siteConfig.url}${route}`,
-    lastModified: "2026-07-31",
+    lastModified: "2026-08-01",
     changeFrequency: route === "" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route.split("/").length === 2 ? 0.9 : 0.8,
   }));

@@ -44,7 +44,44 @@ const seeds: Seed[] = [
   {slug:"konstruktivizm-nedir",title:"Konstrüktivizm Nedir? Devrim, Geometri ve Üretim",shortTitle:"Konstrüktivizm",category:"Mimarlık Akımları",period:"1910’lar–1930’lar",intro:"Konstrüktivizm, devrim sonrası Sovyetler Birliği’nde sanat ve mimarlığı toplumsal dönüşüm, endüstriyel üretim ve yeni kolektif programlarla ilişkilendiren avangart harekettir.",summary:["Dinamik geometriler ve strüktürel ifade kullanır","İşçi kulübü ve ortak konut gibi yeni programlar geliştirir","Grafik, sahne, ürün ve mimarlığı birlikte etkiler"],history:"Rus avangardının süprematizm ve üretim sanatı tartışmalarından doğan hareket, 1920’lerde eğitim ve yarışmalar yoluyla gelişti. Ekonomik zorluklar ve 1930’larda sosyalist gerçekçiliğin resmîleşmesi birçok deneysel projenin uygulanmasını engelledi.",analysis:"Tatlin’in Üçüncü Enternasyonal Anıtı uygulanmamış olsa da hareket, iletişim ve dönen program hacimleriyle yeni toplumun simgesi olarak tasarlandı. Melnikov Evi birbirine geçen silindirleri ve altıgen pencereleriyle sınırlı kaynaklardan deneysel mekân üretti. Akımı yalnız çapraz çizgili biçimlere indirgememek gerekir.",architects:["Vladimir Tatlin","Konstantin Melnikov","Moisei Ginzburg"],examples:[{name:"Narkomfin",detail:"Ginzburg ve Milinis, 1930"},{name:"Rusakov Workers’ Club",detail:"Melnikov, 1929"}],keywords:["konstrüktivizm mimarlık","rus konstrüktivizmi","narkomfin melnikov"],source:{label:"MoMA – Russian Constructivism",href:"https://www.moma.org/artists/5008"}},
 ];
 
-export const additionalArchitectureArticles: ArchitectureArticle[] = seeds.map((seed) => ({
+function categoryStudyFrame(seed: Seed) {
+  const first = seed.examples[0];
+  const second = seed.examples[1];
+  if (seed.category === "Mimarlık Akımları") {
+    return {
+      title: "Akımı biçimden fazlasıyla tanımak",
+      text: `${seed.shortTitle} için yalnız cephe görünüşüne bakmak yanıltıcıdır. ${first?.name ?? "İlk örnek"} üzerinden plan, taşıyıcı sistem ve malzeme kararını; ${second?.name ?? "ikinci örnek"} üzerinden ise dönemin teknoloji ve toplum anlayışını karşılaştır. Ortak biçimlerden önce ortak tasarım problemlerini belirle.`,
+      question: "Bu akım başka akımlarla nasıl karşılaştırılır?",
+      answer: `${seed.shortTitle}; dönem, program, strüktür, malzeme ve mekân anlayışı üzerinden karşılaştırılmalıdır. Yalnız bezeme veya kütle benzerliği yeterli değildir.`,
+    };
+  }
+  if (seed.category === "Mimari Kavramlar") {
+    return {
+      title: "Kavramı projede görünür kılmak",
+      text: `${seed.shortTitle} kavramını sunumda kullanırken soyut bir tanımla yetinme. ${first?.name ?? "Verilen örnek"} içindeki somut mekânsal kararı işaretle; plan veya kesit üzerinde nerede oluştuğunu ve kullanıcı deneyimini nasıl değiştirdiğini açıkla.`,
+      question: "Bu kavram proje sunumunda nasıl kullanılabilir?",
+      answer: `Kavramı bir tasarım iddiası olarak yazdıktan sonra ${first?.name ?? "seçilen örnek"} gibi somut bir plan, kesit, detay veya dolaşım kararıyla kanıtlamak gerekir.`,
+    };
+  }
+  if (seed.category === "Önemli Mimarlar") {
+    return {
+      title: "Mimarı tek bir yapıya indirgemeden okumak",
+      text: `${seed.shortTitle} üretimini incelerken ${first?.name ?? "erken dönem örneği"} ile ${second?.name ?? "başka bir örnek"} arasındaki süreklilik ve değişimi ara. Benzer malzeme veya biçimlerden önce mimarın program, dolaşım, strüktür ve kullanıcıya yaklaşımının nasıl dönüştüğünü not et.`,
+      question: "Bu mimarın yaklaşımı nasıl analiz edilmelidir?",
+      answer: `En az iki yapıyı plan, kesit, malzeme, strüktür ve dönem üzerinden karşılaştırmak gerekir. ${seed.architects.slice(0, 2).join(" ve ")} gibi ilişkili isimler bağlamı genişletir.`,
+    };
+  }
+  return {
+    title: "Yapıyı plan, kesit ve deneyim üzerinden okumak",
+    text: `${seed.shortTitle} analizinde fotoğrafla yetinme. ${first?.detail ?? "Yapının temel mekânsal kararını"} plan üzerinde dolaşımla, kesitte ışık ve taşıyıcı sistemle, detayda ise malzeme birleşimiyle ilişkilendir. Yapının güçlü fikri kadar kullanım ve teknik performans tartışmalarını da kaydet.`,
+    question: "Bu yapı analizine nereden başlanmalıdır?",
+    answer: `Önce bağlam ve program, ardından plan-dolaşım, kesit-ışık, strüktür ve malzeme sırasıyla incelenmelidir. ${first?.name ?? "Ana mekânsal öğe"} analizin başlangıç noktası olabilir.`,
+  };
+}
+
+export const additionalArchitectureArticles: ArchitectureArticle[] = seeds.map((seed) => {
+  const frame = categoryStudyFrame(seed);
+  return ({
   slug: seed.slug,
   title: seed.title,
   shortTitle: seed.shortTitle,
@@ -57,14 +94,16 @@ export const additionalArchitectureArticles: ArchitectureArticle[] = seeds.map((
   sections: [
     { title: "Tarihsel arka plan", paragraphs: [seed.history] },
     { title: "Mimari okuma ve değerlendirme", paragraphs: [seed.analysis] },
-    { title: "Öğrenci için çalışma yöntemi", paragraphs: [`${seed.shortTitle} konusunu çalışırken tanımı ezberlemek yerine dönem, program, strüktür, malzeme ve mekân ilişkilerini ayrı ayrı not et. Ardından örnekleri plan ve kesit üzerinden karşılaştır; biçimsel benzerliği tek başına sınıflandırma ölçütü olarak kullanma.`] },
+    { title: frame.title, paragraphs: [frame.text] },
+    { title: "Karşılaştırmalı çalışma notu", paragraphs: [`${seed.examples.map((item) => item.name).join(" ile ")} örneklerini aynı tabloda karşılaştır. Satırlara bağlam, program, dolaşım, taşıyıcı, malzeme, ışık ve eleştiri başlıklarını yaz. Böylece ${seed.shortTitle} konusu ezberlenen bir tanımdan, kanıtlanabilir bir mimari okumaya dönüşür.`] },
   ],
   architects: seed.architects,
   examples: seed.examples,
   faq: [
     { question: `${seed.shortTitle} neden önemlidir?`, answer: seed.summary.join(" ") },
-    { question: "Bu konu nasıl analiz edilmelidir?", answer: "Dönem, bağlam, program, plan, kesit, strüktür, malzeme ve kullanıcı deneyimi birlikte değerlendirilmelidir." },
+    { question: frame.question, answer: frame.answer },
   ],
   sources: [seed.source],
   keywords: seed.keywords,
-}));
+  });
+});

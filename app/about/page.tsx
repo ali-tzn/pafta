@@ -41,6 +41,51 @@ export default function AboutPage() {
           </section>
 
           <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
+              İçerik standardı
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold">
+              İçerikleri nasıl hazırlıyoruz?
+            </h2>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {[
+                ["Gerçek ihtiyaç", "Konu ve araçlar; stüdyo, ofis stajı, teslim ve yazılım kullanımında tekrar eden sorunlardan seçilir."],
+                ["Uygulama kontrolü", "Araçlar örnek girdilerle denenir; rehberlerde işlem sırası, beklenen çıktı ve sık hata birlikte açıklanır."],
+                ["Kaynak şeffaflığı", "Teknik ve tarihsel içeriklerde resmî dokümantasyon, kurum arşivi veya üretici verisine bağlantı verilir."],
+                ["Düzeltme süreci", "Hata bildirimi geldiğinde ilgili sayfa yeniden kontrol edilir; içeriklerin son kontrol tarihi görünür tutulur."],
+              ].map(([title, text]) => (
+                <div key={title} className="rounded-2xl bg-slate-950/70 p-5">
+                  <h3 className="font-semibold text-cyan-300">{title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-400">{text}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-3xl border border-amber-400/20 bg-amber-400/10 p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-amber-100">
+              PAFTA neyin yerine geçmez?
+            </h2>
+            <p className="mt-4 leading-7 text-slate-300">
+              PAFTA eğitim ve ön karar desteği sağlar. Yönetmelik yorumu,
+              ruhsat kararı, statik veya enerji hesabı, ürün onayı ve profesyonel
+              proje müellifliği yerine geçmez. Teknik sonuçlar güncel mevzuat,
+              proje koşulları, uzman hesabı ve üretici belgesiyle doğrulanmalıdır.
+            </p>
+          </section>
+
+          <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold">Editoryal sorumluluk</h2>
+            <p className="mt-4 leading-7 text-slate-300">
+              Sitedeki metin, araç ve arayüzlerin editoryal sorumluluğu PAFTA’ya
+              aittir. İçerikler otomatik olarak yayımlanmaz; yayına alınmadan
+              önce okunabilirlik, bağlantı, hesaplama mantığı ve öğrenciye
+              sağlayacağı pratik katkı açısından gözden geçirilir.
+            </p>
+            <p className="mt-4 text-sm text-slate-500">Son genel içerik kontrolü: 1 Ağustos 2026</p>
+          </section>
+
+          <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8">
             <h2 className="text-2xl font-semibold">
               Öğrenci deneyiminden doğan bir proje
             </h2>

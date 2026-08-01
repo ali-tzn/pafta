@@ -159,7 +159,12 @@ export function ArticleSeo({
           inLanguage: "tr-TR",
           articleSection: section,
           keywords,
-          author: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+          dateModified: "2026-08-01",
+          author: {
+            "@type": "Organization",
+            name: "PAFTA Editoryal Ekibi",
+            url: `${siteConfig.url}/about`,
+          },
           publisher: {
             "@type": "Organization",
             name: siteConfig.name,

@@ -10,17 +10,33 @@ export type ContentLink = {
 export function ContentMeta({
   items,
   sourceNote,
+  sources = [],
 }: {
   items?: { id: string; label: string }[];
   sourceNote?: string;
+  sources?: { label: string; href: string }[];
 }) {
   return (
     <aside className="mt-8 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-400">
-        <span><strong className="text-slate-200">Güncellendi:</strong> 31 Temmuz 2026</span>
-        <span><strong className="text-slate-200">Kontrol:</strong> PAFTA içerik editörü</span>
+        <span><strong className="text-slate-200">Son kontrol:</strong> 1 Ağustos 2026</span>
+        <span><strong className="text-slate-200">Hazırlayan:</strong> PAFTA editörü</span>
         {sourceNote && <span><strong className="text-slate-200">Kaynak:</strong> {sourceNote}</span>}
       </div>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-500">
+        Bu içerik, mimarlık eğitimi ve uygulama deneyiminde karşılaşılan gerçek
+        çalışma ihtiyaçları temel alınarak hazırlanmıştır. Teknik kararlar proje
+        koşulları, güncel standartlar ve üretici verileriyle ayrıca doğrulanmalıdır.
+      </p>
+      {sources.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          {sources.map((source) => (
+            <a key={source.href} href={source.href} target="_blank" rel="noreferrer" className="text-cyan-400 hover:text-cyan-300">
+              {source.label} ↗
+            </a>
+          ))}
+        </div>
+      )}
       {items && items.length > 1 && (
         <details className="mt-4 border-t border-slate-800 pt-4">
           <summary className="cursor-pointer font-semibold text-cyan-300">Bu sayfada neler var?</summary>
@@ -33,6 +49,10 @@ export function ContentMeta({
           </nav>
         </details>
       )}
+      <div className="mt-4 flex flex-wrap gap-3 border-t border-slate-800 pt-4 text-xs text-slate-500">
+        <Link href="/about" className="hover:text-cyan-300">İçerik hazırlama yaklaşımımız</Link>
+        <Link href="/contact" className="hover:text-cyan-300">Hata veya düzeltme bildir</Link>
+      </div>
     </aside>
   );
 }

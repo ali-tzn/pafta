@@ -1,4 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { ContentMeta } from "@/app/components/ContentNavigation";
+
+export const metadata: Metadata = {
+  title: "Güvenilir Revit Family ve BIM Obje Kaynakları",
+  description: "Revit family kaynaklarını sürüm uyumluluğu, parametre kalitesi, dosya ağırlığı ve üretici güvenilirliğiyle değerlendirin.",
+  alternates: { canonical: "/resources/revit-family-kaynaklari" },
+};
 
 const familySources = [
   {
@@ -6,30 +14,35 @@ const familySources = [
     description:
       "Üretici firmalara ait çok sayıda Revit family ve BIM objesi içerir.",
     note: "Ürün bazlı ve geniş arşiv",
+    href: "https://www.bimobject.com/",
   },
   {
     name: "RevitCity",
     description:
       "Kullanıcılar tarafından yüklenen ücretsiz Revit family dosyalarının bulunduğu eski ve geniş bir arşivdir.",
     note: "Dosyaları kullanmadan önce kontrol et",
+    href: "https://www.revitcity.com/",
   },
   {
     name: "BIMsmith Market",
     description:
       "Malzeme, yapı ürünü ve Revit family kaynaklarını bir arada sunar.",
     note: "Üretici içerikleri ağırlıklı",
+    href: "https://market.bimsmith.com/",
   },
   {
     name: "ARCAT",
     description:
       "Yapı ürünleri, teknik dokümanlar ve bazı BIM içerikleri sunar.",
     note: "Teknik ürün araştırmaları için",
+    href: "https://www.arcat.com/",
   },
   {
     name: "Üretici web siteleri",
     description:
       "Kapı, pencere, armatür, mobilya ve yapı malzemesi üreticilerinin kendi BIM dosyaları bulunabilir.",
     note: "En güvenilir ürün verisi",
+    href: "https://www.nbsinternational.com/",
   },
 ];
 
@@ -68,6 +81,7 @@ export default function RevitFamilyKaynaklariPage() {
             gereken noktaları inceleyelim.
           </p>
         </header>
+        <ContentMeta sourceNote="Family kaynağı, sürüm, parametre ve model performansı kontrolü" />
 
         <section className="mt-10 space-y-10 leading-8 text-slate-300">
           <div>
@@ -116,6 +130,7 @@ export default function RevitFamilyKaynaklariPage() {
                   <p className="mt-4 text-sm font-medium text-cyan-400">
                     {source.note}
                   </p>
+                  <a href={source.href} target="_blank" rel="noreferrer" className="mt-4 inline-flex text-sm font-semibold text-cyan-300 hover:text-cyan-200">Kaynağın resmî sitesini aç ↗</a>
                 </div>
               ))}
             </div>
